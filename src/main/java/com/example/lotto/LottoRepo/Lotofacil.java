@@ -18,6 +18,7 @@ public class Lotofacil {
     private int conquestCarateresQTD = Constants.LOTOFACILQTD;
 
     public Lotofacil(ArrayList<LoteriasModel> concursos) {
+        System.out.println("Create Lotofacil BET");
         this.concursos = concursos;
     }
 
