@@ -3,33 +3,65 @@ package com.example.lotto.LottoRepo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
+import com.example.lotto.Utils.Utils;
 
 public class Lotofacil {
     private HttpConnection conn = new HttpConnection();
+    private Utils utils = new Utils(Constants.LOTOFACIL);
+
+    static ArrayList<String> pairList = new ArrayList<>();
+    static ArrayList<String> oddList = new ArrayList<>();
+    static ArrayList<String> primosList = new ArrayList<>();
+    static ArrayList<String> notPrimosList = new ArrayList<>();
+    //
     private ArrayList<LoteriasModel> concursos = new ArrayList<>();
-    private ArrayList<Dezenas> numerosMaisSorteados = new ArrayList<>();
+    private ArrayList<Dezenas> numbersMostAwarded = new ArrayList<>();
+    private ArrayList<Dezenas> pairMostAwarded = new ArrayList<>();
+    private ArrayList<Dezenas> primeNumbers = new ArrayList<>();
 
     private String conquestType = Constants.LOTOFACIL;
     private int conquestCarateresQTD = Constants.LOTOFACILQTD;
 
-    public Lotofacil(ArrayList<LoteriasModel> concursos) {
+    public Lotofacil() {
         System.out.println("Create Lotofacil BET");
-        this.concursos = concursos;
+        this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
+        initArrays();
+    }
+
+    public void initConquest() {
+        getHistoricMostAwarded();
+        getHistoricPrimeNumbers();
+        getHistoricPairNumbers();
+    }
+
+    private void initArrays() {
+        for (int i = 0; i < conquestCarateresQTD; i++) {
+            if (Utils.isPair(i + 1))
+                pairList.add(String.format("%02d", i + 1));
+            if (!Utils.isPair(i + 1))
+                oddList.add(String.format("%02d", i + 1));
+            if (Utils.isPrimos(i + 1))
+                primosList.add(String.format("%02d", i + 1));
+        }
     }
 
     public void print() {
-        System.out.println(concursos);
+        System.out.println(pairList);
+        System.out.println(oddList);
+        System.out.println(primosList);
+        System.out.println(concursos.size());
     }
 
-    public void getHistoricMostAwarded() {
-        System.out.println("get most getHistoricMostAwarded");
+    private void getHistoricMostAwarded() {
+        System.out.println("Get getHistoricMostAwarded");
 
-        numerosMaisSorteados.clear();
+        numbersMostAwarded.clear();
 
         int numberOfStart = 1;
         for (int i = 0; i < conquestCarateresQTD; i++) {
@@ -45,194 +77,134 @@ public class Lotofacil {
 
             dex.setDezena(number);
             dex.setQuantidade(valueOfRepeat);
-            dex.setLastConquest(checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
+            dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
 
-            numerosMaisSorteados.add(dex);
+            numbersMostAwarded.add(dex);
         }
 
-        Collections.sort(numerosMaisSorteados, new Comparator<Dezenas>() {
+        Collections.sort(numbersMostAwarded, new Comparator<Dezenas>() {
             public int compare(Dezenas s1, Dezenas s2) {
                 return Integer.valueOf(s2.getQuantidade()).compareTo(s1.getQuantidade());
             }
         });
 
-        System.out.println("end get most getHistoricMostAwarded");
+        System.out.println("end getHistoricMostAwarded");
 
     }
 
-    public void getNumberMostAwardedInLastFiveCoquest() {
-        System.out.println("get most getNumberMostAwardedInLastFiveCoquest");
+    private void getHistoricPairNumbers() {
+        System.out.println("Get getHistoricPairNumbers");
 
-        numerosMaisSorteados.clear();
-
-        int numberOfStart = 0;
-        for (int i = 0; i < conquestCarateresQTD; i++) {
-            int valueOfRepeat = 0;
-            String number = "";
-            for (LoteriasModel listData : concursos.subList(0, 5)) {
-                if (listData.getDezenas().contains(String.format("%02d", i + numberOfStart))) {
-                    valueOfRepeat = valueOfRepeat + 1;
-                }
-                number = String.format("%02d", i + numberOfStart);
-            }
-            Dezenas dex = new Dezenas();
-
-            dex.setDezena(number);
-            dex.setQuantidade(valueOfRepeat);
-            dex.setLastConquest(checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
-
-            numerosMaisSorteados.add(dex);
-        }
-
-        Collections.sort(numerosMaisSorteados, new Comparator<Dezenas>() {
-            public int compare(Dezenas s1, Dezenas s2) {
-                return Integer.valueOf(s2.getQuantidade()).compareTo(s1.getQuantidade());
-            }
-        });
-
-        System.out.println("end get most getNumberMostAwardedInLastFiveCoquest");
-
-    }
-
-    public void getNumberMostAwardedInLastTenCoquest() {
-        System.out.println("get most getNumberMostAwardedInLastTenCoquest");
-
-        numerosMaisSorteados.clear();
-
-        int numberOfStart = 0;
-        for (int i = 0; i < conquestCarateresQTD; i++) {
-            int valueOfRepeat = 0;
-            String number = "";
-            for (LoteriasModel listData : concursos.subList(0, 10)) {
-                if (listData.getDezenas().contains(String.format("%02d", i + numberOfStart))) {
-                    valueOfRepeat = valueOfRepeat + 1;
-                }
-                number = String.format("%02d", i + numberOfStart);
-            }
-            Dezenas dex = new Dezenas();
-
-            dex.setDezena(number);
-            dex.setQuantidade(valueOfRepeat);
-            dex.setLastConquest(checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
-
-            numerosMaisSorteados.add(dex);
-        }
-
-        Collections.sort(numerosMaisSorteados, new Comparator<Dezenas>() {
-            public int compare(Dezenas s1, Dezenas s2) {
-                return Integer.valueOf(s2.getQuantidade()).compareTo(s1.getQuantidade());
-            }
-        });
-
-        System.out.println("end get most getNumberMostAwardedInLastTenCoquest");
-
-    }
-
-    public void getNumberMostAwardedInLastTwentyCoquest() {
-        System.out.println("get most getNumberMostAwardedInLastTwentyCoquest");
-        numerosMaisSorteados.clear();
+        pairMostAwarded.clear();
 
         int numberOfStart = 1;
-        for (int i = 0; i < conquestCarateresQTD; i++) {
+        for (int i = 0; i < pairList.size(); i++) {
             int valueOfRepeat = 0;
             String number = "";
-            for (LoteriasModel listData : concursos.subList(0, 20)) {
-                if (listData.getDezenas().contains(String.format("%02d", i + numberOfStart))) {
+            for (LoteriasModel listData : concursos) {
+                if (listData.getDezenas().contains(pairList.get(i))) {
                     valueOfRepeat = valueOfRepeat + 1;
                 }
-                number = String.format("%02d", i + numberOfStart);
+                number = pairList.get(i);
             }
             Dezenas dex = new Dezenas();
 
             dex.setDezena(number);
             dex.setQuantidade(valueOfRepeat);
-            dex.setLastConquest(checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
+            dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
 
-            numerosMaisSorteados.add(dex);
+            pairMostAwarded.add(dex);
         }
 
-        Collections.sort(numerosMaisSorteados, new Comparator<Dezenas>() {
+        Collections.sort(pairMostAwarded, new Comparator<Dezenas>() {
             public int compare(Dezenas s1, Dezenas s2) {
                 return Integer.valueOf(s2.getQuantidade()).compareTo(s1.getQuantidade());
             }
         });
-        System.out.println("end get most getNumberMostAwardedInLastTwentyCoquest");
+
+        System.out.println("end getHistoricPairNumbers");
+
     }
 
-    public void getNumberMostAwardedInLastThirdyCoquest() {
-        System.out.println("get most getNumberMostAwardedInLastThirdyCoquest");
-        numerosMaisSorteados.clear();
+    private void getHistoricPrimeNumbers() {
+        System.out.println("Get getHistoricPairNumbers");
+
+        primeNumbers.clear();
 
         int numberOfStart = 1;
-        for (int i = 0; i < conquestCarateresQTD; i++) {
+        for (int i = 0; i < primosList.size(); i++) {
             int valueOfRepeat = 0;
             String number = "";
-            for (LoteriasModel listData : concursos.subList(0, 30)) {
-                if (listData.getDezenas().contains(String.format("%02d", i + numberOfStart))) {
+            for (LoteriasModel listData : concursos) {
+                if (listData.getDezenas().contains(primosList.get(i))) {
                     valueOfRepeat = valueOfRepeat + 1;
                 }
-                number = String.format("%02d", i + numberOfStart);
+                number = primosList.get(i);
             }
             Dezenas dex = new Dezenas();
 
             dex.setDezena(number);
             dex.setQuantidade(valueOfRepeat);
-            dex.setLastConquest(checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
+            dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
 
-            numerosMaisSorteados.add(dex);
+            primeNumbers.add(dex);
         }
 
-        Collections.sort(numerosMaisSorteados, new Comparator<Dezenas>() {
-            public int compare(Dezenas s1, Dezenas s2) {
-                return Integer.valueOf(s2.getQuantidade()).compareTo(s1.getQuantidade());
-            }
-        });
-        System.out.println("end get most getNumberMostAwardedInLastThirdyCoquest");
-    }
-
-    public void getMostAwardedInSpecificInterval(int intervalInit, int intervalEnd) {
-        System.out.println("get most getMostAwardedInSpecificInterval");
-        numerosMaisSorteados.clear();
-
-        int numberOfStart = 1;
-        for (int i = 0; i < conquestCarateresQTD; i++) {
-            int valueOfRepeat = 0;
-            String number = "";
-            for (LoteriasModel listData : concursos.subList(intervalInit, intervalEnd)) {
-                if (listData.getDezenas().contains(String.format("%02d", i + numberOfStart))) {
-                    valueOfRepeat = valueOfRepeat + 1;
-                }
-                number = String.format("%02d", i + numberOfStart);
-            }
-            Dezenas dex = new Dezenas();
-
-            dex.setDezena(number);
-            dex.setQuantidade(valueOfRepeat);
-            dex.setLastConquest(checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
-
-            numerosMaisSorteados.add(dex);
-        }
-
-        Collections.sort(numerosMaisSorteados, new Comparator<Dezenas>() {
+        Collections.sort(primeNumbers, new Comparator<Dezenas>() {
             public int compare(Dezenas s1, Dezenas s2) {
                 return Integer.valueOf(s2.getQuantidade()).compareTo(s1.getQuantidade());
             }
         });
 
-        System.out.println("end get most getMostAwardedInSpecificInterval");
+        System.out.println("end getHistoricPairNumbers");
+
     }
 
-    public void printNumerosMaisSorteados() {
-        for (Dezenas data : numerosMaisSorteados) {
-            System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade());
+    public void printAllArray() {
+        for (Dezenas data : numbersMostAwarded) {
+            System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
+                    + data.getIsLastConquest());
+        }
+        System.out.println("----------------------------------");
+        for (Dezenas data : pairMostAwarded) {
+            System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
+                    + data.getIsLastConquest());
+        }
+        System.out.println("-----------------------------------");
+        for (Dezenas data : primeNumbers) {
+            System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
+                    + data.getIsLastConquest());
+        }
+        System.out.println("-----------------------------------");
+    }
+
+    public void changePeriodOfConquest(int init, int end) {
+        clearAllArrays();
+        initArrays();
+        for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType).subList(init, end)) {
+            concursos.add(data);
         }
     }
 
-    public boolean checkIfIsOutIsLastConquest(String value) {
-        if (concursos.get(0).getDezenas().contains(value)) {
-            return true;
+    public void createBet(int numberOfPairs, int numberOfOdd, int numberOfPrimes) {
+        final List<String> finalBet;
+
+        for (int i = 0; i < numberOfPrimes; i++) {
+            primeNumbers.get(i).getDezena();
         }
-        return false;
+
+    }
+
+    private void clearAllArrays() {
+        pairList.clear();
+        oddList.clear();
+        primosList.clear();
+        notPrimosList.clear();
+
+        concursos.clear();
+        pairMostAwarded.clear();
+        pairMostAwarded.clear();
+        primeNumbers.clear();
     }
 
 }
