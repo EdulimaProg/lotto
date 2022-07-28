@@ -121,4 +121,9 @@ public class Utils {
         return false;
     }
 
+    public double percentageOfAward(int awards, int conquest) {
+        double percentage = Double.valueOf(awards) / Double.valueOf(conquest);
+        return percentage * 100;
+    }
+
 }

@@ -4,6 +4,15 @@ public class Dezenas {
     public String dezena;
     public int quantidade;
     public boolean lastConquest;
+    public String percentage;
+
+    public String getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(String percentage) {
+        this.percentage = percentage;
+    }
 
     public boolean getIsLastConquest() {
         return lastConquest;

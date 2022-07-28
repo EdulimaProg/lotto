@@ -1,16 +1,13 @@
 package com.example.lotto.Services;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+
 import java.net.URI;
 import java.net.URL;
 import java.net.http.*;
-import java.net.http.HttpResponse.BodyHandler;
-import java.net.http.HttpResponse.BodyHandlers;
+
 import java.util.*;
 
-import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +19,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 
 public class HttpConnection {
     HttpClient client = HttpClient.newHttpClient();

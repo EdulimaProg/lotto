@@ -1,20 +1,23 @@
-package com.example.lotto.LottoRepo;
+package com.example.lotto.LottoRepo.Lotomania;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.example.lotto.LottoRepo.Interface.Lotto;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.Utils;
 
-public class Lotofacil {
+public class Lotomania extends Lotto {
     private HttpConnection conn = new HttpConnection();
     private Utils utils = new Utils(Constants.LOTOFACIL);
 
+    private List<Integer> range = new ArrayList<>(Collections.nCopies(100, 0));
     static ArrayList<String> pairList = new ArrayList<>();
     static ArrayList<String> oddList = new ArrayList<>();
     static ArrayList<String> primosList = new ArrayList<>();
@@ -25,37 +28,26 @@ public class Lotofacil {
     private ArrayList<Dezenas> pairMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> primeNumbers = new ArrayList<>();
 
-    private String conquestType = Constants.LOTOFACIL;
-    private int conquestCarateresQTD = Constants.LOTOFACILQTD;
+    private String conquestType = Constants.LOTOMANIA;
+    private int conquestCarateresQTD = Constants.LOTOMANIAQTD;
+    DecimalFormat df = new DecimalFormat("#,###");
 
-    public Lotofacil() {
-        System.out.println("Create Lotofacil BET");
+    public Lotomania() {
+        System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
         initArrays();
     }
 
-    public void initConquest() {
-        getHistoricMostAwarded();
-        getHistoricPrimeNumbers();
-        getHistoricPairNumbers();
-    }
-
     private void initArrays() {
-        for (int i = 0; i < conquestCarateresQTD; i++) {
-            if (Utils.isPair(i + 1))
-                pairList.add(String.format("%02d", i + 1));
-            if (!Utils.isPair(i + 1))
-                oddList.add(String.format("%02d", i + 1));
-            if (Utils.isPrimos(i + 1))
-                primosList.add(String.format("%02d", i + 1));
-        }
-    }
 
-    public void print() {
-        System.out.println(pairList);
-        System.out.println(oddList);
-        System.out.println(primosList);
-        System.out.println(concursos.size());
+        for (int i = 0; i < conquestCarateresQTD; i++) {
+            if (Utils.isPair(i))
+                pairList.add(String.format("%02d", i));
+            if (!Utils.isPair(i))
+                oddList.add(String.format("%02d", i));
+            if (Utils.isPrimos(i))
+                primosList.add(String.format("%02d", i));
+        }
     }
 
     private void getHistoricMostAwarded() {
@@ -63,7 +55,7 @@ public class Lotofacil {
 
         numbersMostAwarded.clear();
 
-        int numberOfStart = 1;
+        int numberOfStart = 0;
         for (int i = 0; i < conquestCarateresQTD; i++) {
             int valueOfRepeat = 0;
             String number = "";
@@ -78,6 +70,7 @@ public class Lotofacil {
             dex.setDezena(number);
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
+            dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
 
             numbersMostAwarded.add(dex);
         }
@@ -112,6 +105,7 @@ public class Lotofacil {
             dex.setDezena(number);
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
+            dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
 
             pairMostAwarded.add(dex);
         }
@@ -146,6 +140,7 @@ public class Lotofacil {
             dex.setDezena(number);
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
+            dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
 
             primeNumbers.add(dex);
         }
@@ -160,24 +155,45 @@ public class Lotofacil {
 
     }
 
+    @Override
+    public void initConquest() {
+        getHistoricMostAwarded();
+        getHistoricPrimeNumbers();
+        getHistoricPairNumbers();
+    }
+
+    @Override
+    public void print() {
+        System.out.println(range);
+        System.out.println(pairList);
+        System.out.println(oddList);
+        System.out.println(primosList);
+        System.out.println(concursos.size());
+    }
+
+    @Override
     public void printAllArray() {
         for (Dezenas data : numbersMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest());
+                    + data.getIsLastConquest() + " porcentagem de acertos "
+                    + data.getPercentage() + "%");
         }
         System.out.println("----------------------------------");
         for (Dezenas data : pairMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest());
+                    + data.getIsLastConquest() + " porcentagem de acertos "
+                    + data.getPercentage() + "%");
         }
         System.out.println("-----------------------------------");
         for (Dezenas data : primeNumbers) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest());
+                    + data.getIsLastConquest() + " porcentagem de acertos "
+                    + data.getPercentage() + "%");
         }
         System.out.println("-----------------------------------");
     }
 
+    @Override
     public void changePeriodOfConquest(int init, int end) {
         clearAllArrays();
         initArrays();
@@ -186,8 +202,9 @@ public class Lotofacil {
         }
     }
 
+    @Override
     public void createBet(int numberOfPairs, int numberOfOdd, int numberOfPrimes) {
-        final List<String> finalBet;
+        // final List<String> finalBet;
 
         for (int i = 0; i < numberOfPrimes; i++) {
             primeNumbers.get(i).getDezena();

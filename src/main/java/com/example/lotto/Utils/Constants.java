@@ -14,7 +14,7 @@ public interface Constants {
     String SUPERSETE = "super-sete";
 
     int LOTOFACILQTD = 25;
-    int LOTOMANIAQTD = 99;
+    int LOTOMANIAQTD = 100;
     int MEGASENAQTD = 60;
     int QUINAQTD = 80;
 
