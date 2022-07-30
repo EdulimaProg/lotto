@@ -1,9 +1,13 @@
 package com.example.lotto.LottoRepo.LotoFacil;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 
 import com.example.lotto.LottoRepo.Interface.Lotto;
 import com.example.lotto.Model.Dezenas;
@@ -172,20 +176,17 @@ public class Lotofacil extends Lotto {
     public void printAllArray() {
         for (Dezenas data : numbersMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos "
-                    + data.getPercentage() + "%");
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "%");
         }
         System.out.println("----------------------------------");
         for (Dezenas data : pairMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos "
-                    + data.getPercentage() + "%");
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "%");
         }
         System.out.println("-----------------------------------");
         for (Dezenas data : primeNumbers) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos "
-                    + data.getPercentage() + "%");
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "%");
         }
         System.out.println("-----------------------------------");
     }
@@ -195,8 +196,103 @@ public class Lotofacil extends Lotto {
         clearAllArrays();
         initArrays();
         for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType).subList(init, end)) {
-            concursos.add(data);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd", Locale.ENGLISH);
+            String datanow = data.getData();
+            LocalDate date = LocalDate.parse(datanow, formatter);
+            // String text = date.format(formatter);
+            // DateTimeFormatter year = DateTimeFormatter.ofPattern("uuuu");
+            // LocalDate yearFMT = LocalDate.parse("19/05/2009", year);
+            // DateTimeFormatter month = DateTimeFormatter.ofPattern("MM");
+            // LocalDate monthFMT = LocalDate.parse(data.getData(), month);
+            // System.out.println(monthFMT);
+            System.out.println(date);
+            // concursos.add(data);
         }
+    }
+
+    public void changePerMonth(String month) {
+        clearAllArrays();
+        initArrays();
+
+        switch (month) {
+        case "Janeiro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                System.out.println();
+                concursos.add(data);
+            }
+            break;
+
+        case "Fevereiro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Marco":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Abril":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Maio":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Junho":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Julho":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Agosto":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Setembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Outubro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Novembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Dezembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        default:
+            break;
+        }
+
     }
 
     public void getNumbersMostAwardedWhitooutExcluders() {

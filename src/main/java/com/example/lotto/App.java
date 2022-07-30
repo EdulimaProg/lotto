@@ -1,5 +1,6 @@
 package com.example.lotto;
 
+import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
 import com.example.lotto.LottoRepo.Lotomania.Lotomania;
 import com.example.lotto.Model.LotoFaixa;
 import com.example.lotto.Model.LotoType;
@@ -8,9 +9,9 @@ import com.example.lotto.Utils.LotteryFaixas;
 public class App {
 
     public static void main(String[] args) {
-        // Lotofacil lotofacil = new Lotofacil();
+        Lotofacil lotofacil = new Lotofacil();
 
-        Lotomania lotomania = new Lotomania();
+        // Lotomania lotomania = new Lotomania();
         // LotteryFaixas faixas = new LotteryFaixas();
         // LotoType megasena = new LotoType("Megasena", 6, 10);
         // LotoType lotofacil = new LotoType("Lotofacil", 5, 5);
@@ -22,17 +23,17 @@ public class App {
 
         // faixas.megasenaFaixas();
 
-        // lotofacil.changePeriodOfConquest(0, 40);
+        lotofacil.changePeriodOfConquest(0, 40);
 
         // lotofacil.initConquest();
 
         // lotofacil.printAllArray();
 
-        lotomania.changePeriodOfConquest(0, 5);
+        // lotomania.changePeriodOfConquest(0, 2);
 
-        lotomania.initConquest();
+        // lotomania.initConquest();
 
-        lotomania.printAllArray();
+        // lotomania.printAllArray();
 
         // lotofacil.print();
         // lotomania.print();
