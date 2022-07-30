@@ -18,6 +18,8 @@ public interface Constants {
     int MEGASENAQTD = 60;
     int QUINAQTD = 80;
 
+    int[] tenNumbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
     // "mega-sena",
     // "lotofacil",
     // "quina",

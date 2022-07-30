@@ -158,8 +158,8 @@ public class Lotomania extends Lotto {
     @Override
     public void initConquest() {
         getHistoricMostAwarded();
-        getHistoricPrimeNumbers();
-        getHistoricPairNumbers();
+        // getHistoricPrimeNumbers();
+        // getHistoricPairNumbers();
     }
 
     @Override
