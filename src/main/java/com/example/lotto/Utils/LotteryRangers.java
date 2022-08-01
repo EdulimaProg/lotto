@@ -5,7 +5,10 @@ import java.util.*;
 import com.example.lotto.Model.LotoFaixa;
 import com.example.lotto.Model.LotoType;
 
-public class LotteryFaixas {
+public class LotteryRangers {
+
+    public LotteryRangers() {
+    };
 
     public LotoFaixa lotofacilFaixas() {
         // int lotoNumberLenght = 60;
@@ -127,7 +130,7 @@ public class LotteryFaixas {
         return data;
     }
 
-    public String ST(int val) {
+    private String ST(int val) {
         return String.format("%02d", val);
     }
 }

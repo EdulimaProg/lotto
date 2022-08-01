@@ -5,6 +5,15 @@ public class Dezenas {
     public int quantidade;
     public boolean lastConquest;
     public String percentage;
+    public String range;
+
+    public String getRange() {
+        return range;
+    }
+
+    public void setRange(String range) {
+        this.range = range;
+    }
 
     public String getPercentage() {
         return percentage;

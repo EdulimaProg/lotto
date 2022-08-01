@@ -12,8 +12,10 @@ import java.util.Locale;
 import com.example.lotto.LottoRepo.Interface.Lotto;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
+import com.example.lotto.Model.LotoType;
 import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
+import com.example.lotto.Utils.LotteryRangers;
 import com.example.lotto.Utils.Utils;
 
 public class Lotofacil extends Lotto {
@@ -35,10 +37,14 @@ public class Lotofacil extends Lotto {
 
     private String conquestType = Constants.LOTOFACIL;
     private int conquestCarateresQTD = Constants.LOTOFACILQTD;
+    private LotoType lotofacil;
+    private LotteryRangers ltr;
 
     public Lotofacil() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
+        lotofacil = new LotoType("Lotofacil", 5, 5);
+        ltr = new LotteryRangers();
         initArrays();
     }
 
@@ -74,6 +80,7 @@ public class Lotofacil extends Lotto {
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
+            dex.setRange(witchRange(number));
 
             numbersMostAwarded.add(dex);
         }
@@ -109,6 +116,7 @@ public class Lotofacil extends Lotto {
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
+            dex.setRange(witchRange(number));
 
             pairMostAwarded.add(dex);
         }
@@ -143,6 +151,7 @@ public class Lotofacil extends Lotto {
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
+            dex.setRange(witchRange(number));
 
             primeNumbers.add(dex);
         }
@@ -176,17 +185,20 @@ public class Lotofacil extends Lotto {
     public void printAllArray() {
         for (Dezenas data : numbersMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "%");
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
+                    + data.getRange());
         }
         System.out.println("----------------------------------");
         for (Dezenas data : pairMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "%");
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
+                    + data.getRange());
         }
         System.out.println("-----------------------------------");
         for (Dezenas data : primeNumbers) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "%");
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
+                    + data.getRange());
         }
         System.out.println("-----------------------------------");
     }
@@ -196,18 +208,7 @@ public class Lotofacil extends Lotto {
         clearAllArrays();
         initArrays();
         for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType).subList(init, end)) {
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd", Locale.ENGLISH);
-            String datanow = data.getData();
-            LocalDate date = LocalDate.parse(datanow, formatter);
-            // String text = date.format(formatter);
-            // DateTimeFormatter year = DateTimeFormatter.ofPattern("uuuu");
-            // LocalDate yearFMT = LocalDate.parse("19/05/2009", year);
-            // DateTimeFormatter month = DateTimeFormatter.ofPattern("MM");
-            // LocalDate monthFMT = LocalDate.parse(data.getData(), month);
-            // System.out.println(monthFMT);
-            System.out.println(date);
-            // concursos.add(data);
+            concursos.add(data);
         }
     }
 
@@ -315,6 +316,17 @@ public class Lotofacil extends Lotto {
 
             }
         }
+    }
+
+    public String witchRange(String number) {
+        String rangeResponse = " ";
+        for (int i = 0; i < lotofacil.getLotoLineSize(); i++) {
+            if (ltr.lotofacilFaixas().getLottoInFaixa().get(i).contains(number)) {
+                rangeResponse = "Faixa " + (i + 1);
+            }
+
+        }
+        return rangeResponse;
     }
 
     private void clearAllArrays() {

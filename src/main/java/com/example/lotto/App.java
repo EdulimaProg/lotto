@@ -4,12 +4,14 @@ import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
 import com.example.lotto.LottoRepo.Lotomania.Lotomania;
 import com.example.lotto.Model.LotoFaixa;
 import com.example.lotto.Model.LotoType;
-import com.example.lotto.Utils.LotteryFaixas;
+import com.example.lotto.Utils.LotteryRangers;
 
 public class App {
 
     public static void main(String[] args) {
         Lotofacil lotofacil = new Lotofacil();
+
+        // lotofacil.witchRange("24");
 
         // Lotomania lotomania = new Lotomania();
         // LotteryFaixas faixas = new LotteryFaixas();
@@ -23,11 +25,11 @@ public class App {
 
         // faixas.megasenaFaixas();
 
-        lotofacil.changePeriodOfConquest(0, 40);
+        lotofacil.changePeriodOfConquest(0, 10);
 
-        // lotofacil.initConquest();
+        lotofacil.initConquest();
 
-        // lotofacil.printAllArray();
+        lotofacil.printAllArray();
 
         // lotomania.changePeriodOfConquest(0, 2);
 
@@ -35,7 +37,7 @@ public class App {
 
         // lotomania.printAllArray();
 
-        // lotofacil.print();
+        lotofacil.print();
         // lotomania.print();
     }
 }
