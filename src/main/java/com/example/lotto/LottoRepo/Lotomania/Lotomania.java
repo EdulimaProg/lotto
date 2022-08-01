@@ -193,8 +193,86 @@ public class Lotomania extends Lotto {
         System.out.println("-----------------------------------");
     }
 
+    public void inLastCoquest() {
+        int prmo = 0;
+        int ntprmo = 0;
+        int pair = 0;
+        int odd = 0;
+
+        ArrayList<String> primoAwarded = new ArrayList<String>();
+        ArrayList<String> pairAwarded = new ArrayList<String>();
+        ArrayList<String> oddAwarded = new ArrayList<String>();
+        ArrayList<String> repeatNumbers = new ArrayList<String>();
+
+        LoteriasModel lastConquestData = concursos.get(0);
+        System.out.println("No ultimo concurso: " + lastConquestData.getConcurso());
+        System.out.println("as Dezenas Sorteadas foram: " + lastConquestData.getDezenas());
+
+        for (String data_val : lastConquestData.getDezenas()) {
+            if (Utils.isPair(Integer.parseInt(data_val))) {
+                pair = pair + 1;
+                oddAwarded.add(data_val);
+            } else {
+                odd = odd + 1;
+                pairAwarded.add(data_val);
+            }
+        }
+
+        if (pair < odd) {
+            System.out.println("Foram Sorteadas Mais Numeros impares");
+            System.out.println("---- PLACAR ----");
+            System.out.println("Pair " + pair + "x" + odd + " Odd ");
+            System.out.println("---------------------------------------------");
+            System.out.println(oddAwarded);
+            System.out.println("---------------------------------------------");
+            System.out.println(pairAwarded);
+            System.out.println("---------------------------------------------");
+
+        } else {
+            System.out.println("Foram Sorteadas Mais Numeros Pares");
+            System.out.println("---- PLACAR ----");
+            System.out.println("Pair " + pair + "x" + odd + " Odd ");
+            System.out.println("---------------------------------------------");
+            System.out.println(pairAwarded);
+            System.out.println("---------------------------------------------");
+            System.out.println(oddAwarded);
+            System.out.println("---------------------------------------------");
+        }
+
+        for (String data_val : lastConquestData.getDezenas()) {
+            if (Utils.isPrimos(Integer.parseInt(data_val))) {
+                prmo = prmo + 1;
+                primoAwarded.add(data_val);
+            } else {
+                ntprmo = ntprmo + 1;
+            }
+        }
+
+        if (prmo < ntprmo) {
+            System.out.println("Foram Sorteadas Mais Numeros Não Primos");
+            System.out.println("---- PLACAR ----");
+            System.out.println("Primo " + prmo + " x " + ntprmo + " Not Primo");
+            System.out.println("---------------------------------------------");
+            System.out.println(primoAwarded);
+        } else {
+            System.out.println("Foram Sorteadas Mais Numeros Primos");
+            System.out.println("---- PLACAR ----");
+            System.out.println("Primo " + prmo + " x " + ntprmo + " Nor Primo");
+        }
+
+        // System.out.println(numbersMostAwarded.subList(0, 10).get(0).getDezena());
+        // System.out.println(lastConquestData.getDezenas());
+        System.out.println("---------------------------------------------");
+        System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo concurso");
+        System.out.println("esses numeros foram");
+        System.out.println(repeatNumbers);
+        System.out.println("---------------------------------------------");
+
+    }
+
     @Override
     public void changePeriodOfConquest(int init, int end) {
+        System.out.println("Pegando Resultados dos Ultimos :" + end + " Concursos");
         clearAllArrays();
         initArrays();
         for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType).subList(init, end)) {
