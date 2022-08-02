@@ -9,7 +9,7 @@ import com.example.lotto.Utils.LotteryRangers;
 public class App {
 
     public static void main(String[] args) {
-        // Lotofacil lotofacil = new Lotofacil();
+        // Lotofacil loto = new Lotofacil();
 
         // lotofacil.witchRange("24");
 
@@ -31,14 +31,14 @@ public class App {
 
         // lotofacil.printAllArray();
 
-        loto.changePeriodOfConquest(0, 10);
+        loto.changePeriodOfConquest(0, 20);
 
         loto.initConquest();
 
-        loto.printAllArray();
+        // loto.printAllArray();
 
         // lotofacil.print();
-        // lotofacil.inLastCoquest();
+        loto.inLastCoquest();
         // loto.inLastCoquest();
         // lotomania.print();
 

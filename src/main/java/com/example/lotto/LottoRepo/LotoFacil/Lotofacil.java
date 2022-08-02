@@ -68,12 +68,15 @@ public class Lotofacil extends Lotto {
         int numberOfStart = 1;
         for (int i = 0; i < conquestCarateresQTD; i++) {
             int valueOfRepeat = 0;
+            ArrayList<Integer> conquest = new ArrayList<>();
             String number = "";
             for (LoteriasModel listData : concursos) {
                 if (listData.getDezenas().contains(String.format("%02d", i + numberOfStart))) {
                     valueOfRepeat = valueOfRepeat + 1;
+                    conquest.add(listData.getConcurso());
                 }
                 number = String.format("%02d", i + numberOfStart);
+
             }
             Dezenas dex = new Dezenas();
 
@@ -82,6 +85,7 @@ public class Lotofacil extends Lotto {
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
             dex.setRange(witchRange(number));
+            dex.setConquest(conquest);
 
             numbersMostAwarded.add(dex);
         }
@@ -104,10 +108,12 @@ public class Lotofacil extends Lotto {
         int numberOfStart = 1;
         for (int i = 0; i < pairList.size(); i++) {
             int valueOfRepeat = 0;
+            ArrayList<Integer> conquest = new ArrayList<>();
             String number = "";
             for (LoteriasModel listData : concursos) {
                 if (listData.getDezenas().contains(pairList.get(i))) {
                     valueOfRepeat = valueOfRepeat + 1;
+                    conquest.add(listData.getConcurso());
                 }
                 number = pairList.get(i);
             }
@@ -118,6 +124,7 @@ public class Lotofacil extends Lotto {
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
             dex.setRange(witchRange(number));
+            dex.setConquest(conquest);
 
             pairMostAwarded.add(dex);
         }
@@ -139,10 +146,13 @@ public class Lotofacil extends Lotto {
         int numberOfStart = 1;
         for (int i = 0; i < primosList.size(); i++) {
             int valueOfRepeat = 0;
+            ArrayList<Integer> conquest = new ArrayList<>();
+
             String number = "";
             for (LoteriasModel listData : concursos) {
                 if (listData.getDezenas().contains(primosList.get(i))) {
                     valueOfRepeat = valueOfRepeat + 1;
+                    conquest.add(listData.getConcurso());
                 }
                 number = primosList.get(i);
             }
@@ -153,6 +163,7 @@ public class Lotofacil extends Lotto {
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
             dex.setRange(witchRange(number));
+            dex.setConquest(conquest);
 
             primeNumbers.add(dex);
         }
@@ -271,8 +282,12 @@ public class Lotofacil extends Lotto {
             System.out.println("Primo " + prmo + " x " + ntprmo + " Nor Primo");
         }
 
-        System.out.println(numbersMostAwarded.subList(0, 10).get(0).getDezena());
-        System.out.println(lastConquestData.getDezenas());
+        for (Dezenas seq : numbersMostAwarded) {
+            System.out.println("---------------------------------------------");
+            System.out.println(seq.getDezena());
+            System.out.println(seq.getConquest());
+            System.out.println("---------------------------------------------");
+        }
         System.out.println("---------------------------------------------");
         System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo concurso");
         System.out.println("esses numeros foram");
@@ -295,81 +310,81 @@ public class Lotofacil extends Lotto {
         initArrays();
 
         switch (month) {
-            case "Janeiro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    System.out.println();
-                    concursos.add(data);
-                }
-                break;
+        case "Janeiro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                System.out.println();
+                concursos.add(data);
+            }
+            break;
 
-            case "Fevereiro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Fevereiro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Marco":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Marco":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Abril":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Abril":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Maio":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Maio":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Junho":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Junho":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Julho":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Julho":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Agosto":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Agosto":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Setembro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Setembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Outubro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Outubro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Novembro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Novembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Dezembro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Dezembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            default:
-                break;
+        default:
+            break;
         }
 
     }

@@ -1,8 +1,11 @@
 package com.example.lotto.Model;
 
+import java.util.ArrayList;
+
 public class Dezenas {
     public String dezena;
     public int quantidade;
+    public ArrayList<Integer> conquest;
     public boolean lastConquest;
     public String percentage;
     public String range;
@@ -45,5 +48,17 @@ public class Dezenas {
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    public boolean isLastConquest() {
+        return lastConquest;
+    }
+
+    public ArrayList<Integer> getConquest() {
+        return conquest;
+    }
+
+    public void setConquest(ArrayList<Integer> conquest) {
+        this.conquest = conquest;
     }
 }

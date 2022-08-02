@@ -1,23 +1,28 @@
 package com.example.lotto.LottoRepo.Lotomania;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Locale;
 
 import com.example.lotto.LottoRepo.Interface.Lotto;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
+import com.example.lotto.Model.LotoType;
 import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
+import com.example.lotto.Utils.LotteryRangers;
 import com.example.lotto.Utils.Utils;
 
 public class Lotomania extends Lotto {
     private HttpConnection conn = new HttpConnection();
     private Utils utils = new Utils(Constants.LOTOFACIL);
 
-    private List<Integer> range = new ArrayList<>(Collections.nCopies(100, 0));
     static ArrayList<String> pairList = new ArrayList<>();
     static ArrayList<String> oddList = new ArrayList<>();
     static ArrayList<String> primosList = new ArrayList<>();
@@ -27,43 +32,51 @@ public class Lotomania extends Lotto {
     private ArrayList<Dezenas> numbersMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> pairMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> primeNumbers = new ArrayList<>();
+    // private ArrayList<Dezenas> ExcludersNumbers = new ArrayList<>();
+    // private ArrayList<Dezenas> withOutExcluders = new ArrayList<>();
+    DecimalFormat df = new DecimalFormat("#,###");
 
     private String conquestType = Constants.LOTOMANIA;
     private int conquestCarateresQTD = Constants.LOTOMANIAQTD;
-    DecimalFormat df = new DecimalFormat("#,###");
+    private LotoType lotomania;
+    private LotteryRangers ltr;
 
     public Lotomania() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
+        lotomania = new LotoType("Lotomania", 5, 5);
+        ltr = new LotteryRangers();
         initArrays();
     }
 
     private void initArrays() {
-
         for (int i = 0; i < conquestCarateresQTD; i++) {
-            if (Utils.isPair(i))
-                pairList.add(String.format("%02d", i));
-            if (!Utils.isPair(i))
-                oddList.add(String.format("%02d", i));
-            if (Utils.isPrimos(i))
-                primosList.add(String.format("%02d", i));
+            if (Utils.isPair(i + 1))
+                pairList.add(String.format("%02d", i + 1));
+            if (!Utils.isPair(i + 1))
+                oddList.add(String.format("%02d", i + 1));
+            if (Utils.isPrimos(i + 1))
+                primosList.add(String.format("%02d", i + 1));
         }
     }
 
     private void getHistoricMostAwarded() {
-        System.out.println("Get getHistoricMostAwarded");
+        System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         numbersMostAwarded.clear();
 
-        int numberOfStart = 0;
+        int numberOfStart = 1;
         for (int i = 0; i < conquestCarateresQTD; i++) {
             int valueOfRepeat = 0;
+            ArrayList<Integer> conquest = new ArrayList<>();
             String number = "";
             for (LoteriasModel listData : concursos) {
                 if (listData.getDezenas().contains(String.format("%02d", i + numberOfStart))) {
                     valueOfRepeat = valueOfRepeat + 1;
+                    conquest.add(listData.getConcurso());
                 }
                 number = String.format("%02d", i + numberOfStart);
+
             }
             Dezenas dex = new Dezenas();
 
@@ -71,6 +84,8 @@ public class Lotomania extends Lotto {
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
+            dex.setRange(witchRange(number));
+            dex.setConquest(conquest);
 
             numbersMostAwarded.add(dex);
         }
@@ -81,22 +96,24 @@ public class Lotomania extends Lotto {
             }
         });
 
-        System.out.println("end getHistoricMostAwarded");
+        System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
     }
 
     private void getHistoricPairNumbers() {
-        System.out.println("Get getHistoricPairNumbers");
+        System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         pairMostAwarded.clear();
 
         int numberOfStart = 1;
         for (int i = 0; i < pairList.size(); i++) {
             int valueOfRepeat = 0;
+            ArrayList<Integer> conquest = new ArrayList<>();
             String number = "";
             for (LoteriasModel listData : concursos) {
                 if (listData.getDezenas().contains(pairList.get(i))) {
                     valueOfRepeat = valueOfRepeat + 1;
+                    conquest.add(listData.getConcurso());
                 }
                 number = pairList.get(i);
             }
@@ -106,6 +123,8 @@ public class Lotomania extends Lotto {
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
+            dex.setRange(witchRange(number));
+            dex.setConquest(conquest);
 
             pairMostAwarded.add(dex);
         }
@@ -116,22 +135,24 @@ public class Lotomania extends Lotto {
             }
         });
 
-        System.out.println("end getHistoricPairNumbers");
-
+        System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
     }
 
     private void getHistoricPrimeNumbers() {
-        System.out.println("Get getHistoricPairNumbers");
+        System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         primeNumbers.clear();
 
         int numberOfStart = 1;
         for (int i = 0; i < primosList.size(); i++) {
             int valueOfRepeat = 0;
+            ArrayList<Integer> conquest = new ArrayList<>();
+
             String number = "";
             for (LoteriasModel listData : concursos) {
                 if (listData.getDezenas().contains(primosList.get(i))) {
                     valueOfRepeat = valueOfRepeat + 1;
+                    conquest.add(listData.getConcurso());
                 }
                 number = primosList.get(i);
             }
@@ -141,6 +162,8 @@ public class Lotomania extends Lotto {
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
+            dex.setRange(witchRange(number));
+            dex.setConquest(conquest);
 
             primeNumbers.add(dex);
         }
@@ -151,20 +174,19 @@ public class Lotomania extends Lotto {
             }
         });
 
-        System.out.println("end getHistoricPairNumbers");
+        System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
     }
 
     @Override
     public void initConquest() {
         getHistoricMostAwarded();
-        // getHistoricPrimeNumbers();
-        // getHistoricPairNumbers();
+        getHistoricPrimeNumbers();
+        getHistoricPairNumbers();
     }
 
     @Override
     public void print() {
-        System.out.println(range);
         System.out.println(pairList);
         System.out.println(oddList);
         System.out.println(primosList);
@@ -175,20 +197,20 @@ public class Lotomania extends Lotto {
     public void printAllArray() {
         for (Dezenas data : numbersMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos "
-                    + data.getPercentage() + "%");
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
+                    + data.getRange());
         }
         System.out.println("----------------------------------");
         for (Dezenas data : pairMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos "
-                    + data.getPercentage() + "%");
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
+                    + data.getRange());
         }
         System.out.println("-----------------------------------");
         for (Dezenas data : primeNumbers) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos "
-                    + data.getPercentage() + "%");
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
+                    + data.getRange());
         }
         System.out.println("-----------------------------------");
     }
@@ -260,8 +282,12 @@ public class Lotomania extends Lotto {
             System.out.println("Primo " + prmo + " x " + ntprmo + " Nor Primo");
         }
 
-        // System.out.println(numbersMostAwarded.subList(0, 10).get(0).getDezena());
-        // System.out.println(lastConquestData.getDezenas());
+        for (Dezenas seq : numbersMostAwarded) {
+            System.out.println("---------------------------------------------");
+            System.out.println(seq.getDezena());
+            System.out.println(seq.getConquest());
+            System.out.println("---------------------------------------------");
+        }
         System.out.println("---------------------------------------------");
         System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo concurso");
         System.out.println("esses numeros foram");
@@ -272,12 +298,99 @@ public class Lotomania extends Lotto {
 
     @Override
     public void changePeriodOfConquest(int init, int end) {
-        System.out.println("Pegando Resultados dos Ultimos :" + end + " Concursos");
         clearAllArrays();
         initArrays();
         for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType).subList(init, end)) {
             concursos.add(data);
         }
+    }
+
+    public void changePerMonth(String month) {
+        clearAllArrays();
+        initArrays();
+
+        switch (month) {
+        case "Janeiro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                System.out.println();
+                concursos.add(data);
+            }
+            break;
+
+        case "Fevereiro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Marco":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Abril":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Maio":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Junho":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Julho":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Agosto":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Setembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Outubro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Novembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        case "Dezembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
+
+        default:
+            break;
+        }
+
+    }
+
+    public void getNumbersMostAwardedWhitooutExcluders() {
+
     }
 
     @Override
@@ -288,6 +401,25 @@ public class Lotomania extends Lotto {
             primeNumbers.get(i).getDezena();
         }
 
+    }
+
+    public void getFaixaMostAwarded() {
+        for (LoteriasModel loteriasModel : concursos) {
+            for (String dezena : loteriasModel.getDezenas()) {
+
+            }
+        }
+    }
+
+    public String witchRange(String number) {
+        String rangeResponse = " ";
+        for (int i = 0; i < lotomania.getLotoLineSize(); i++) {
+            if (ltr.lotofacilFaixas().getLottoInFaixa().get(i).contains(number)) {
+                rangeResponse = "Faixa " + (i + 1);
+            }
+
+        }
+        return rangeResponse;
     }
 
     private void clearAllArrays() {
