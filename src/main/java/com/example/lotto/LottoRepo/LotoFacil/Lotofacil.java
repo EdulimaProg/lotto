@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 
+import org.apache.commons.codec.binary.Base64OutputStream;
+
 import com.example.lotto.LottoRepo.Interface.Lotto;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
@@ -432,6 +434,82 @@ public class Lotofacil extends Lotto {
         pairMostAwarded.clear();
         pairMostAwarded.clear();
         primeNumbers.clear();
+    }
+
+    public void formbet() {
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 2);
+        getHistoricMostAwarded();
+        String bet1 = "";
+        transformInString(bet1);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 7);
+        getHistoricMostAwarded();
+        String bet2 = "";
+        transformInString(bet2);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 11);
+        getHistoricMostAwarded();
+        String bet3 = "";
+        transformInString(bet3);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 17);
+        getHistoricMostAwarded();
+        String bet4 = "";
+        transformInString(bet4);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 32);
+        getHistoricMostAwarded();
+        String bet5 = "";
+        transformInString(bet5);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 43);
+        getHistoricMostAwarded();
+        String bet6 = "";
+        transformInString(bet6);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 59);
+        getHistoricMostAwarded();
+        String bet7 = "";
+        transformInString(bet7);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 67);
+        getHistoricMostAwarded();
+        String bet8 = "";
+        transformInString(bet8);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 47);
+        getHistoricMostAwarded();
+        String bet9 = "";
+        transformInString(bet9);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 50);
+        getHistoricMostAwarded();
+        String bet10 = "";
+        transformInString(bet10);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 20);
+        getHistoricMostAwarded();
+        String bet11 = "";
+        transformInString(bet11);
+        numbersMostAwarded.clear();
+        changePeriodOfConquest(0, 100);
+        getHistoricMostAwarded();
+        String bet12 = "";
+        transformInString(bet12);
+
+    }
+
+    public void transformInString(String bet) {
+        for (Dezenas dataDezenas : numbersMostAwarded.subList(0, 15)) {
+            if (bet == "") {
+                bet = dataDezenas.getDezena();
+            } else {
+                bet = bet + "," + dataDezenas.getDezena();
+            }
+        }
+
+        System.out.println(bet);
     }
 
 }
