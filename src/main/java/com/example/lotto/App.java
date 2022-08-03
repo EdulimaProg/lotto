@@ -34,7 +34,7 @@ public class App {
         loto.changePeriodOfConquest(0, 5);
 
         // loto.initConquest();
-        loto.formbet();
+        loto.createBets(12, 10);
 
         // loto.printAllArray();
 
