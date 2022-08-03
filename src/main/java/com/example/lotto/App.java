@@ -9,11 +9,11 @@ import com.example.lotto.Utils.LotteryRangers;
 public class App {
 
     public static void main(String[] args) {
-        Lotofacil loto = new Lotofacil();
+        // Lotofacil loto = new Lotofacil();
 
         // lotofacil.witchRange("24");
 
-        // Lotomania loto = new Lotomania();
+        Lotomania loto = new Lotomania();
         // LotteryFaixas faixas = new LotteryFaixas();
         // LotoType megasena = new LotoType("Megasena", 6, 10);
         // LotoType lotofacil = new LotoType("Lotofacil", 5, 5);
