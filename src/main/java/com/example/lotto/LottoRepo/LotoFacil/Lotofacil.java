@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.codec.binary.Base64OutputStream;
@@ -34,6 +35,7 @@ public class Lotofacil extends Lotto {
     private ArrayList<Dezenas> numbersMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> pairMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> primeNumbers = new ArrayList<>();
+    private ArrayList<String> listString = new ArrayList<>();
     // private ArrayList<Dezenas> ExcludersNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> withOutExcluders = new ArrayList<>();
     DecimalFormat df = new DecimalFormat("#,###");
@@ -437,79 +439,92 @@ public class Lotofacil extends Lotto {
     }
 
     public void formbet() {
+
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 2);
+        changePeriodOfConquest(0, 5);
         getHistoricMostAwarded();
         String bet1 = "";
         transformInString(bet1);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 7);
+        changePeriodOfConquest(5, 10);
         getHistoricMostAwarded();
         String bet2 = "";
         transformInString(bet2);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 11);
+        changePeriodOfConquest(10, 15);
         getHistoricMostAwarded();
         String bet3 = "";
         transformInString(bet3);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 17);
+        changePeriodOfConquest(15, 20);
         getHistoricMostAwarded();
         String bet4 = "";
         transformInString(bet4);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 32);
+        changePeriodOfConquest(20, 25);
         getHistoricMostAwarded();
         String bet5 = "";
         transformInString(bet5);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 43);
+        changePeriodOfConquest(25, 30);
         getHistoricMostAwarded();
         String bet6 = "";
         transformInString(bet6);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 59);
+        changePeriodOfConquest(30, 35);
         getHistoricMostAwarded();
         String bet7 = "";
         transformInString(bet7);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 67);
+        changePeriodOfConquest(35, 40);
         getHistoricMostAwarded();
         String bet8 = "";
         transformInString(bet8);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 47);
+        changePeriodOfConquest(40, 45);
         getHistoricMostAwarded();
         String bet9 = "";
         transformInString(bet9);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 50);
+        changePeriodOfConquest(45, 50);
         getHistoricMostAwarded();
         String bet10 = "";
         transformInString(bet10);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 20);
+        changePeriodOfConquest(50, 55);
         getHistoricMostAwarded();
         String bet11 = "";
         transformInString(bet11);
         numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 100);
+        changePeriodOfConquest(55, 60);
         getHistoricMostAwarded();
         String bet12 = "";
         transformInString(bet12);
 
+        for (String string : listString) {
+            System.out.println(string);
+        }
+
     }
 
     public void transformInString(String bet) {
-        for (Dezenas dataDezenas : numbersMostAwarded.subList(0, 15)) {
+        List<Dezenas> subList = numbersMostAwarded.subList(0, 16);
+
+        Collections.sort(subList, new Comparator<Dezenas>() {
+            public int compare(Dezenas s1, Dezenas s2) {
+                return Integer.valueOf(s1.getDezena()).compareTo(Integer.valueOf(s2.getDezena()));
+            }
+        });
+        for (Dezenas dataDezenas : subList) {
             if (bet == "") {
                 bet = dataDezenas.getDezena();
             } else {
                 bet = bet + "," + dataDezenas.getDezena();
             }
-        }
 
-        System.out.println(bet);
+        }
+        listString.add(bet);
+
     }
 
 }
