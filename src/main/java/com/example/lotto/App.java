@@ -31,10 +31,11 @@ public class App {
 
         // lotofacil.printAllArray();
 
-        loto.changePeriodOfConquest(0, 5);
+        loto.changePeriodOfConquest(0, 20);
 
-        // loto.initConquest();
-        loto.createBets(12, 10);
+        loto.initConquest();
+        loto.createBets(25, 5);
+        loto.formbet();
 
         // loto.printAllArray();
 

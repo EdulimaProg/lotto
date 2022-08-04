@@ -438,92 +438,104 @@ public class Lotofacil extends Lotto {
         primeNumbers.clear();
     }
 
-    public void formbet() {
+    // public void formbet() {
 
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(0, 5);
-        getHistoricMostAwarded();
-        String bet1 = "";
-        transformInString(bet1);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(5, 10);
-        getHistoricMostAwarded();
-        String bet2 = "";
-        transformInString(bet2);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(10, 15);
-        getHistoricMostAwarded();
-        String bet3 = "";
-        transformInString(bet3);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(15, 20);
-        getHistoricMostAwarded();
-        String bet4 = "";
-        transformInString(bet4);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(20, 25);
-        getHistoricMostAwarded();
-        String bet5 = "";
-        transformInString(bet5);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(25, 30);
-        getHistoricMostAwarded();
-        String bet6 = "";
-        transformInString(bet6);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(30, 35);
-        getHistoricMostAwarded();
-        String bet7 = "";
-        transformInString(bet7);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(35, 40);
-        getHistoricMostAwarded();
-        String bet8 = "";
-        transformInString(bet8);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(40, 45);
-        getHistoricMostAwarded();
-        String bet9 = "";
-        transformInString(bet9);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(45, 50);
-        getHistoricMostAwarded();
-        String bet10 = "";
-        transformInString(bet10);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(50, 55);
-        getHistoricMostAwarded();
-        String bet11 = "";
-        transformInString(bet11);
-        numbersMostAwarded.clear();
-        changePeriodOfConquest(55, 60);
-        getHistoricMostAwarded();
-        String bet12 = "";
-        transformInString(bet12);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(0, 5);
+    // getHistoricMostAwarded();
+    // String bet1 = "";
+    // transformInString(bet1);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(5, 10);
+    // getHistoricMostAwarded();
+    // String bet2 = "";
+    // transformInString(bet2);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(10, 15);
+    // getHistoricMostAwarded();
+    // String bet3 = "";
+    // transformInString(bet3);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(15, 20);
+    // getHistoricMostAwarded();
+    // String bet4 = "";
+    // transformInString(bet4);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(20, 25);
+    // getHistoricMostAwarded();
+    // String bet5 = "";
+    // transformInString(bet5);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(25, 30);
+    // getHistoricMostAwarded();
+    // String bet6 = "";
+    // transformInString(bet6);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(30, 35);
+    // getHistoricMostAwarded();
+    // String bet7 = "";
+    // transformInString(bet7);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(35, 40);
+    // getHistoricMostAwarded();
+    // String bet8 = "";
+    // transformInString(bet8);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(40, 45);
+    // getHistoricMostAwarded();
+    // String bet9 = "";
+    // transformInString(bet9);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(45, 50);
+    // getHistoricMostAwarded();
+    // String bet10 = "";
+    // transformInString(bet10);
+    // numbersMostAwarded.clear();
+    // changePeriodOfConquest(50, 55);
+    // getHistoricMostAwarded();
+    // String bet11 = "";
+    // transformInString(bet11);
 
-        for (String string : listString) {
-            System.out.println(string);
-        }
+    // changePeriodOfConquest(55, 60);
+    // getHistoricMostAwarded();
+    // String bet12 = "";
+    // transformInString(bet12);
 
-    }
+    // for (String string : listString) {
+    // System.out.println(string);
+    // }
 
-    public void transformInString(String bet) {
-        List<Dezenas> subList = numbersMostAwarded.subList(0, 16);
+    // }
 
-        Collections.sort(subList, new Comparator<Dezenas>() {
-            public int compare(Dezenas s1, Dezenas s2) {
-                return Integer.valueOf(s1.getDezena()).compareTo(Integer.valueOf(s2.getDezena()));
+    public void createBets(int betQtd, int interval) {
+        int startOfBet = 0;
+        int endOfBet = interval;
+
+        for (int i = 0; i < betQtd; i++) {
+            numbersMostAwarded.clear();
+            changePeriodOfConquest(startOfBet, endOfBet);
+            String bet = "";
+            List<Dezenas> subList = numbersMostAwarded.subList(0, 16);
+
+            Collections.sort(subList, new Comparator<Dezenas>() {
+                public int compare(Dezenas s1, Dezenas s2) {
+                    return Integer.valueOf(s1.getDezena()).compareTo(Integer.valueOf(s2.getDezena()));
+                }
+            });
+
+            for (Dezenas dataDezenas : subList.subList(0, 15)) {
+                if (bet == "") {
+                    bet = dataDezenas.getDezena();
+                } else {
+                    bet = bet + "," + dataDezenas.getDezena();
+                }
+
             }
-        });
-        for (Dezenas dataDezenas : subList) {
-            if (bet == "") {
-                bet = dataDezenas.getDezena();
-            } else {
-                bet = bet + "," + dataDezenas.getDezena();
-            }
+            startOfBet = startOfBet + interval;
+            endOfBet = endOfBet + interval;
 
+            listString.add(bet);
         }
-        listString.add(bet);
 
     }
 
