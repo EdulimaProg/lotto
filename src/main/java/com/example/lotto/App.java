@@ -31,22 +31,17 @@ public class App {
 
         // lotofacil.printAllArray();
 
-<<<<<<< Updated upstream
         loto.changePeriodOfConquest(0, 20);
 
-<<<<<<< HEAD
-        loto.initConquest();
-        loto.createBets(25, 5);
-        loto.formbet();
-=======
         // loto.initConquest();
-=======
+
         loto.changePeriodOfConquest(0, 10);
 
         loto.initConquest();
->>>>>>> Stashed changes
+        loto.changePeriodOfConquest(0, 10);
+
+        loto.initConquest();
         // loto.createBets(12, 10);
->>>>>>> 7149cba1dc232fd1f414a5c85739fe13664e6099
 
         loto.printAllArray();
 
