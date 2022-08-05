@@ -525,8 +525,12 @@ public class Lotofacil extends Lotto {
         for (int i = 0; i < betQtd; i++) {
             numbersMostAwarded.clear();
             changePeriodOfConquest(startOfBet, endOfBet);
+            getHistoricMostAwarded();
             String bet = "";
             List<Dezenas> subList = numbersMostAwarded.subList(0, 16);
+            List<Dezenas> subList1 = new ArrayList<>();
+            List<Dezenas> subList2 = new ArrayList<>();
+            List<String> betFormed = new ArrayList<>();
 
             Collections.sort(subList, new Comparator<Dezenas>() {
                 public int compare(Dezenas s1, Dezenas s2) {
@@ -534,18 +538,56 @@ public class Lotofacil extends Lotto {
                 }
             });
 
-            for (Dezenas dataDezenas : subList.subList(0, 15)) {
-                if (bet == "") {
-                    bet = dataDezenas.getDezena();
-                } else {
-                    bet = bet + "," + dataDezenas.getDezena();
+            subList1.addAll(subList);
+
+            for (Dezenas dataDezenas : subList1.subList(0, 8)) {
+                betFormed.add(dataDezenas.getDezena());
+                // if (bet == "") {
+                // bet = dataDezenas.getDezena();
+                // } else {
+                // bet = bet + "," + dataDezenas.getDezena();
+                // }
+
+            }
+
+            Collections.sort(subList, new Comparator<Dezenas>() {
+                public int compare(Dezenas s1, Dezenas s2) {
+                    return Integer.valueOf(s2.getDezena()).compareTo(Integer.valueOf(s1.getDezena()));
                 }
+            });
+
+            subList2.addAll(numbersMostAwarded);
+
+            for (Dezenas dataDezenas : subList2.subList(0, 7)) {
+                betFormed.add(dataDezenas.getDezena());
+                // if (bet == "") {
+                // bet = dataDezenas.getDezena();
+                // } else {
+                // bet = bet + "," + dataDezenas.getDezena();
+                // }
 
             }
             startOfBet = startOfBet + interval;
             endOfBet = endOfBet + interval;
 
+            Collections.sort(betFormed, new Comparator<String>() {
+                public int compare(String s1, String s2) {
+                    return Integer.valueOf(s1).compareTo(Integer.valueOf(s2));
+                }
+            });
+            for (String data : betFormed) {
+                if (bet == "") {
+                    bet = data;
+                } else {
+                    bet = bet + "," + data;
+                }
+            }
+
             listString.add(bet);
+        }
+
+        for (int i = 0; i < listString.size(); i++) {
+            System.out.println(listString.get(i));
         }
 
     }
