@@ -204,6 +204,17 @@ public class Lotofacil extends Lotto {
                     + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
                     + data.getRange());
         }
+        Collections.sort(numbersMostAwarded, new Comparator<Dezenas>() {
+            public int compare(Dezenas s1, Dezenas s2) {
+                return Integer.valueOf(s1.getQuantidade()).compareTo(s2.getQuantidade());
+            }
+        });
+        System.out.println("----------------------------------");
+        for (Dezenas data : numbersMostAwarded) {
+            System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
+                    + data.getRange());
+        }
         System.out.println("----------------------------------");
         for (Dezenas data : pairMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "

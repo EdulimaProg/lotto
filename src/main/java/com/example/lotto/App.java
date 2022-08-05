@@ -9,11 +9,11 @@ import com.example.lotto.Utils.LotteryRangers;
 public class App {
 
     public static void main(String[] args) {
-        // Lotofacil loto = new Lotofacil();
+        Lotofacil loto = new Lotofacil();
 
         // lotofacil.witchRange("24");
 
-        Lotomania loto = new Lotomania();
+        // Lotomania loto = new Lotomania();
         // LotteryFaixas faixas = new LotteryFaixas();
         // LotoType megasena = new LotoType("Megasena", 6, 10);
         // LotoType lotofacil = new LotoType("Lotofacil", 5, 5);
@@ -31,6 +31,7 @@ public class App {
 
         // lotofacil.printAllArray();
 
+<<<<<<< Updated upstream
         loto.changePeriodOfConquest(0, 20);
 
 <<<<<<< HEAD
@@ -39,10 +40,15 @@ public class App {
         loto.formbet();
 =======
         // loto.initConquest();
+=======
+        loto.changePeriodOfConquest(0, 10);
+
+        loto.initConquest();
+>>>>>>> Stashed changes
         // loto.createBets(12, 10);
 >>>>>>> 7149cba1dc232fd1f414a5c85739fe13664e6099
 
-        // loto.printAllArray();
+        loto.printAllArray();
 
         // lotofacil.print();
         // loto.inLastCoquest();
