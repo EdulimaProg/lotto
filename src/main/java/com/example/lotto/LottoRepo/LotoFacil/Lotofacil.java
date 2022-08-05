@@ -314,81 +314,81 @@ public class Lotofacil extends Lotto {
         initArrays();
 
         switch (month) {
-            case "Janeiro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    System.out.println();
-                    concursos.add(data);
-                }
-                break;
+        case "Janeiro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                System.out.println();
+                concursos.add(data);
+            }
+            break;
 
-            case "Fevereiro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Fevereiro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Marco":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Marco":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Abril":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Abril":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Maio":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Maio":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Junho":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Junho":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Julho":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Julho":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Agosto":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Agosto":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Setembro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Setembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Outubro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Outubro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Novembro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Novembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            case "Dezembro":
-                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                    concursos.add(data);
-                }
-                break;
+        case "Dezembro":
+            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                concursos.add(data);
+            }
+            break;
 
-            default:
-                break;
+        default:
+            break;
         }
 
     }
@@ -438,74 +438,74 @@ public class Lotofacil extends Lotto {
         primeNumbers.clear();
     }
 
-    // public void formbet() {
+    public void formbet() {
 
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(0, 5);
-    // getHistoricMostAwarded();
-    // String bet1 = "";
-    // transformInString(bet1);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(5, 10);
-    // getHistoricMostAwarded();
-    // String bet2 = "";
-    // transformInString(bet2);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(10, 15);
-    // getHistoricMostAwarded();
-    // String bet3 = "";
-    // transformInString(bet3);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(15, 20);
-    // getHistoricMostAwarded();
-    // String bet4 = "";
-    // transformInString(bet4);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(20, 25);
-    // getHistoricMostAwarded();
-    // String bet5 = "";
-    // transformInString(bet5);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(25, 30);
-    // getHistoricMostAwarded();
-    // String bet6 = "";
-    // transformInString(bet6);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(30, 35);
-    // getHistoricMostAwarded();
-    // String bet7 = "";
-    // transformInString(bet7);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(35, 40);
-    // getHistoricMostAwarded();
-    // String bet8 = "";
-    // transformInString(bet8);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(40, 45);
-    // getHistoricMostAwarded();
-    // String bet9 = "";
-    // transformInString(bet9);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(45, 50);
-    // getHistoricMostAwarded();
-    // String bet10 = "";
-    // transformInString(bet10);
-    // numbersMostAwarded.clear();
-    // changePeriodOfConquest(50, 55);
-    // getHistoricMostAwarded();
-    // String bet11 = "";
-    // transformInString(bet11);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(0, 5);
+        // getHistoricMostAwarded();
+        // String bet1 = "";
+        // transformInString(bet1);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(5, 10);
+        // getHistoricMostAwarded();
+        // String bet2 = "";
+        // transformInString(bet2);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(10, 15);
+        // getHistoricMostAwarded();
+        // String bet3 = "";
+        // transformInString(bet3);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(15, 20);
+        // getHistoricMostAwarded();
+        // String bet4 = "";
+        // transformInString(bet4);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(20, 25);
+        // getHistoricMostAwarded();
+        // String bet5 = "";
+        // transformInString(bet5);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(25, 30);
+        // getHistoricMostAwarded();
+        // String bet6 = "";
+        // transformInString(bet6);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(30, 35);
+        // getHistoricMostAwarded();
+        // String bet7 = "";
+        // transformInString(bet7);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(35, 40);
+        // getHistoricMostAwarded();
+        // String bet8 = "";
+        // transformInString(bet8);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(40, 45);
+        // getHistoricMostAwarded();
+        // String bet9 = "";
+        // transformInString(bet9);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(45, 50);
+        // getHistoricMostAwarded();
+        // String bet10 = "";
+        // transformInString(bet10);
+        // numbersMostAwarded.clear();
+        // changePeriodOfConquest(50, 55);
+        // getHistoricMostAwarded();
+        // String bet11 = "";
+        // transformInString(bet11);
 
-    // changePeriodOfConquest(55, 60);
-    // getHistoricMostAwarded();
-    // String bet12 = "";
-    // transformInString(bet12);
+        // changePeriodOfConquest(55, 60);
+        // getHistoricMostAwarded();
+        // String bet12 = "";
+        // transformInString(bet12);
 
-    // for (String string : listString) {
-    // System.out.println(string);
-    // }
+        for (String string : listString) {
+            System.out.println(string);
+        }
 
-    // }
+    }
 
     public void createBets(int betQtd, int interval) {
         int startOfBet = 0;
