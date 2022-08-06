@@ -106,7 +106,7 @@ public class LotteryRangers {
 
         ArrayList<List<String>> lotoBet = new ArrayList<>();
 
-        data.setLottoName("Megasena");
+        data.setLottoName(type.getLotoName());
         data.setLottoFaixaQtd(type.getLotoLineSize());
 
         for (int i = 0; i < type.getLotoLineSize(); i++) {

@@ -1,5 +1,8 @@
 package com.example.lotto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
 import com.example.lotto.LottoRepo.Lotomania.Lotomania;
 import com.example.lotto.Model.LotoFaixa;
@@ -9,11 +12,11 @@ import com.example.lotto.Utils.LotteryRangers;
 public class App {
 
     public static void main(String[] args) {
-        // Lotofacil loto = new Lotofacil();
+        Lotofacil loto = new Lotofacil();
 
         // lotofacil.witchRange("24");
 
-        Lotomania loto = new Lotomania();
+        // Lotomania loto = new Lotomania();
         // LotteryFaixas faixas = new LotteryFaixas();
         // LotoType megasena = new LotoType("Megasena", 6, 10);
         // LotoType lotofacil = new LotoType("Lotofacil", 5, 5);
@@ -25,32 +28,55 @@ public class App {
 
         // faixas.megasenaFaixas();
 
-        // lotofacil.changePeriodOfConquest(0, 10);
-
         // lotofacil.initConquest();
 
         // lotofacil.printAllArray();
 
-        loto.changePeriodOfConquest(0, 20);
+        // loto.changePeriodOfConquest(0, 10);
+
+        // loto.initConquest();
+
+        loto.changePeriodOfConquest(0, 10);
 
         // loto.initConquest();
 
         // loto.changePeriodOfConquest(0, 10);
-
-        loto.initConquest();
-        // loto.changePeriodOfConquest(0, 10);
         // loto.initConquest();
         System.out.println("---------------------------------------------");
-        loto.createBets(3, 20);
+        // loto.setWithNotAwarded(false);
+        // loto.setQtdNotAwarded(1);
+        ArrayList<String> eclNumbers = new ArrayList<>();
+
+        loto.setNumberOfStart(1);
+        loto.setMostAwardedQtd(11);
+        loto.setNotMostAwardeQtd(4);
+        loto.createBets(2, 10);
         loto.formbet();
         System.out.println("---------------------------------------------");
-        loto.createBets(3, 40);
+
+        loto.setMostAwardedQtd(10);
+        loto.setNotMostAwardeQtd(5);
+        loto.createBets(2, 20);
         loto.formbet();
         System.out.println("---------------------------------------------");
-        loto.createBets(3, 60);
+        loto.setMostAwardedQtd(8);
+        loto.setNotMostAwardeQtd(7);
+        loto.createBets(2, 40);
         loto.formbet();
         System.out.println("---------------------------------------------");
-        loto.createBets(3, 80);
+        loto.setMostAwardedQtd(8);
+        loto.setNotMostAwardeQtd(7);
+        loto.createBets(2, 60);
+        loto.formbet();
+        System.out.println("---------------------------------------------");
+        loto.setMostAwardedQtd(9);
+        loto.setNotMostAwardeQtd(6);
+        loto.createBets(2, 70);
+        loto.formbet();
+        System.out.println("---------------------------------------------");
+        loto.setMostAwardedQtd(2);
+        loto.setNotMostAwardeQtd(13);
+        loto.createBets(2, 20);
         loto.formbet();
         System.out.println("---------------------------------------------");
 
@@ -88,6 +114,65 @@ public class App {
         // 42 44 47 48 50 51 52 54 59 60 61 63 65 69 70 72 74 76 77 81 91 92 93 94 95",
         // };
 
+        // 24 quantidade de vezes 10 saiu no ultimo true porcentagem de acertos 100%
+        // Faixa 5
+        // 04 quantidade de vezes 8 saiu no ultimo true porcentagem de acertos 80% Faixa
+        // 1
+        // 07 quantidade de vezes 8 saiu no ultimo true porcentagem de acertos 80% Faixa
+        // 2
+        // 08 quantidade de vezes 8 saiu no ultimo false porcentagem de acertos 80%
+        // Faixa 2
+        // 15 quantidade de vezes 8 saiu no ultimo false porcentagem de acertos 80%
+        // Faixa 3
+        // 21 quantidade de vezes 8 saiu no ultimo true porcentagem de acertos 80% Faixa
+        // 5
+        // 03 quantidade de vezes 7 saiu no ultimo true porcentagem de acertos 70% Faixa
+        // 1
+        // 05 quantidade de vezes 7 saiu no ultimo true porcentagem de acertos 70% Faixa
+        // 1
+        // 10 quantidade de vezes 7 saiu no ultimo false porcentagem de acertos 70%
+        // Faixa 2
+        // 18 quantidade de vezes 7 saiu no ultimo false porcentagem de acertos 70%
+        // Faixa 4
+        // 01 quantidade de vezes 6 saiu no ultimo true porcentagem de acertos 60% Faixa
+        // 1
+        // 13 quantidade de vezes 6 saiu no ultimo false porcentagem de acertos 60%
+        // Faixa 3
+        // 16 quantidade de vezes 6 saiu no ultimo false porcentagem de acertos 60%
+        // Faixa 4
+        // 22 quantidade de vezes 6 saiu no ultimo false porcentagem de acertos 60%
+        // Faixa 5
+        // 23 quantidade de vezes 6 saiu no ultimo true porcentagem de acertos 60% Faixa
+        // 5
+        // 09 quantidade de vezes 5 saiu no ultimo true porcentagem de acertos 50% Faixa
+        // 2
+        // 11 quantidade de vezes 5 saiu no ultimo true porcentagem de acertos 50% Faixa
+        // 3
+        // 12 quantidade de vezes 5 saiu no ultimo true porcentagem de acertos 50% Faixa
+        // 3
+        // 14 quantidade de vezes 5 saiu no ultimo true porcentagem de acertos 50% Faixa
+        // 3
+        // 20 quantidade de vezes 5 saiu no ultimo true porcentagem de acertos 50% Faixa
+        // 4
+        // 02 quantidade de vezes 4 saiu no ultimo true porcentagem de acertos 40% Faixa
+        // 1
+        // 19 quantidade de vezes 4 saiu no ultimo false porcentagem de acertos 40%
+        // Faixa 4
+        // 25 quantidade de vezes 4 saiu no ultimo false porcentagem de acertos 40%
+        // Faixa 5
+        // 17 quantidade de vezes 3 saiu no ultimo true porcentagem de acertos 30% Faixa
+        // 4
+        // 06 quantidade de vezes 2 saiu no ultimo false porcentagem de acertos 20%
+        // Faixa 2
+        // faixa
+        // 01,03,04,05,07,08,10,11,12,13,15,16,18,20
+        // 01,02,03,04,05,11,12,14,15,16,17,18,20,21
+        // 01,02,05,06,07,08,09,10,12,16,18,20,21,22
+        // 01,03,04,05,07,08,10,11,12,13,15,16,18,20
+        // 01,02,03,04,05,11,12,14,15,16,17,18,20,21
+        // 01,02,05,06,07,08,09,10,12,16,18,20,21,22
+
+        //
         // 01,03,04,05,07,08,10,11,12,13,15,16,18,21,22
         // 01,02,03,04,05,07,09,10,12,14,15,16,20,21,23
         // 01,02,06,11,12,14,15,16,17,18,20,21,22,23,24
@@ -99,7 +184,7 @@ public class App {
         // 01,02,03,04,05,07,09,10,11,13,14,19,20,22,23
         // 02,03,04,05,06,08,09,11,12,14,17,18,19,20,22
         // 01,02,05,06,08,10,11,12,13,14,16,20,21,23,24
-        // 01,02,03,05,07,09,10,14,15,16,17,19,21,23,24
+        // 1
 
         // for (String string : lotos) {
         // System.out.println(string.replace(" ", ","));

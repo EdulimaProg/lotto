@@ -1,18 +1,10 @@
 package com.example.lotto.LottoRepo.LotoFacil;
 
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
-
-import org.apache.commons.codec.binary.Base64OutputStream;
-
 import com.example.lotto.LottoRepo.Interface.Lotto;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
@@ -36,6 +28,7 @@ public class Lotofacil extends Lotto {
     private ArrayList<Dezenas> pairMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> primeNumbers = new ArrayList<>();
     private ArrayList<String> listString = new ArrayList<>();
+    private ArrayList<String> preferredNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> ExcludersNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> withOutExcluders = new ArrayList<>();
     DecimalFormat df = new DecimalFormat("#,###");
@@ -44,6 +37,42 @@ public class Lotofacil extends Lotto {
     private int conquestCarateresQTD = Constants.LOTOFACILQTD;
     private LotoType lotofacil;
     private LotteryRangers ltr;
+    private Integer mostAwardedQtd;
+    private Integer notMostAwardeQtd;
+    private Integer numberOfStart;
+    private List excludeNumbers;
+
+    public List getExcludeNumbers() {
+        return excludeNumbers;
+    }
+
+    public void setExcludeNumbers(List excludeNumbers) {
+        this.excludeNumbers = excludeNumbers;
+    }
+
+    public Integer getNumberOfStart() {
+        return numberOfStart;
+    }
+
+    public void setNumberOfStart(Integer numberOfStart) {
+        this.numberOfStart = numberOfStart;
+    }
+
+    public Integer getMostAwardedQtd() {
+        return mostAwardedQtd;
+    }
+
+    public void setMostAwardedQtd(Integer mostAwardedQtd) {
+        this.mostAwardedQtd = mostAwardedQtd;
+    }
+
+    public Integer getNotMostAwardeQtd() {
+        return notMostAwardeQtd;
+    }
+
+    public void setNotMostAwardeQtd(Integer notMostAwardeQtd) {
+        this.notMostAwardeQtd = notMostAwardeQtd;
+    }
 
     public Lotofacil() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
@@ -519,18 +548,54 @@ public class Lotofacil extends Lotto {
     }
 
     public void createBets(int betQtd, int interval) {
-        int startOfBet = 0;
-        int endOfBet = interval;
+        int startOfBet;
+        int endOfBet;
+        int mstAwdQtd;
+        int ntMstAwdQtd;
+        List numbersExcList;
+
+        if (mostAwardedQtd != null) {
+            mstAwdQtd = mostAwardedQtd;
+            ntMstAwdQtd = notMostAwardeQtd;
+        } else {
+            mstAwdQtd = 8;
+            ntMstAwdQtd = 7;
+        }
+
+        if (excludeNumbers == null) {
+            numbersExcList = new ArrayList<>();
+        } else {
+            numbersExcList = excludeNumbers;
+        }
+
+        if (numberOfStart == null) {
+            startOfBet = 0;
+            endOfBet = interval;
+        } else {
+            startOfBet = numberOfStart;
+            endOfBet = interval + numberOfStart;
+        }
 
         for (int i = 0; i < betQtd; i++) {
             numbersMostAwarded.clear();
             changePeriodOfConquest(startOfBet, endOfBet);
             getHistoricMostAwarded();
             String bet = "";
-            List<Dezenas> subList = numbersMostAwarded.subList(0, 16);
+            List<Dezenas> subList = new ArrayList<>();
             List<Dezenas> subList1 = new ArrayList<>();
             List<Dezenas> subList2 = new ArrayList<>();
             List<String> betFormed = new ArrayList<>();
+            List<String> betFormed2 = new ArrayList<>();
+
+            if (numbersExcList.isEmpty()) {
+                subList = numbersMostAwarded.subList(0, 20);
+            } else {
+                for (Dezenas string : numbersMostAwarded.subList(0, 20)) {
+                    if (excludeNumbers.contains(string.getDezena()) == false) {
+                        subList.add(string);
+                    }
+                }
+            }
 
             Collections.sort(subList, new Comparator<Dezenas>() {
                 public int compare(Dezenas s1, Dezenas s2) {
@@ -540,7 +605,7 @@ public class Lotofacil extends Lotto {
 
             subList1.addAll(subList);
 
-            for (Dezenas dataDezenas : subList1.subList(0, 8)) {
+            for (Dezenas dataDezenas : subList1.subList(0, mstAwdQtd)) {
                 betFormed.add(dataDezenas.getDezena());
                 // if (bet == "") {
                 // bet = dataDezenas.getDezena();
@@ -558,8 +623,18 @@ public class Lotofacil extends Lotto {
 
             subList2.addAll(numbersMostAwarded);
 
-            for (Dezenas dataDezenas : subList2.subList(0, 7)) {
-                betFormed.add(dataDezenas.getDezena());
+            int index = 0;
+            while (betFormed2.size() < ntMstAwdQtd) {
+                Boolean contains1 = betFormed.contains(subList2.get(index).getDezena());
+                System.out.println(contains1);
+                if (contains1 == false) {
+                    betFormed2.add(subList2.get(index).getDezena());
+                }
+                index = index + 1;
+            }
+
+            for (Dezenas dataDezenas : subList2.subList(0, ntMstAwdQtd)) {
+
                 // if (bet == "") {
                 // bet = dataDezenas.getDezena();
                 // } else {
@@ -567,9 +642,11 @@ public class Lotofacil extends Lotto {
                 // }
 
             }
+
             startOfBet = startOfBet + interval;
             endOfBet = endOfBet + interval;
 
+            betFormed.addAll(betFormed2);
             Collections.sort(betFormed, new Comparator<String>() {
                 public int compare(String s1, String s2) {
                     return Integer.valueOf(s1).compareTo(Integer.valueOf(s2));
