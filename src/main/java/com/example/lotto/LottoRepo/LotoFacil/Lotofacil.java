@@ -354,81 +354,81 @@ public class Lotofacil extends Lotto {
         initArrays();
 
         switch (month) {
-        case "Janeiro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                System.out.println();
-                concursos.add(data);
-            }
-            break;
+            case "Janeiro":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    System.out.println();
+                    concursos.add(data);
+                }
+                break;
 
-        case "Fevereiro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Fevereiro":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Marco":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Marco":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Abril":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Abril":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Maio":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Maio":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Junho":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Junho":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Julho":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Julho":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Agosto":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Agosto":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Setembro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Setembro":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Outubro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Outubro":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Novembro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Novembro":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        case "Dezembro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
+            case "Dezembro":
+                for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
+                    concursos.add(data);
+                }
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
 
     }
@@ -621,7 +621,7 @@ public class Lotofacil extends Lotto {
                 }
             });
 
-            subList2.addAll(numbersMostAwarded);
+            subList2.addAll(subList);
 
             int index = 0;
             while (betFormed2.size() < ntMstAwdQtd) {

@@ -1,6 +1,9 @@
 package com.example.lotto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
@@ -36,48 +39,66 @@ public class App {
 
         // loto.initConquest();
 
-        loto.changePeriodOfConquest(0, 10);
-
-        // loto.initConquest();
-
         // loto.changePeriodOfConquest(0, 10);
+
         // loto.initConquest();
-        System.out.println("---------------------------------------------");
-        // loto.setWithNotAwarded(false);
-        // loto.setQtdNotAwarded(1);
         ArrayList<String> eclNumbers = new ArrayList<>();
 
-        loto.setNumberOfStart(1);
-        loto.setMostAwardedQtd(11);
-        loto.setNotMostAwardeQtd(4);
-        loto.createBets(2, 10);
-        loto.formbet();
+        loto.changePeriodOfConquest(0, 10);
+        loto.initConquest();
         System.out.println("---------------------------------------------");
-
-        loto.setMostAwardedQtd(10);
-        loto.setNotMostAwardeQtd(5);
-        loto.createBets(2, 20);
-        loto.formbet();
+        Lotofacil loto1 = new Lotofacil();
+        eclNumbers.add("24");
+        eclNumbers.add("03");
+        eclNumbers.add("18");
+        eclNumbers.add("17");
+        loto1.setExcludeNumbers(eclNumbers);
+        loto1.setNumberOfStart(1);
+        loto1.setMostAwardedQtd(12);
+        loto1.setNotMostAwardeQtd(3);
+        loto1.createBets(2, 10);
+        loto1.formbet();
+        eclNumbers.clear();
         System.out.println("---------------------------------------------");
-        loto.setMostAwardedQtd(8);
-        loto.setNotMostAwardeQtd(7);
-        loto.createBets(2, 40);
-        loto.formbet();
+        Lotofacil loto2 = new Lotofacil();
+        eclNumbers.add("04");
+        eclNumbers.add("07");
+        eclNumbers.add("21");
+        eclNumbers.add("08");
+        loto2.setMostAwardedQtd(12);
+        loto2.setNotMostAwardeQtd(3);
+        loto2.createBets(2, 20);
+        loto2.formbet();
+        eclNumbers.clear();
         System.out.println("---------------------------------------------");
-        loto.setMostAwardedQtd(8);
-        loto.setNotMostAwardeQtd(7);
-        loto.createBets(2, 60);
-        loto.formbet();
+        Lotofacil loto3 = new Lotofacil();
+        eclNumbers.add("04");
+        eclNumbers.add("18");
+        eclNumbers.add("17");
+        eclNumbers.add("08");
+        loto3.setMostAwardedQtd(8);
+        loto3.setNotMostAwardeQtd(7);
+        loto3.createBets(2, 40);
+        loto3.formbet();
+        eclNumbers.clear();
         System.out.println("---------------------------------------------");
-        loto.setMostAwardedQtd(9);
-        loto.setNotMostAwardeQtd(6);
-        loto.createBets(2, 70);
-        loto.formbet();
+        Lotofacil loto4 = new Lotofacil();
+        loto4.setMostAwardedQtd(8);
+        loto4.setNotMostAwardeQtd(7);
+        loto4.createBets(2, 60);
+        loto4.formbet();
         System.out.println("---------------------------------------------");
-        loto.setMostAwardedQtd(2);
-        loto.setNotMostAwardeQtd(13);
-        loto.createBets(2, 20);
-        loto.formbet();
+        Lotofacil loto5 = new Lotofacil();
+        loto5.setMostAwardedQtd(9);
+        loto5.setNotMostAwardeQtd(6);
+        loto5.createBets(2, 70);
+        loto5.formbet();
+        System.out.println("---------------------------------------------");
+        Lotofacil loto6 = new Lotofacil();
+        loto6.setMostAwardedQtd(2);
+        loto6.setNotMostAwardeQtd(13);
+        loto6.createBets(2, 20);
+        loto6.formbet();
         System.out.println("---------------------------------------------");
 
         // loto.printAllArray();
@@ -113,6 +134,16 @@ public class App {
         // "01 03 04 06 07 10 14 15 16 17 18 20 21 22 24 28 29 30 31 32 33 36 38 40 41
         // 42 44 47 48 50 51 52 54 59 60 61 63 65 69 70 72 74 76 77 81 91 92 93 94 95",
         // };
+
+        List<Integer> data = Arrays.asList(04, 15, 23, 25, 19, 21, 22, 05, 14, 07, 06, 01, 18, 02, 10);
+
+        Collections.sort(data, new Comparator<Integer>() {
+            public int compare(Integer s1, Integer s2) {
+                return s1.compareTo(s2);
+            }
+        });
+
+        System.out.println(data);
 
         // 24 quantidade de vezes 10 saiu no ultimo true porcentagem de acertos 100%
         // Faixa 5
