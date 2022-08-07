@@ -626,7 +626,6 @@ public class Lotofacil extends Lotto {
             int index = 0;
             while (betFormed2.size() < ntMstAwdQtd) {
                 Boolean contains1 = betFormed.contains(subList2.get(index).getDezena());
-                System.out.println(contains1);
                 if (contains1 == false) {
                     betFormed2.add(subList2.get(index).getDezena());
                 }
