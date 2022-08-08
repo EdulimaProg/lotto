@@ -34,14 +34,19 @@ public class Lotomania extends Lotto {
     private ArrayList<Dezenas> pairMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> primeNumbers = new ArrayList<>();
     private ArrayList<String> listString = new ArrayList<>();
+    private ArrayList<String> preferredNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> ExcludersNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> withOutExcluders = new ArrayList<>();
     DecimalFormat df = new DecimalFormat("#,###");
 
-    private String conquestType = Constants.LOTOMANIA;
+    private String conquestType = Constants.LOTOFACIL;
     private int conquestCarateresQTD = Constants.LOTOMANIAQTD;
     private LotoType lotomania;
     private LotteryRangers ltr;
+    private Integer mostAwardedQtd;
+    private Integer notMostAwardeQtd;
+    private Integer numberOfStart;
+    private List excludeNumbers;
 
     public Lotomania() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
@@ -51,14 +56,52 @@ public class Lotomania extends Lotto {
         initArrays();
     }
 
+    public List getExcludeNumbers() {
+        return excludeNumbers;
+    }
+
+    public void setExcludeNumbers(List excludeNumbers) {
+        this.excludeNumbers = excludeNumbers;
+    }
+
+    public Integer getNumberOfStart() {
+        return numberOfStart;
+    }
+
+    public void setNumberOfStart(Integer numberOfStart) {
+        this.numberOfStart = numberOfStart;
+    }
+
+    public Integer getMostAwardedQtd() {
+        return mostAwardedQtd;
+    }
+
+    public void setMostAwardedQtd(Integer mostAwardedQtd) {
+        this.mostAwardedQtd = mostAwardedQtd;
+    }
+
+    public Integer getNotMostAwardeQtd() {
+        return notMostAwardeQtd;
+    }
+
+    public void setNotMostAwardeQtd(Integer notMostAwardeQtd) {
+        this.notMostAwardeQtd = notMostAwardeQtd;
+    }
+
+    @Override
+    public void initConquest() {
+        getHistoricMostAwarded();
+        getHistoricPrimeNumbers();
+        getHistoricPairNumbers();
+    }
+
     private void initArrays() {
-        int startNumber = 0;
         for (int i = 0; i < conquestCarateresQTD; i++) {
-            if (Utils.isPair(i + startNumber))
+            if (Utils.isPair(i + 1))
                 pairList.add(String.format("%02d", i + 1));
-            if (!Utils.isPair(i + startNumber))
+            if (!Utils.isPair(i + 1))
                 oddList.add(String.format("%02d", i + 1));
-            if (Utils.isPrimos(i + startNumber))
+            if (Utils.isPrimos(i + 1))
                 primosList.add(String.format("%02d", i + 1));
         }
     }
@@ -68,7 +111,7 @@ public class Lotomania extends Lotto {
 
         numbersMostAwarded.clear();
 
-        int numberOfStart = 0;
+        int numberOfStart = 1;
         for (int i = 0; i < conquestCarateresQTD; i++) {
             int valueOfRepeat = 0;
             ArrayList<Integer> conquest = new ArrayList<>();
@@ -182,13 +225,6 @@ public class Lotomania extends Lotto {
     }
 
     @Override
-    public void initConquest() {
-        getHistoricMostAwarded();
-        getHistoricPrimeNumbers();
-        getHistoricPairNumbers();
-    }
-
-    @Override
     public void print() {
         System.out.println(pairList);
         System.out.println(oddList);
@@ -198,6 +234,17 @@ public class Lotomania extends Lotto {
 
     @Override
     public void printAllArray() {
+        for (Dezenas data : numbersMostAwarded) {
+            System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
+                    + data.getRange());
+        }
+        Collections.sort(numbersMostAwarded, new Comparator<Dezenas>() {
+            public int compare(Dezenas s1, Dezenas s2) {
+                return Integer.valueOf(s1.getQuantidade()).compareTo(s2.getQuantidade());
+            }
+        });
+        System.out.println("----------------------------------");
         for (Dezenas data : numbersMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
                     + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
@@ -308,104 +355,6 @@ public class Lotomania extends Lotto {
         }
     }
 
-    public void changePerMonth(String month) {
-        clearAllArrays();
-        initArrays();
-
-        switch (month) {
-        case "Janeiro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                System.out.println();
-                concursos.add(data);
-            }
-            break;
-
-        case "Fevereiro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Marco":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Abril":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Maio":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Junho":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Julho":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Agosto":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Setembro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Outubro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Novembro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        case "Dezembro":
-            for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType)) {
-                concursos.add(data);
-            }
-            break;
-
-        default:
-            break;
-        }
-
-    }
-
-    public void getNumbersMostAwardedWhitooutExcluders() {
-
-    }
-
-    @Override
-    public void createBet(int numberOfPairs, int numberOfOdd, int numberOfPrimes) {
-        // final List<String> finalBet;
-
-        for (int i = 0; i < numberOfPrimes; i++) {
-            primeNumbers.get(i).getDezena();
-        }
-
-    }
-
     public void getFaixaMostAwarded() {
         for (LoteriasModel loteriasModel : concursos) {
             for (String dezena : loteriasModel.getDezenas()) {
@@ -417,7 +366,7 @@ public class Lotomania extends Lotto {
     public String witchRange(String number) {
         String rangeResponse = " ";
         for (int i = 0; i < lotomania.getLotoLineSize(); i++) {
-            if (ltr.createFaixas(lotomania).getLottoInFaixa().get(i).contains(number)) {
+            if (ltr.lotofacilFaixas().getLottoInFaixa().get(i).contains(number)) {
                 rangeResponse = "Faixa " + (i + 1);
             }
 
@@ -425,87 +374,55 @@ public class Lotomania extends Lotto {
         return rangeResponse;
     }
 
-    public void formbet() {
+    public void createBets(int betQtd, int interval) {
+        int startOfBet;
+        int endOfBet;
+        int mstAwdQtd;
+        int ntMstAwdQtd;
+        List numbersExcList;
 
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(0, 5);
-        // getHistoricMostAwarded();
-        // String bet1 = "";
-        // transformInString(bet1);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(5, 10);
-        // getHistoricMostAwarded();
-        // String bet2 = "";
-        // transformInString(bet2);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(10, 15);
-        // getHistoricMostAwarded();
-        // String bet3 = "";
-        // transformInString(bet3);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(15, 20);
-        // getHistoricMostAwarded();
-        // String bet4 = "";
-        // transformInString(bet4);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(20, 25);
-        // getHistoricMostAwarded();
-        // String bet5 = "";
-        // transformInString(bet5);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(25, 30);
-        // getHistoricMostAwarded();
-        // String bet6 = "";
-        // transformInString(bet6);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(30, 35);
-        // getHistoricMostAwarded();
-        // String bet7 = "";
-        // transformInString(bet7);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(35, 40);
-        // getHistoricMostAwarded();
-        // String bet8 = "";
-        // transformInString(bet8);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(40, 45);
-        // getHistoricMostAwarded();
-        // String bet9 = "";
-        // transformInString(bet9);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(45, 50);
-        // getHistoricMostAwarded();
-        // String bet10 = "";
-        // transformInString(bet10);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(50, 55);
-        // getHistoricMostAwarded();
-        // String bet11 = "";
-        // transformInString(bet11);
-        // numbersMostAwarded.clear();
-        // changePeriodOfConquest(55, 60);
-        // getHistoricMostAwarded();
-        // String bet12 = "";
-        // transformInString(bet12);
-
-        for (String string : listString) {
-            System.out.println(string);
+        if (mostAwardedQtd != null) {
+            mstAwdQtd = mostAwardedQtd;
+            ntMstAwdQtd = notMostAwardeQtd;
+        } else {
+            mstAwdQtd = 8;
+            ntMstAwdQtd = 7;
         }
 
-    }
+        if (excludeNumbers == null) {
+            numbersExcList = new ArrayList<>();
+        } else {
+            numbersExcList = excludeNumbers;
+        }
 
-    public void createBets(int betQtd, int interval) {
-        int startOfBet = 0;
-        int endOfBet = interval;
+        if (numberOfStart == null) {
+            startOfBet = 0;
+            endOfBet = interval;
+        } else {
+            startOfBet = numberOfStart;
+            endOfBet = interval + numberOfStart;
+        }
 
         for (int i = 0; i < betQtd; i++) {
             numbersMostAwarded.clear();
             changePeriodOfConquest(startOfBet, endOfBet);
             getHistoricMostAwarded();
             String bet = "";
-            List<Dezenas> subList = numbersMostAwarded.subList(0, 51);
+            List<Dezenas> subList = new ArrayList<>();
             List<Dezenas> subList1 = new ArrayList<>();
             List<Dezenas> subList2 = new ArrayList<>();
+            List<String> betFormed = new ArrayList<>();
+            List<String> betFormed2 = new ArrayList<>();
+
+            if (numbersExcList.isEmpty()) {
+                subList = numbersMostAwarded.subList(0, 20);
+            } else {
+                for (Dezenas string : numbersMostAwarded.subList(0, 20)) {
+                    if (excludeNumbers.contains(string.getDezena()) == false) {
+                        subList.add(string);
+                    }
+                }
+            }
 
             Collections.sort(subList, new Comparator<Dezenas>() {
                 public int compare(Dezenas s1, Dezenas s2) {
@@ -513,14 +430,15 @@ public class Lotomania extends Lotto {
                 }
             });
 
-            subList1.addAll(subList.subList(0, 20));
+            subList1.addAll(subList);
 
-            for (Dezenas dataDezenas : subList1) {
-                if (bet == "") {
-                    bet = dataDezenas.getDezena();
-                } else {
-                    bet = bet + "," + dataDezenas.getDezena();
-                }
+            for (Dezenas dataDezenas : subList1.subList(0, mstAwdQtd)) {
+                betFormed.add(dataDezenas.getDezena());
+                // if (bet == "") {
+                // bet = dataDezenas.getDezena();
+                // } else {
+                // bet = bet + "," + dataDezenas.getDezena();
+                // }
 
             }
 
@@ -530,20 +448,49 @@ public class Lotomania extends Lotto {
                 }
             });
 
-            subList2.addAll(subList.subList(0, 30));
+            subList2.addAll(subList);
 
-            for (Dezenas dataDezenas : subList2) {
-                if (bet == "") {
-                    bet = dataDezenas.getDezena();
-                } else {
-                    bet = bet + "," + dataDezenas.getDezena();
+            int index = 0;
+            while (betFormed2.size() < ntMstAwdQtd) {
+                Boolean contains1 = betFormed.contains(subList2.get(index).getDezena());
+                if (contains1 == false) {
+                    betFormed2.add(subList2.get(index).getDezena());
                 }
+                index = index + 1;
+            }
+
+            for (Dezenas dataDezenas : subList2.subList(0, ntMstAwdQtd)) {
+
+                // if (bet == "") {
+                // bet = dataDezenas.getDezena();
+                // } else {
+                // bet = bet + "," + dataDezenas.getDezena();
+                // }
 
             }
+
             startOfBet = startOfBet + interval;
             endOfBet = endOfBet + interval;
 
+            betFormed.addAll(betFormed2);
+            Collections.sort(betFormed, new Comparator<String>() {
+                public int compare(String s1, String s2) {
+                    return Integer.valueOf(s1).compareTo(Integer.valueOf(s2));
+                }
+            });
+            for (String data : betFormed) {
+                if (bet == "") {
+                    bet = data;
+                } else {
+                    bet = bet + "," + data;
+                }
+            }
+
             listString.add(bet);
+        }
+
+        for (int i = 0; i < listString.size(); i++) {
+            System.out.println(listString.get(i));
         }
 
     }

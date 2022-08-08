@@ -1,10 +1,11 @@
-package com.example.lotto.LottoRepo.LotoFacil;
+package com.example.lotto.LottoRepo.Megasena;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import com.example.lotto.LottoRepo.Interface.Lotto;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
@@ -14,7 +15,7 @@ import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
 import com.example.lotto.Utils.Utils;
 
-public class Lotofacil extends Lotto {
+public class Megasena extends Lotto {
     private HttpConnection conn = new HttpConnection();
     private Utils utils = new Utils(Constants.LOTOFACIL);
 
@@ -33,19 +34,19 @@ public class Lotofacil extends Lotto {
     // private ArrayList<Dezenas> withOutExcluders = new ArrayList<>();
     DecimalFormat df = new DecimalFormat("#,###");
 
-    private String conquestType = Constants.LOTOFACIL;
-    private int conquestCarateresQTD = Constants.LOTOFACILQTD;
-    private LotoType lotofacil;
+    private String conquestType = Constants.MEGASENA;
+    private int conquestCarateresQTD = Constants.MEGASENAQTD;
+    private LotoType megasena;
     private LotteryRangers ltr;
     private Integer mostAwardedQtd;
     private Integer notMostAwardeQtd;
     private Integer numberOfStart;
     private List excludeNumbers;
 
-    public Lotofacil() {
+    public Megasena() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
-        lotofacil = new LotoType("Lotofacil", 5, 5);
+        megasena = new LotoType("Megasena", 6, 10);
         ltr = new LotteryRangers();
         initArrays();
     }
@@ -359,8 +360,8 @@ public class Lotofacil extends Lotto {
 
     public String witchRange(String number) {
         String rangeResponse = " ";
-        for (int i = 0; i < lotofacil.getLotoLineSize(); i++) {
-            if (ltr.lotofacilFaixas().getLottoInFaixa().get(i).contains(number)) {
+        for (int i = 0; i < megasena.getLotoLineSize(); i++) {
+            if (ltr.createFaixas(megasena).getLottoInFaixa().get(i).contains(number)) {
                 rangeResponse = "Faixa " + (i + 1);
             }
 
