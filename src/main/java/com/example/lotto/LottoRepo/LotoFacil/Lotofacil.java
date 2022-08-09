@@ -28,6 +28,7 @@ public class Lotofacil extends Lotto {
     private ArrayList<Dezenas> pairMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> primeNumbers = new ArrayList<>();
     private ArrayList<String> listString = new ArrayList<>();
+
     private ArrayList<String> preferredNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> ExcludersNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> withOutExcluders = new ArrayList<>();
@@ -48,6 +49,10 @@ public class Lotofacil extends Lotto {
         lotofacil = new LotoType("Lotofacil", 5, 5);
         ltr = new LotteryRangers();
         initArrays();
+    }
+
+    public ArrayList<String> getListString() {
+        return listString;
     }
 
     public List getExcludeNumbers() {

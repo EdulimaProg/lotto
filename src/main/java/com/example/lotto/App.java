@@ -90,107 +90,122 @@ public class App {
 
         // loto.printAllArray();
 
+        ArrayList<String> listbets = new ArrayList();
+
         System.out.println("---------------------------------------------");
         System.out.println("Loto 1");
         Lotofacil loto1 = new Lotofacil();
-        loto1.setExcludeNumbers(Arrays.asList("01", "04", "17", "23"));
+        loto1.setExcludeNumbers(Arrays.asList("01", "13", "17", "23"));
         loto1.setNumberOfStart(1);
-        loto1.setMostAwardedQtd(12);
-        loto1.setNotMostAwardeQtd(3);
+        loto1.setMostAwardedQtd(4);
+        loto1.setNotMostAwardeQtd(11);
         loto1.createBets(2, 10);
+        listbets.addAll(loto1.getListString());
         System.out.println("---------------------------------------------");
-
+        System.out.println(listbets.size());
         System.out.println("---------------------------------------------");
         System.out.println("Loto 2");
         Lotofacil loto2 = new Lotofacil();
-        loto2.setExcludeNumbers(Arrays.asList("03", "09", "19", "22"));
+        loto2.setExcludeNumbers(Arrays.asList("03", "09", "19"));
         loto2.setNumberOfStart(1);
-        loto2.setMostAwardedQtd(12);
-        loto2.setNotMostAwardeQtd(3);
+        loto2.setMostAwardedQtd(11);
+        loto2.setNotMostAwardeQtd(4);
         loto2.createBets(2, 10);
+        listbets.addAll(loto2.getListString());
         System.out.println("---------------------------------------------");
-
+        System.out.println(listbets.size());
         System.out.println("---------------------------------------------");
         System.out.println("Loto 3");
         Lotofacil loto3 = new Lotofacil();
-        loto3.setExcludeNumbers(Arrays.asList("25", "03", "18", "17"));
+        // loto3.setExcludeNumbers(Arrays.asList("25", "03", "18", "17"));
         loto3.setNumberOfStart(1);
-        loto3.setMostAwardedQtd(12);
-        loto3.setNotMostAwardeQtd(3);
+        loto3.setMostAwardedQtd(10);
+        loto3.setNotMostAwardeQtd(5);
         loto3.createBets(2, 10);
+        listbets.addAll(loto3.getListString());
         System.out.println("---------------------------------------------");
-
+        System.out.println(listbets.size());
         System.out.println("---------------------------------------------");
         System.out.println("Loto 4");
         Lotofacil loto4 = new Lotofacil();
-        loto4.setExcludeNumbers(Arrays.asList("23", "03", "18", "17"));
+        loto4.setExcludeNumbers(Arrays.asList("23", "03", "17"));
         loto4.setNumberOfStart(1);
-        loto4.setMostAwardedQtd(12);
-        loto4.setNotMostAwardeQtd(3);
+        loto4.setMostAwardedQtd(7);
+        loto4.setNotMostAwardeQtd(8);
         loto4.createBets(2, 10);
+        listbets.addAll(loto4.getListString());
         System.out.println("---------------------------------------------");
-
+        System.out.println(listbets.size());
         System.out.println("---------------------------------------------");
         System.out.println("Loto 5");
         Lotofacil loto5 = new Lotofacil();
-        loto5.setExcludeNumbers(Arrays.asList("24", "23", "06", "16", "17"));
+        loto5.setExcludeNumbers(Arrays.asList("24", "06", "17"));
         loto5.setNumberOfStart(1);
-        loto5.setMostAwardedQtd(12);
-        loto5.setNotMostAwardeQtd(3);
+        loto5.setMostAwardedQtd(6);
+        loto5.setNotMostAwardeQtd(9);
         loto5.createBets(2, 10);
+        listbets.addAll(loto5.getListString());
         System.out.println("---------------------------------------------");
-
+        System.out.println(listbets.size());
         System.out.println("---------------------------------------------");
         System.out.println("Loto 6");
         Lotofacil loto6 = new Lotofacil();
-        loto6.setExcludeNumbers(Arrays.asList("25", "08", "19", "18"));
+        loto6.setExcludeNumbers(Arrays.asList("01", "25", "19"));
         loto6.setNumberOfStart(1);
-        loto6.setMostAwardedQtd(12);
-        loto6.setNotMostAwardeQtd(3);
+        loto6.setMostAwardedQtd(5);
+        loto6.setNotMostAwardeQtd(10);
         loto6.createBets(2, 10);
+        listbets.addAll(loto6.getListString());
         System.out.println("---------------------------------------------");
-
+        System.out.println(listbets.size());
         System.out.println("---------------------------------------------");
         System.out.println("Loto 7");
         Lotofacil loto7 = new Lotofacil();
-        loto7.setExcludeNumbers(Arrays.asList("21", "07", "19", "18"));
+        loto7.setExcludeNumbers(Arrays.asList("21", "07", "19"));
         loto7.setNumberOfStart(1);
-        loto7.setMostAwardedQtd(12);
-        loto7.setNotMostAwardeQtd(3);
+        loto7.setMostAwardedQtd(4);
+        loto7.setNotMostAwardeQtd(11);
         loto7.createBets(2, 10);
+        listbets.addAll(loto7.getListString());
         System.out.println("---------------------------------------------");
-
+        System.out.println(listbets.size());
         System.out.println("---------------------------------------------");
         System.out.println("Loto 8");
         Lotofacil loto8 = new Lotofacil();
-        loto8.setExcludeNumbers(Arrays.asList("03", "07", "16", "20"));
+        // loto8.setExcludeNumbers(Arrays.asList("01", "03", "07", "16", "20"));
         loto8.setNumberOfStart(1);
-        loto8.setMostAwardedQtd(12);
-        loto8.setNotMostAwardeQtd(3);
+        loto8.setMostAwardedQtd(10);
+        loto8.setNotMostAwardeQtd(5);
         loto8.createBets(2, 10);
+        listbets.addAll(loto8.getListString());
         System.out.println("---------------------------------------------");
-
+        System.out.println(listbets.size());
         System.out.println("---------------------------------------------");
         System.out.println("Loto 9");
-
         Lotofacil loto9 = new Lotofacil();
-        loto9.setExcludeNumbers(Arrays.asList("03", "05", "11", "13"));
+        // loto9.setExcludeNumbers(Arrays.asList("03", "05", "11", "13"));
         loto9.setNumberOfStart(1);
-        loto9.setMostAwardedQtd(12);
-        loto9.setNotMostAwardeQtd(3);
+        loto9.setMostAwardedQtd(6);
+        loto9.setNotMostAwardeQtd(9);
         loto9.createBets(2, 10);
+        listbets.addAll(loto9.getListString());
         System.out.println("---------------------------------------------");
-
+        System.out.println(listbets.size());
         System.out.println("---------------------------------------------");
         System.out.println("Loto 10");
         Lotofacil loto0 = new Lotofacil();
         // loto6.setExcludeNumbers(Arrays.asList("01", "02", "11", "13"));
         loto0.setNumberOfStart(1);
-        loto0.setMostAwardedQtd(12);
-        loto0.setNotMostAwardeQtd(3);
+        loto0.setMostAwardedQtd(8);
+        loto0.setNotMostAwardeQtd(7);
         loto0.createBets(2, 10);
+        listbets.addAll(loto0.getListString());
         System.out.println("---------------------------------------------");
+        System.out.println(listbets.size());
 
+        for (int i = 0; i < listbets.size(); i++) {
+            System.out.println(listbets.get(i));
+        }
         // lotofacil.print();
         // loto.inLastCoquest();
         // loto.inLastCoquest();
