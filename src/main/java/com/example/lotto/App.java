@@ -12,6 +12,7 @@ import com.example.lotto.LottoRepo.Megasena.Megasena;
 public class App {
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public static void main(String[] args) {
         Lotofacil loto = new Lotofacil();
         // Megasena loto = new Megasena();
@@ -526,6 +527,8 @@ public class App {
     // SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 =======
+=======
+>>>>>>> Stashed changes
         public static void main(String[] args) {
                 Lotofacil loto = new Lotofacil();
                 // Megasena loto = new Megasena();
@@ -829,5 +832,8 @@ public class App {
                 // }
 
         }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
