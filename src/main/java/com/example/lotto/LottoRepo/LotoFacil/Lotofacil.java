@@ -42,6 +42,7 @@ public class Lotofacil extends Lotto {
     private Integer notMostAwardeQtd;
     private Integer numberOfStart;
     private List excludeNumbers;
+    private List favoriteNumbers;
 
     public Lotofacil() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
@@ -49,6 +50,14 @@ public class Lotofacil extends Lotto {
         lotofacil = new LotoType("Lotofacil", 5, 5);
         ltr = new LotteryRangers();
         initArrays();
+    }
+
+    public List getFavoriteNumbers() {
+        return favoriteNumbers;
+    }
+
+    public void setFavoriteNumbers(List favoriteNumbers) {
+        this.favoriteNumbers = favoriteNumbers;
     }
 
     public ArrayList<String> getListString() {
@@ -378,6 +387,7 @@ public class Lotofacil extends Lotto {
         int endOfBet;
         int mstAwdQtd;
         int ntMstAwdQtd;
+        List favNumbers;
         List numbersExcList;
 
         if (mostAwardedQtd != null) {
@@ -392,6 +402,12 @@ public class Lotofacil extends Lotto {
             numbersExcList = new ArrayList<>();
         } else {
             numbersExcList = excludeNumbers;
+        }
+
+        if (favoriteNumbers == null) {
+            favNumbers = new ArrayList<>();
+        } else {
+            favNumbers = favoriteNumbers;
         }
 
         if (numberOfStart == null) {
@@ -432,7 +448,9 @@ public class Lotofacil extends Lotto {
             subList1.addAll(subList);
 
             for (Dezenas dataDezenas : subList1.subList(0, mstAwdQtd)) {
-                betFormed.add(dataDezenas.getDezena());
+                if (favNumbers.contains(dataDezenas.getDezena()) == false) {
+                    betFormed.add(dataDezenas.getDezena());
+                }
                 // if (bet == "") {
                 // bet = dataDezenas.getDezena();
                 // } else {
@@ -452,8 +470,11 @@ public class Lotofacil extends Lotto {
             int index = 0;
             while (betFormed2.size() < ntMstAwdQtd) {
                 Boolean contains1 = betFormed.contains(subList2.get(index).getDezena());
+                Boolean contains2 = favNumbers.contains(subList2.get(index).getDezena());
                 if (contains1 == false) {
-                    betFormed2.add(subList2.get(index).getDezena());
+                    if (contains2 == false) {
+                        betFormed2.add(subList2.get(index).getDezena());
+                    }
                 }
                 index = index + 1;
             }
@@ -472,6 +493,7 @@ public class Lotofacil extends Lotto {
             endOfBet = endOfBet + interval;
 
             betFormed.addAll(betFormed2);
+            betFormed.addAll(favNumbers);
             Collections.sort(betFormed, new Comparator<String>() {
                 public int compare(String s1, String s2) {
                     return Integer.valueOf(s1).compareTo(Integer.valueOf(s2));
