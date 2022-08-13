@@ -1,15 +1,10 @@
 package com.example.lotto.LottoRepo.Lotomania;
 
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 import com.example.lotto.LottoRepo.Interface.Lotto;
 import com.example.lotto.Model.Dezenas;
@@ -37,7 +32,7 @@ public class Lotomania extends Lotto {
     private ArrayList<String> preferredNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> ExcludersNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> withOutExcluders = new ArrayList<>();
-    DecimalFormat df = new DecimalFormat("#,###");
+    private DecimalFormat df = new DecimalFormat("#,###");
 
     private String conquestType = Constants.LOTOFACIL;
     private int conquestCarateresQTD = Constants.LOTOMANIAQTD;
