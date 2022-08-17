@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
+import com.example.lotto.LottoRepo.Lotomania.Lotomania;
 import com.example.lotto.Services.DatabaseConn;
 
 // import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
@@ -21,6 +23,7 @@ public class App {
 
     public static void main(String[] args) {
         // Lotofacil loto = new Lotofacil();
+        Lotomania loto = new Lotomania();
 
         // SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         // Date date = new Date();
@@ -44,9 +47,9 @@ public class App {
         // String tenYearsAfterString = dateTime.format(formatter);
         // System.out.println(tenYearsAfterString);
 
-        DatabaseConn base = new DatabaseConn();
+        // DatabaseConn base = new DatabaseConn();
 
-        base.test();
+        // base.test();
 
         // Megasena loto = new Megasena();
 
@@ -68,13 +71,12 @@ public class App {
 
         // lotofacil.printAllArray();
 
-        // loto.changePeriodOfConquest(0, 10);
-
         // loto.initConquest();
 
-        // loto.changePeriodOfConquest(0, 10);
+        loto.changePeriodOfConquest(0, 10);
 
-        // // loto.initConquest();
+        loto.initConquest();
+
         // ArrayList<String> eclNumbers = new ArrayList<>();
 
         // loto.changePeriodOfConquest(0, 10);
@@ -123,7 +125,7 @@ public class App {
         // loto6.createBets(2, 20);
         // System.out.println("---------------------------------------------");
 
-        // loto.printAllArray();
+        loto.printAllArray();
 
         // ArrayList<String> listbets = new ArrayList();
 

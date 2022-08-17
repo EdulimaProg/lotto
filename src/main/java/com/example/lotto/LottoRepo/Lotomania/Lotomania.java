@@ -106,7 +106,7 @@ public class Lotomania extends Lotto {
 
         numbersMostAwarded.clear();
 
-        int numberOfStart = 1;
+        int numberOfStart = 0;
         for (int i = 0; i < conquestCarateresQTD; i++) {
             int valueOfRepeat = 0;
             ArrayList<Integer> conquest = new ArrayList<>();
@@ -146,7 +146,7 @@ public class Lotomania extends Lotto {
 
         pairMostAwarded.clear();
 
-        int numberOfStart = 1;
+        int numberOfStart = 0;
         for (int i = 0; i < pairList.size(); i++) {
             int valueOfRepeat = 0;
             ArrayList<Integer> conquest = new ArrayList<>();
@@ -184,7 +184,7 @@ public class Lotomania extends Lotto {
 
         primeNumbers.clear();
 
-        int numberOfStart = 1;
+        int numberOfStart = 0;
         for (int i = 0; i < primosList.size(); i++) {
             int valueOfRepeat = 0;
             ArrayList<Integer> conquest = new ArrayList<>();
@@ -234,6 +234,15 @@ public class Lotomania extends Lotto {
                     + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
                     + data.getRange());
         }
+
+        String numbers = "";
+
+        for (Dezenas data : numbersMostAwarded) {
+            numbers = numbers + data.dezena + " ";
+        }
+
+        System.out.println(numbers);
+
         Collections.sort(numbersMostAwarded, new Comparator<Dezenas>() {
             public int compare(Dezenas s1, Dezenas s2) {
                 return Integer.valueOf(s1.getQuantidade()).compareTo(s2.getQuantidade());
@@ -361,7 +370,7 @@ public class Lotomania extends Lotto {
     public String witchRange(String number) {
         String rangeResponse = " ";
         for (int i = 0; i < lotomania.getLotoLineSize(); i++) {
-            if (ltr.lotofacilFaixas().getLottoInFaixa().get(i).contains(number)) {
+            if (ltr.createFaixas(lotomania).getLottoInFaixa().get(i).contains(number)) {
                 rangeResponse = "Faixa " + (i + 1);
             }
 
