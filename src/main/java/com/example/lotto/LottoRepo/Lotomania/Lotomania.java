@@ -17,7 +17,7 @@ import com.example.lotto.Utils.Utils;
 
 public class Lotomania extends Lotto {
     private HttpConnection conn = new HttpConnection();
-    private Utils utils = new Utils(Constants.LOTOFACIL);
+    private Utils utils = new Utils(Constants.LOTOMANIA);
 
     static ArrayList<String> pairList = new ArrayList<>();
     static ArrayList<String> oddList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class Lotomania extends Lotto {
     // private ArrayList<Dezenas> withOutExcluders = new ArrayList<>();
     private DecimalFormat df = new DecimalFormat("#,###");
 
-    private String conquestType = Constants.LOTOFACIL;
+    private String conquestType = Constants.LOTOMANIA;
     private int conquestCarateresQTD = Constants.LOTOMANIAQTD;
     private LotoType lotomania;
     private LotteryRangers ltr;

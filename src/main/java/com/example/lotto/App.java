@@ -73,7 +73,7 @@ public class App {
 
         // loto.initConquest();
 
-        loto.changePeriodOfConquest(0, 10);
+        loto.changePeriodOfConquest(0, 6);
 
         loto.initConquest();
 
@@ -126,6 +126,8 @@ public class App {
         // System.out.println("---------------------------------------------");
 
         loto.printAllArray();
+
+        // loto.inLastCoquest();
 
         // ArrayList<String> listbets = new ArrayList();
 
