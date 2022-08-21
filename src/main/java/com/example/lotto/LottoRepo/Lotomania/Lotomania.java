@@ -137,6 +137,12 @@ public class Lotomania extends Lotto {
             }
         });
 
+        int i = 1;
+        for (Dezenas data : numbersMostAwarded) {
+            data.setPosition("Pos :" + i);
+            i++;
+        }
+
         System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
     }
@@ -229,19 +235,30 @@ public class Lotomania extends Lotto {
 
     @Override
     public void printAllArray() {
+        int i = 1;
         for (Dezenas data : numbersMostAwarded) {
-            System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                    + data.getRange());
+            System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
+                    + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest() + " porcentagem de acertos "
+                    + data.getPercentage() + "% " + data.getRange());
         }
 
-        String numbers = "";
+        System.out.println("----------------------------------");
 
         for (Dezenas data : numbersMostAwarded) {
-            numbers = numbers + data.dezena + " ";
+            if (data.getIsLastConquest() == true) {
+                System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
+                        + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
+                        + " porcentagem de acertos " + data.getPercentage() + "% " + data.getRange());
+            }
         }
 
-        System.out.println(numbers);
+        // String numbers = "";
+
+        // for (Dezenas data : numbersMostAwarded) {
+        // numbers = numbers + data.dezena + " ";
+        // }
+
+        // System.out.println(numbers);
 
         Collections.sort(numbersMostAwarded, new Comparator<Dezenas>() {
             public int compare(Dezenas s1, Dezenas s2) {
@@ -342,11 +359,13 @@ public class Lotomania extends Lotto {
             System.out.println(seq.getConquest());
             System.out.println("---------------------------------------------");
         }
-        System.out.println("---------------------------------------------");
-        System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo concurso");
-        System.out.println("esses numeros foram");
-        System.out.println(repeatNumbers);
-        System.out.println("---------------------------------------------");
+
+        // System.out.println("---------------------------------------------");
+        // System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo
+        // concurso");
+        // System.out.println("esses numeros foram");
+        // System.out.println(repeatNumbers);
+        // System.out.println("---------------------------------------------");
 
     }
 

@@ -73,9 +73,17 @@ public class App {
 
         // loto.initConquest();
 
-        loto.changePeriodOfConquest(0, 6);
+        // loto.changePeriodOfConquest(0, 6);
+
+        // loto.initConquest();
+
+        // loto.printAllArray();
+
+        loto.changePeriodOfConquest(0, 12);
 
         loto.initConquest();
+
+        loto.printAllArray();
 
         // ArrayList<String> eclNumbers = new ArrayList<>();
 
@@ -124,8 +132,6 @@ public class App {
         // loto6.setNotMostAwardeQtd(13);
         // loto6.createBets(2, 20);
         // System.out.println("---------------------------------------------");
-
-        loto.printAllArray();
 
         // loto.inLastCoquest();
 

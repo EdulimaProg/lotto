@@ -9,6 +9,15 @@ public class Dezenas {
     public boolean lastConquest;
     public String percentage;
     public String range;
+    public String position;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
     public String getRange() {
         return range;

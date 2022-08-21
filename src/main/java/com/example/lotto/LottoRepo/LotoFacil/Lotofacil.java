@@ -247,6 +247,7 @@ public class Lotofacil extends Lotto {
                     + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
                     + data.getRange());
         }
+
         Collections.sort(numbersMostAwarded, new Comparator<Dezenas>() {
             public int compare(Dezenas s1, Dezenas s2) {
                 return Integer.valueOf(s1.getQuantidade()).compareTo(s2.getQuantidade());
@@ -271,6 +272,9 @@ public class Lotofacil extends Lotto {
                     + data.getRange());
         }
         System.out.println("-----------------------------------");
+
+        System.out.println("-----------------------------------");
+
     }
 
     public void inLastCoquest() {
@@ -346,11 +350,13 @@ public class Lotofacil extends Lotto {
             System.out.println(seq.getConquest());
             System.out.println("---------------------------------------------");
         }
-        System.out.println("---------------------------------------------");
-        System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo concurso");
-        System.out.println("esses numeros foram");
-        System.out.println(repeatNumbers);
-        System.out.println("---------------------------------------------");
+
+        // System.out.println("---------------------------------------------");
+        // System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo
+        // concurso");
+        // System.out.println("esses numeros foram");
+        // System.out.println(repeatNumbers);
+        // System.out.println("---------------------------------------------");
 
     }
 
@@ -374,7 +380,7 @@ public class Lotofacil extends Lotto {
     public String witchRange(String number) {
         String rangeResponse = " ";
         for (int i = 0; i < lotofacil.getLotoLineSize(); i++) {
-            if (ltr.lotofacilFaixas().getLottoInFaixa().get(i).contains(number)) {
+            if (ltr.createFaixas(lotofacil).getLottoInFaixa().get(i).contains(number)) {
                 rangeResponse = "Faixa " + (i + 1);
             }
 
