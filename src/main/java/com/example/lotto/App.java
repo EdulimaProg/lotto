@@ -8,7 +8,7 @@ public class App {
         // Lotofacil loto = new Lotofacil();
         Lotomania loto = new Lotomania();
 
-        loto.changePeriodOfConquest(0, 12);
+        // loto.changePeriodOfConquest(0, 12);
 
         loto.getOnlyAcumulated(0, 7);
 
