@@ -239,7 +239,7 @@ public class Lotomania extends Lotto {
         for (Dezenas data : numbersMostAwarded) {
             System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
                     + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest() + " porcentagem de acertos "
-                    + data.getPercentage() + "% " + data.getRange());
+                    + data.getPercentage() + "% " + "Faixa :" + data.getRange());
         }
 
         System.out.println("----------------------------------");
@@ -248,7 +248,7 @@ public class Lotomania extends Lotto {
             if (data.getIsLastConquest() == true) {
                 System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
                         + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
-                        + " porcentagem de acertos " + data.getPercentage() + "% " + data.getRange());
+                        + " porcentagem de acertos " + data.getPercentage() + "% " + "Faixa :" + data.getRange());
             }
         }
 
@@ -269,19 +269,19 @@ public class Lotomania extends Lotto {
         for (Dezenas data : numbersMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
                     + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                    + data.getRange());
+                    + "Faixa :" + data.getRange());
         }
         System.out.println("----------------------------------");
         for (Dezenas data : pairMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
                     + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                    + data.getRange());
+                    + "Faixa :" + data.getRange());
         }
         System.out.println("-----------------------------------");
         for (Dezenas data : primeNumbers) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
                     + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                    + data.getRange());
+                    + "Faixa :" + data.getRange());
         }
         System.out.println("-----------------------------------");
     }
@@ -386,11 +386,37 @@ public class Lotomania extends Lotto {
         }
     }
 
-    public String witchRange(String number) {
-        String rangeResponse = " ";
+    public void getSpecificRange(Integer range) {
+        for (Dezenas data : numbersMostAwarded) {
+            if (data.getRange() == range) {
+                System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
+                        + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
+                        + " porcentagem de acertos "
+                        + data.getPercentage() + "% " + "Faixa :" + data.getRange());
+            }
+        }
+
+    }
+
+    public void getAllRange() {
+        for (int i = 0; i < 10; i++) {
+            for (Dezenas data : numbersMostAwarded) {
+                if (data.getRange() == i + 1) {
+                    System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
+                            + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
+                            + " porcentagem de acertos "
+                            + data.getPercentage() + "% " + "Faixa :" + data.getRange());
+                }
+            }
+            System.out.println("-----------------------------------");
+        }
+    }
+
+    public Integer witchRange(String number) {
+        Integer rangeResponse = 0;
         for (int i = 0; i < lotomania.getLotoLineSize(); i++) {
             if (ltr.createFaixas(lotomania).getLottoInFaixa().get(i).contains(number)) {
-                rangeResponse = "Faixa " + (i + 1);
+                rangeResponse = (i + 1);
             }
 
         }

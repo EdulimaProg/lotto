@@ -150,6 +150,12 @@ public class Lotofacil extends Lotto {
             }
         });
 
+        int i = 1;
+        for (Dezenas data : numbersMostAwarded) {
+            data.setPosition("Pos :" + i);
+            i++;
+        }
+
         System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
     }
@@ -277,6 +283,32 @@ public class Lotofacil extends Lotto {
 
     }
 
+    public void getSpecificRange(Integer range) {
+        for (Dezenas data : numbersMostAwarded) {
+            if (data.getRange() == range) {
+                System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
+                        + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
+                        + " porcentagem de acertos "
+                        + data.getPercentage() + "% " + "Faixa :" + data.getRange());
+            }
+        }
+
+    }
+
+    public void getAllRange() {
+        for (int i = 0; i < 5; i++) {
+            for (Dezenas data : numbersMostAwarded) {
+                if (data.getRange() == i + 1) {
+                    System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
+                            + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
+                            + " porcentagem de acertos "
+                            + data.getPercentage() + "% " + "Faixa :" + data.getRange());
+                }
+            }
+            System.out.println("-----------------------------------");
+        }
+    }
+
     public void inLastCoquest() {
         int prmo = 0;
         int ntprmo = 0;
@@ -377,11 +409,11 @@ public class Lotofacil extends Lotto {
         }
     }
 
-    public String witchRange(String number) {
-        String rangeResponse = " ";
+    public Integer witchRange(String number) {
+        Integer rangeResponse = 0;
         for (int i = 0; i < lotofacil.getLotoLineSize(); i++) {
             if (ltr.createFaixas(lotofacil).getLottoInFaixa().get(i).contains(number)) {
-                rangeResponse = "Faixa " + (i + 1);
+                rangeResponse = (i + 1);
             }
 
         }

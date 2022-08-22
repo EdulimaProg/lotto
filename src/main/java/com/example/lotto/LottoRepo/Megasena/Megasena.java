@@ -358,11 +358,11 @@ public class Megasena extends Lotto {
         }
     }
 
-    public String witchRange(String number) {
-        String rangeResponse = " ";
+    public Integer witchRange(String number) {
+        Integer rangeResponse = 0;
         for (int i = 0; i < megasena.getLotoLineSize(); i++) {
             if (ltr.createFaixas(megasena).getLottoInFaixa().get(i).contains(number)) {
-                rangeResponse = "Faixa " + (i + 1);
+                rangeResponse = (i + 1);
             }
 
         }

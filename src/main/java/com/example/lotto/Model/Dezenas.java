@@ -8,7 +8,7 @@ public class Dezenas {
     public ArrayList<Integer> conquest;
     public boolean lastConquest;
     public String percentage;
-    public String range;
+    public Integer range;
     public String position;
 
     public String getPosition() {
@@ -19,11 +19,11 @@ public class Dezenas {
         this.position = position;
     }
 
-    public String getRange() {
+    public Integer getRange() {
         return range;
     }
 
-    public void setRange(String range) {
+    public void setRange(Integer range) {
         this.range = range;
     }
 
