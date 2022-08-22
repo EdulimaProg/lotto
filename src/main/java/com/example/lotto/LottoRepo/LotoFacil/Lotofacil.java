@@ -295,6 +295,16 @@ public class Lotofacil extends Lotto {
 
     }
 
+    public void getOnlyAcumulated(int init, int end) {
+        clearAllArrays();
+        initArrays();
+        for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType).subList(init, end)) {
+            if (data.getAcumulou() == true) {
+                concursos.add(data);
+            }
+        }
+    }
+
     public void getAllRange() {
         for (int i = 0; i < 5; i++) {
             for (Dezenas data : numbersMostAwarded) {

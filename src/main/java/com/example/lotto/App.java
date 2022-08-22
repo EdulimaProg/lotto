@@ -1,12 +1,13 @@
 package com.example.lotto;
 
+import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
 import com.example.lotto.LottoRepo.Lotomania.Lotomania;
 
 public class App {
 
     public static void main(String[] args) {
-        // Lotofacil loto = new Lotofacil();
-        Lotomania loto = new Lotomania();
+        Lotofacil loto = new Lotofacil();
+        // Lotomania loto = new Lotomania();
 
         // loto.changePeriodOfConquest(0, 12);
 

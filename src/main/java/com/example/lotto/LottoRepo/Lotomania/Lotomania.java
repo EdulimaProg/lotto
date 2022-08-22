@@ -139,7 +139,7 @@ public class Lotomania extends Lotto {
 
         int i = 1;
         for (Dezenas data : numbersMostAwarded) {
-            data.setPosition("Pos :" + i);
+            data.setPosition("Pos :" + String.format("%02d", i + numberOfStart));
             i++;
         }
 
