@@ -1,24 +1,6 @@
 package com.example.lotto;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
-
-import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
 import com.example.lotto.LottoRepo.Lotomania.Lotomania;
-import com.example.lotto.Services.DatabaseConn;
-
-// import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
-// import com.example.lotto.LottoRepo.Megasena.Megasena;
 
 public class App {
 
@@ -27,6 +9,8 @@ public class App {
         Lotomania loto = new Lotomania();
 
         loto.changePeriodOfConquest(0, 12);
+
+        loto.getOnlyAcumulated(0, 7);
 
         loto.initConquest();
 

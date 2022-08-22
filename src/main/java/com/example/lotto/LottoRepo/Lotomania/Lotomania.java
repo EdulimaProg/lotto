@@ -378,6 +378,16 @@ public class Lotomania extends Lotto {
         }
     }
 
+    public void getOnlyAcumulated(int init, int end) {
+        clearAllArrays();
+        initArrays();
+        for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType).subList(init, end)) {
+            if (data.getAcumulou() == true) {
+                concursos.add(data);
+            }
+        }
+    }
+
     public void getFaixaMostAwarded() {
         for (LoteriasModel loteriasModel : concursos) {
             for (String dezena : loteriasModel.getDezenas()) {
