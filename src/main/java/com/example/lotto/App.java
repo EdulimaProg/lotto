@@ -1,12 +1,14 @@
 package com.example.lotto;
 
 import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
+import com.example.lotto.LottoRepo.LotoFacil.LotofacilStatitics;
 import com.example.lotto.LottoRepo.Lotomania.Lotomania;
 
 public class App {
 
     public static void main(String[] args) {
         Lotofacil loto = new Lotofacil();
+        LotofacilStatitics lotto = new LotofacilStatitics();
         // Lotomania loto = new Lotomania();
 
         loto.changePeriodOfConquest(0, 14);
@@ -15,7 +17,7 @@ public class App {
 
         loto.initConquest();
 
-        // loto.getStatiticsInAllConquests();
+        loto.getStatiticsInAllConquests();
 
         // loto.getNumbersOfAllConquest();
 
