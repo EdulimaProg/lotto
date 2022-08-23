@@ -9,18 +9,22 @@ public class App {
         Lotofacil loto = new Lotofacil();
         // Lotomania loto = new Lotomania();
 
-        loto.changePeriodOfConquest(0, 12);
+        loto.changePeriodOfConquest(0, 14);
 
-        // loto.getOnlyAcumulated(0, 7);
+        // loto.getOnlyAcumulated(0, 14);
 
         loto.initConquest();
 
+        // loto.getStatiticsInAllConquests();
+
+        // loto.getNumbersOfAllConquest();
+
         // loto.printAllArray();
 
+        // loto.inLastCoquest();
         // loto.getSpecificRange(1);
 
-        // loto.getAllRange();
-        loto.getNumbersOfAllConquest();
+        loto.getAllRange();
 
         // TODO sistema para tirar espaçoes vaizio e coloar virgulas
         // 01,03,04,05,07,08,10,11,12,13,15,16,18,21,22

@@ -6,10 +6,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import com.example.lotto.LottoRepo.Interface.Lotto;
+import com.example.lotto.Model.ConquestStatistics;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Model.LotoType;
 import com.example.lotto.Model.RangeScheme;
+import com.example.lotto.Model.RangeSchemeDetails;
+import com.example.lotto.Model.SchemeMostAwarded;
 import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
@@ -24,6 +27,8 @@ public class Lotofacil extends Lotto {
     static ArrayList<String> primosList = new ArrayList<>();
     static ArrayList<String> notPrimosList = new ArrayList<>();
     static ArrayList<RangeScheme> rangeSchemeList = new ArrayList<>();
+    static ArrayList<ConquestStatistics> conquestStatisticsList = new ArrayList<>();
+    static ArrayList<SchemeMostAwarded> schemeMostAwardeds = new ArrayList<>();
     //
     private ArrayList<LoteriasModel> concursos = new ArrayList<>();
     private ArrayList<Dezenas> numbersMostAwarded = new ArrayList<>();
@@ -52,6 +57,30 @@ public class Lotofacil extends Lotto {
         lotofacil = new LotoType("Lotofacil", 5, 5);
         ltr = new LotteryRangers();
         initArrays();
+    }
+
+    public void getStatiticsInAllConquests() {
+        for (LoteriasModel data : concursos) {
+            ConquestStatistics conquestStatistics = new ConquestStatistics();
+
+            conquestStatistics.setConquestNumber(data.getConcurso());
+            conquestStatistics.setIsAcumulated(data.getAcumulou());
+            conquestStatistics.setData(data.getData());
+            conquestStatistics.setDezenas(data.getDezenas());
+            conquestStatistics.setDezenasScheme(getRangeForConquest(data.getDezenas()));
+
+            conquestStatisticsList.add(conquestStatistics);
+        }
+
+        for (ConquestStatistics data : conquestStatisticsList) {
+
+            System.out.println(data.toString());
+            System.out.println("\n");
+        }
+    }
+
+    public void getSchemeMostAwaded() {
+
     }
 
     public List getFavoriteNumbers() {
@@ -162,6 +191,51 @@ public class Lotofacil extends Lotto {
 
     }
 
+    private String getRangeForConquest(ArrayList<String> data) {
+        int range1 = 0;
+        int range2 = 0;
+        int range3 = 0;
+        int range4 = 0;
+        int range5 = 0;
+
+        RangeScheme rangeScheme = new RangeScheme();
+
+        for (int i = 0; i < data.size(); i++) {
+            switch (witchRange(data.get(i))) {
+                case 1:
+                    range1 = range1 + 1;
+                    break;
+                case 2:
+                    range2 = range2 + 1;
+                    break;
+                case 3:
+                    range3 = range3 + 1;
+                    break;
+                case 4:
+                    range4 = range4 + 1;
+                    break;
+                case 5:
+                    range5 = range5 + 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        rangeScheme.setFaixa1(new RangeSchemeDetails(1, range1));
+        rangeScheme.setFaixa2(new RangeSchemeDetails(2, range2));
+        rangeScheme.setFaixa3(new RangeSchemeDetails(3, range3));
+        rangeScheme.setFaixa4(new RangeSchemeDetails(4, range4));
+        rangeScheme.setFaixa5(new RangeSchemeDetails(5, range5));
+
+        String response = rangeScheme.getFaixa1().getQuantity() + "-" + rangeScheme.getFaixa2().getQuantity() + "-"
+                + rangeScheme.getFaixa3().getQuantity() + "-"
+                + rangeScheme.getFaixa4().getQuantity() + "-" + rangeScheme.getFaixa5().getQuantity();
+
+        return response;
+
+    }
+
     public void getNumbersOfAllConquest() {
 
         for (LoteriasModel data : concursos) {
@@ -171,7 +245,7 @@ public class Lotofacil extends Lotto {
             int range4 = 0;
             int range5 = 0;
 
-            RangeScheme range = new RangeScheme();
+            RangeScheme rangeScheme = new RangeScheme();
 
             for (int i = 0; i < data.getDezenas().size(); i++) {
                 switch (witchRange(data.getDezenas().get(i))) {
@@ -195,21 +269,22 @@ public class Lotofacil extends Lotto {
                 }
             }
 
-            range.setConquest(data.getConcurso());
-            range.setFaixa1(range1);
-            range.setFaixa2(range2);
-            range.setFaixa3(range3);
-            range.setFaixa4(range4);
-            range.setFaixa5(range5);
+            rangeScheme.setConquest(data.getConcurso());
+            rangeScheme.setFaixa1(new RangeSchemeDetails(1, range1));
+            rangeScheme.setFaixa2(new RangeSchemeDetails(2, range2));
+            rangeScheme.setFaixa3(new RangeSchemeDetails(3, range3));
+            rangeScheme.setFaixa4(new RangeSchemeDetails(4, range4));
+            rangeScheme.setFaixa5(new RangeSchemeDetails(5, range5));
 
-            rangeSchemeList.add(range);
+            rangeSchemeList.add(rangeScheme);
 
         }
 
         for (RangeScheme data : rangeSchemeList) {
             System.out.println(data.getConquest());
-            System.out.println("Scheme " + data.getFaixa1() + "-" + data.getFaixa2() + "-" + data.getFaixa3() + "-"
-                    + data.getFaixa4() + "-" + data.getFaixa5());
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" + data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity());
         }
     }
 
@@ -358,10 +433,6 @@ public class Lotofacil extends Lotto {
         }
     }
 
-    public void getRangeScheme() {
-
-    }
-
     public void getAllRange() {
         for (int i = 0; i < 5; i++) {
             for (Dezenas data : numbersMostAwarded) {
@@ -443,13 +514,19 @@ public class Lotofacil extends Lotto {
             System.out.println("Primo " + prmo + " x " + ntprmo + " Nor Primo");
         }
 
-        for (Dezenas seq : numbersMostAwarded) {
-            System.out.println("---------------------------------------------");
-            System.out.println(seq.getDezena());
-            System.out.println(seq.getConquest());
-            System.out.println("---------------------------------------------");
-        }
+        // for (Dezenas seq : numbersMostAwarded) {
+        // System.out.println("---------------------------------------------");
+        // System.out.println(seq.getDezena());
+        // System.out.println(seq.getConquest());
+        // System.out.println("---------------------------------------------");
+        // }
 
+        for (RangeScheme data : rangeSchemeList.subList(0, 1)) {
+            System.out.println(data.getConquest());
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" + data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity());
+        }
         // System.out.println("---------------------------------------------");
         // System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo
         // concurso");
@@ -469,11 +546,45 @@ public class Lotofacil extends Lotto {
     }
 
     public void getFaixaMostAwarded() {
-        for (LoteriasModel loteriasModel : concursos) {
-            for (String dezena : loteriasModel.getDezenas()) {
+        int range1 = 0;
+        int range2 = 0;
+        int range3 = 0;
+        int range4 = 0;
+        int range5 = 0;
 
+        RangeScheme rangeScheme = new RangeScheme();
+
+        for (LoteriasModel data : concursos) {
+            for (int i = 0; i < data.getDezenas().size(); i++) {
+                switch (witchRange(data.getDezenas().get(i))) {
+                    case 1:
+                        range1 = range1 + 1;
+                        break;
+                    case 2:
+                        range2 = range2 + 1;
+                        break;
+                    case 3:
+                        range3 = range3 + 1;
+                        break;
+                    case 4:
+                        range4 = range4 + 1;
+                        break;
+                    case 5:
+                        range5 = range5 + 1;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
+        rangeScheme.setFaixa1(new RangeSchemeDetails(1, range1));
+        rangeScheme.setFaixa2(new RangeSchemeDetails(2, range2));
+        rangeScheme.setFaixa3(new RangeSchemeDetails(3, range3));
+        rangeScheme.setFaixa4(new RangeSchemeDetails(4, range4));
+        rangeScheme.setFaixa5(new RangeSchemeDetails(5, range5));
+
+        rangeSchemeList.add(rangeScheme);
     }
 
     public Integer witchRange(String number) {
