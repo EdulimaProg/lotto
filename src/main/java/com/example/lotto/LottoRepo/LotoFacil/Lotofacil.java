@@ -9,6 +9,7 @@ import com.example.lotto.LottoRepo.Interface.Lotto;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Model.LotoType;
+import com.example.lotto.Model.RangeScheme;
 import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
@@ -22,6 +23,7 @@ public class Lotofacil extends Lotto {
     static ArrayList<String> oddList = new ArrayList<>();
     static ArrayList<String> primosList = new ArrayList<>();
     static ArrayList<String> notPrimosList = new ArrayList<>();
+    static ArrayList<RangeScheme> rangeSchemeList = new ArrayList<>();
     //
     private ArrayList<LoteriasModel> concursos = new ArrayList<>();
     private ArrayList<Dezenas> numbersMostAwarded = new ArrayList<>();
@@ -158,6 +160,57 @@ public class Lotofacil extends Lotto {
 
         System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
+    }
+
+    public void getNumbersOfAllConquest() {
+
+        for (LoteriasModel data : concursos) {
+            int range1 = 0;
+            int range2 = 0;
+            int range3 = 0;
+            int range4 = 0;
+            int range5 = 0;
+
+            RangeScheme range = new RangeScheme();
+
+            for (int i = 0; i < data.getDezenas().size(); i++) {
+                switch (witchRange(data.getDezenas().get(i))) {
+                    case 1:
+                        range1 = range1 + 1;
+                        break;
+                    case 2:
+                        range2 = range2 + 1;
+                        break;
+                    case 3:
+                        range3 = range3 + 1;
+                        break;
+                    case 4:
+                        range4 = range4 + 1;
+                        break;
+                    case 5:
+                        range5 = range5 + 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            range.setConquest(data.getConcurso());
+            range.setFaixa1(range1);
+            range.setFaixa2(range2);
+            range.setFaixa3(range3);
+            range.setFaixa4(range4);
+            range.setFaixa5(range5);
+
+            rangeSchemeList.add(range);
+
+        }
+
+        for (RangeScheme data : rangeSchemeList) {
+            System.out.println(data.getConquest());
+            System.out.println("Scheme " + data.getFaixa1() + "-" + data.getFaixa2() + "-" + data.getFaixa3() + "-"
+                    + data.getFaixa4() + "-" + data.getFaixa5());
+        }
     }
 
     private void getHistoricPairNumbers() {
@@ -303,6 +356,10 @@ public class Lotofacil extends Lotto {
                 concursos.add(data);
             }
         }
+    }
+
+    public void getRangeScheme() {
+
     }
 
     public void getAllRange() {
