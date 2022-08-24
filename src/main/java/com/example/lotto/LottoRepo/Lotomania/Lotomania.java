@@ -7,9 +7,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.example.lotto.LottoRepo.Interface.Lotto;
+import com.example.lotto.Model.ConquestStatistics;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Model.LotoType;
+import com.example.lotto.Model.RangeScheme;
+import com.example.lotto.Model.RangeSchemeDetails;
 import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
@@ -23,6 +26,8 @@ public class Lotomania extends Lotto {
     static ArrayList<String> oddList = new ArrayList<>();
     static ArrayList<String> primosList = new ArrayList<>();
     static ArrayList<String> notPrimosList = new ArrayList<>();
+    static ArrayList<ConquestStatistics> conquestStatisticsList = new ArrayList<>();
+
     //
     private ArrayList<LoteriasModel> concursos = new ArrayList<>();
     private ArrayList<Dezenas> numbersMostAwarded = new ArrayList<>();
@@ -99,6 +104,98 @@ public class Lotomania extends Lotto {
             if (Utils.isPrimos(i + 1))
                 primosList.add(String.format("%02d", i + 1));
         }
+    }
+
+    public void getStatiticsInAllConquests() {
+        for (LoteriasModel data : concursos) {
+            ConquestStatistics conquestStatistics = new ConquestStatistics();
+
+            conquestStatistics.setConquestNumber(data.getConcurso());
+            conquestStatistics.setIsAcumulated(data.getAcumulou());
+            conquestStatistics.setData(data.getData());
+            conquestStatistics.setDezenas(data.getDezenas());
+            conquestStatistics.setDezenasScheme(getRangeForConquest(data.getDezenas()));
+
+            conquestStatisticsList.add(conquestStatistics);
+        }
+
+        for (ConquestStatistics data : conquestStatisticsList) {
+
+            System.out.println(data.toString());
+            System.out.println("\n");
+        }
+    }
+
+    private String getRangeForConquest(ArrayList<String> data) {
+        int range1 = 0;
+        int range2 = 0;
+        int range3 = 0;
+        int range4 = 0;
+        int range5 = 0;
+        int range6 = 0;
+        int range7 = 0;
+        int range8 = 0;
+        int range9 = 0;
+        int range10 = 0;
+
+        RangeScheme rangeScheme = new RangeScheme();
+
+        for (int i = 0; i < data.size(); i++) {
+            switch (witchRange(data.get(i))) {
+            case 1:
+                range1 = range1 + 1;
+                break;
+            case 2:
+                range2 = range2 + 1;
+                break;
+            case 3:
+                range3 = range3 + 1;
+                break;
+            case 4:
+                range4 = range4 + 1;
+                break;
+            case 5:
+                range5 = range5 + 1;
+                break;
+            case 6:
+                range6 = range6 + 1;
+                break;
+            case 7:
+                range7 = range8 + 1;
+                break;
+            case 8:
+                range8 = range8 + 1;
+                break;
+            case 9:
+                range9 = range9 + 1;
+                break;
+            case 10:
+                range10 = range10 + 1;
+                break;
+            default:
+                break;
+            }
+        }
+
+        rangeScheme.setFaixa1(new RangeSchemeDetails(1, range1));
+        rangeScheme.setFaixa2(new RangeSchemeDetails(2, range2));
+        rangeScheme.setFaixa3(new RangeSchemeDetails(3, range3));
+        rangeScheme.setFaixa4(new RangeSchemeDetails(4, range4));
+        rangeScheme.setFaixa5(new RangeSchemeDetails(5, range5));
+        rangeScheme.setFaixa6(new RangeSchemeDetails(6, range6));
+        rangeScheme.setFaixa7(new RangeSchemeDetails(7, range7));
+        rangeScheme.setFaixa8(new RangeSchemeDetails(8, range8));
+        rangeScheme.setFaixa9(new RangeSchemeDetails(9, range9));
+        rangeScheme.setFaixa10(new RangeSchemeDetails(10, range10));
+
+        String response = rangeScheme.getFaixa1().getQuantity() + +rangeScheme.getFaixa3().getQuantity() + "-"
+                + rangeScheme.getFaixa4().getQuantity() + "-" + rangeScheme.getFaixa5().getQuantity() + "-"
+                + rangeScheme.getFaixa6().getQuantity() + "-" + rangeScheme.getFaixa7().getQuantity() + "-"
+                + rangeScheme.getFaixa8().getQuantity() + "-" + rangeScheme.getFaixa9().getQuantity() + "-"
+                + rangeScheme.getFaixa10().getQuantity();
+
+        return response;
+
     }
 
     private void getHistoricMostAwarded() {
@@ -268,20 +365,20 @@ public class Lotomania extends Lotto {
         System.out.println("----------------------------------");
         for (Dezenas data : numbersMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                    + "Faixa :" + data.getRange());
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% " + "Faixa :"
+                    + data.getRange());
         }
         System.out.println("----------------------------------");
         for (Dezenas data : pairMostAwarded) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                    + "Faixa :" + data.getRange());
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% " + "Faixa :"
+                    + data.getRange());
         }
         System.out.println("-----------------------------------");
         for (Dezenas data : primeNumbers) {
             System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                    + "Faixa :" + data.getRange());
+                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% " + "Faixa :"
+                    + data.getRange());
         }
         System.out.println("-----------------------------------");
     }
@@ -401,8 +498,7 @@ public class Lotomania extends Lotto {
             if (data.getRange() == range) {
                 System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
                         + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
-                        + " porcentagem de acertos "
-                        + data.getPercentage() + "% " + "Faixa :" + data.getRange());
+                        + " porcentagem de acertos " + data.getPercentage() + "% " + "Faixa :" + data.getRange());
             }
         }
 
@@ -414,8 +510,7 @@ public class Lotomania extends Lotto {
                 if (data.getRange() == i + 1) {
                     System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
                             + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
-                            + " porcentagem de acertos "
-                            + data.getPercentage() + "% " + "Faixa :" + data.getRange());
+                            + " porcentagem de acertos " + data.getPercentage() + "% " + "Faixa :" + data.getRange());
                 }
             }
             System.out.println("-----------------------------------");

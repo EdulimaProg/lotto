@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import com.example.lotto.LottoRepo.Interface.Lotto;
+import com.example.lotto.Model.ConquestStatistics;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Model.LotoType;
+import com.example.lotto.Model.RangeScheme;
+import com.example.lotto.Model.RangeSchemeDetails;
+import com.example.lotto.Model.SchemeMostAwarded;
 import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
@@ -17,18 +20,22 @@ import com.example.lotto.Utils.Utils;
 
 public class Megasena extends Lotto {
     private HttpConnection conn = new HttpConnection();
-    private Utils utils = new Utils(Constants.LOTOFACIL);
+    private Utils utils = new Utils(Constants.MEGASENA);
 
     static ArrayList<String> pairList = new ArrayList<>();
     static ArrayList<String> oddList = new ArrayList<>();
     static ArrayList<String> primosList = new ArrayList<>();
     static ArrayList<String> notPrimosList = new ArrayList<>();
+    static ArrayList<RangeScheme> rangeSchemeList = new ArrayList<>();
+    static ArrayList<ConquestStatistics> conquestStatisticsList = new ArrayList<>();
+    static ArrayList<SchemeMostAwarded> schemeMostAwardeds = new ArrayList<>();
     //
     private ArrayList<LoteriasModel> concursos = new ArrayList<>();
     private ArrayList<Dezenas> numbersMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> pairMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> primeNumbers = new ArrayList<>();
     private ArrayList<String> listString = new ArrayList<>();
+
     private ArrayList<String> preferredNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> ExcludersNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> withOutExcluders = new ArrayList<>();
@@ -42,6 +49,7 @@ public class Megasena extends Lotto {
     private Integer notMostAwardeQtd;
     private Integer numberOfStart;
     private List excludeNumbers;
+    private List favoriteNumbers;
 
     public Megasena() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
@@ -49,6 +57,42 @@ public class Megasena extends Lotto {
         megasena = new LotoType("Megasena", 6, 10);
         ltr = new LotteryRangers();
         initArrays();
+    }
+
+    public void getStatiticsInAllConquests() {
+        for (LoteriasModel data : concursos) {
+            ConquestStatistics conquestStatistics = new ConquestStatistics();
+
+            conquestStatistics.setConquestNumber(data.getConcurso());
+            conquestStatistics.setIsAcumulated(data.getAcumulou());
+            conquestStatistics.setData(data.getData());
+            conquestStatistics.setDezenas(data.getDezenas());
+            conquestStatistics.setDezenasScheme(getRangeForConquest(data.getDezenas()));
+
+            conquestStatisticsList.add(conquestStatistics);
+        }
+
+        for (ConquestStatistics data : conquestStatisticsList) {
+
+            System.out.println(data.toString());
+            System.out.println("\n");
+        }
+    }
+
+    public void getSchemeMostAwaded() {
+
+    }
+
+    public List getFavoriteNumbers() {
+        return favoriteNumbers;
+    }
+
+    public void setFavoriteNumbers(List favoriteNumbers) {
+        this.favoriteNumbers = favoriteNumbers;
+    }
+
+    public ArrayList<String> getListString() {
+        return listString;
     }
 
     public List getExcludeNumbers() {
@@ -137,8 +181,123 @@ public class Megasena extends Lotto {
             }
         });
 
+        int i = 1;
+        for (Dezenas data : numbersMostAwarded) {
+            data.setPosition("Pos :" + i);
+            i++;
+        }
+
         System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
+    }
+
+    private String getRangeForConquest(ArrayList<String> data) {
+        int range1 = 0;
+        int range2 = 0;
+        int range3 = 0;
+        int range4 = 0;
+        int range5 = 0;
+        int range6 = 0;
+
+        RangeScheme rangeScheme = new RangeScheme();
+
+        for (int i = 0; i < data.size(); i++) {
+            switch (witchRange(data.get(i))) {
+                case 1:
+                    range1 = range1 + 1;
+                    break;
+                case 2:
+                    range2 = range2 + 1;
+                    break;
+                case 3:
+                    range3 = range3 + 1;
+                    break;
+                case 4:
+                    range4 = range4 + 1;
+                    break;
+                case 5:
+                    range5 = range5 + 1;
+                    break;
+                case 6:
+                    range6 = range6 + 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        rangeScheme.setFaixa1(new RangeSchemeDetails(1, range1));
+        rangeScheme.setFaixa2(new RangeSchemeDetails(2, range2));
+        rangeScheme.setFaixa3(new RangeSchemeDetails(3, range3));
+        rangeScheme.setFaixa4(new RangeSchemeDetails(4, range4));
+        rangeScheme.setFaixa5(new RangeSchemeDetails(5, range5));
+        rangeScheme.setFaixa6(new RangeSchemeDetails(6, range6));
+
+        String response = rangeScheme.getFaixa1().getQuantity() + "-" + rangeScheme.getFaixa2().getQuantity() + "-"
+                + rangeScheme.getFaixa3().getQuantity() + "-"
+                + rangeScheme.getFaixa4().getQuantity() + "-" + rangeScheme.getFaixa5().getQuantity() + "-"
+                + rangeScheme.getFaixa6().getQuantity();
+
+        return response;
+
+    }
+
+    public void getNumbersOfAllConquest() {
+
+        for (LoteriasModel data : concursos) {
+            int range1 = 0;
+            int range2 = 0;
+            int range3 = 0;
+            int range4 = 0;
+            int range5 = 0;
+            int range6 = 0;
+
+            RangeScheme rangeScheme = new RangeScheme();
+
+            for (int i = 0; i < data.getDezenas().size(); i++) {
+                switch (witchRange(data.getDezenas().get(i))) {
+                    case 1:
+                        range1 = range1 + 1;
+                        break;
+                    case 2:
+                        range2 = range2 + 1;
+                        break;
+                    case 3:
+                        range3 = range3 + 1;
+                        break;
+                    case 4:
+                        range4 = range4 + 1;
+                        break;
+                    case 5:
+                        range5 = range5 + 1;
+                        break;
+                    case 6:
+                        range6 = range6 + 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            rangeScheme.setConquest(data.getConcurso());
+            rangeScheme.setFaixa1(new RangeSchemeDetails(1, range1));
+            rangeScheme.setFaixa2(new RangeSchemeDetails(2, range2));
+            rangeScheme.setFaixa3(new RangeSchemeDetails(3, range3));
+            rangeScheme.setFaixa4(new RangeSchemeDetails(4, range4));
+            rangeScheme.setFaixa5(new RangeSchemeDetails(5, range5));
+            rangeScheme.setFaixa6(new RangeSchemeDetails(6, range6));
+
+            rangeSchemeList.add(rangeScheme);
+
+        }
+
+        for (RangeScheme data : rangeSchemeList) {
+            System.out.println(data.getConquest());
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" + data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity() + "-"
+                    + data.getFaixa6().getQuantity());
+        }
     }
 
     private void getHistoricPairNumbers() {
@@ -234,6 +393,7 @@ public class Megasena extends Lotto {
                     + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
                     + data.getRange());
         }
+
         Collections.sort(numbersMostAwarded, new Comparator<Dezenas>() {
             public int compare(Dezenas s1, Dezenas s2) {
                 return Integer.valueOf(s1.getQuantidade()).compareTo(s2.getQuantidade());
@@ -258,6 +418,45 @@ public class Megasena extends Lotto {
                     + data.getRange());
         }
         System.out.println("-----------------------------------");
+
+        System.out.println("-----------------------------------");
+
+    }
+
+    public void getSpecificRange(Integer range) {
+        for (Dezenas data : numbersMostAwarded) {
+            if (data.getRange() == range) {
+                System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
+                        + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
+                        + " porcentagem de acertos "
+                        + data.getPercentage() + "% " + "Faixa :" + data.getRange());
+            }
+        }
+
+    }
+
+    public void getOnlyAcumulated(int init, int end) {
+        clearAllArrays();
+        initArrays();
+        for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(conquestType).subList(init, end)) {
+            if (data.getAcumulou() == true) {
+                concursos.add(data);
+            }
+        }
+    }
+
+    public void getAllRange() {
+        for (int i = 0; i < 6; i++) {
+            for (Dezenas data : numbersMostAwarded) {
+                if (data.getRange() == i + 1) {
+                    System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
+                            + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
+                            + " porcentagem de acertos "
+                            + data.getPercentage() + "% " + "Faixa :" + data.getRange());
+                }
+            }
+            System.out.println("-----------------------------------");
+        }
     }
 
     public void inLastCoquest() {
@@ -327,17 +526,25 @@ public class Megasena extends Lotto {
             System.out.println("Primo " + prmo + " x " + ntprmo + " Nor Primo");
         }
 
-        for (Dezenas seq : numbersMostAwarded) {
-            System.out.println("---------------------------------------------");
-            System.out.println(seq.getDezena());
-            System.out.println(seq.getConquest());
-            System.out.println("---------------------------------------------");
+        // for (Dezenas seq : numbersMostAwarded) {
+        // System.out.println("---------------------------------------------");
+        // System.out.println(seq.getDezena());
+        // System.out.println(seq.getConquest());
+        // System.out.println("---------------------------------------------");
+        // }
+
+        for (RangeScheme data : rangeSchemeList.subList(0, 1)) {
+            System.out.println(data.getConquest());
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" + data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity());
         }
-        System.out.println("---------------------------------------------");
-        System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo concurso");
-        System.out.println("esses numeros foram");
-        System.out.println(repeatNumbers);
-        System.out.println("---------------------------------------------");
+        // System.out.println("---------------------------------------------");
+        // System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo
+        // concurso");
+        // System.out.println("esses numeros foram");
+        // System.out.println(repeatNumbers);
+        // System.out.println("---------------------------------------------");
 
     }
 
@@ -351,11 +558,45 @@ public class Megasena extends Lotto {
     }
 
     public void getFaixaMostAwarded() {
-        for (LoteriasModel loteriasModel : concursos) {
-            for (String dezena : loteriasModel.getDezenas()) {
+        int range1 = 0;
+        int range2 = 0;
+        int range3 = 0;
+        int range4 = 0;
+        int range5 = 0;
 
+        RangeScheme rangeScheme = new RangeScheme();
+
+        for (LoteriasModel data : concursos) {
+            for (int i = 0; i < data.getDezenas().size(); i++) {
+                switch (witchRange(data.getDezenas().get(i))) {
+                    case 1:
+                        range1 = range1 + 1;
+                        break;
+                    case 2:
+                        range2 = range2 + 1;
+                        break;
+                    case 3:
+                        range3 = range3 + 1;
+                        break;
+                    case 4:
+                        range4 = range4 + 1;
+                        break;
+                    case 5:
+                        range5 = range5 + 1;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
+        rangeScheme.setFaixa1(new RangeSchemeDetails(1, range1));
+        rangeScheme.setFaixa2(new RangeSchemeDetails(2, range2));
+        rangeScheme.setFaixa3(new RangeSchemeDetails(3, range3));
+        rangeScheme.setFaixa4(new RangeSchemeDetails(4, range4));
+        rangeScheme.setFaixa5(new RangeSchemeDetails(5, range5));
+
+        rangeSchemeList.add(rangeScheme);
     }
 
     public Integer witchRange(String number) {
@@ -374,6 +615,7 @@ public class Megasena extends Lotto {
         int endOfBet;
         int mstAwdQtd;
         int ntMstAwdQtd;
+        List favNumbers;
         List numbersExcList;
 
         if (mostAwardedQtd != null) {
@@ -388,6 +630,12 @@ public class Megasena extends Lotto {
             numbersExcList = new ArrayList<>();
         } else {
             numbersExcList = excludeNumbers;
+        }
+
+        if (favoriteNumbers == null) {
+            favNumbers = new ArrayList<>();
+        } else {
+            favNumbers = favoriteNumbers;
         }
 
         if (numberOfStart == null) {
@@ -428,7 +676,9 @@ public class Megasena extends Lotto {
             subList1.addAll(subList);
 
             for (Dezenas dataDezenas : subList1.subList(0, mstAwdQtd)) {
-                betFormed.add(dataDezenas.getDezena());
+                if (favNumbers.contains(dataDezenas.getDezena()) == false) {
+                    betFormed.add(dataDezenas.getDezena());
+                }
                 // if (bet == "") {
                 // bet = dataDezenas.getDezena();
                 // } else {
@@ -448,8 +698,11 @@ public class Megasena extends Lotto {
             int index = 0;
             while (betFormed2.size() < ntMstAwdQtd) {
                 Boolean contains1 = betFormed.contains(subList2.get(index).getDezena());
+                Boolean contains2 = favNumbers.contains(subList2.get(index).getDezena());
                 if (contains1 == false) {
-                    betFormed2.add(subList2.get(index).getDezena());
+                    if (contains2 == false) {
+                        betFormed2.add(subList2.get(index).getDezena());
+                    }
                 }
                 index = index + 1;
             }
@@ -468,6 +721,7 @@ public class Megasena extends Lotto {
             endOfBet = endOfBet + interval;
 
             betFormed.addAll(betFormed2);
+            betFormed.addAll(favNumbers);
             Collections.sort(betFormed, new Comparator<String>() {
                 public int compare(String s1, String s2) {
                     return Integer.valueOf(s1).compareTo(Integer.valueOf(s2));
