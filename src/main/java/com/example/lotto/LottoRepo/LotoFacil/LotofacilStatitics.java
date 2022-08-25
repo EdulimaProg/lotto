@@ -43,7 +43,7 @@ public class LotofacilStatitics extends LottoStatitics {
     public LotofacilStatitics() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
-        lotofacil = new LotoType("Lotofacil", 5, 5);
+        lotofacil = new LotoType("Lotofacil", 5, 5, 1);
         ltr = new LotteryRangers();
     };
 

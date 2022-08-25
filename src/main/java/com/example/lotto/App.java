@@ -10,8 +10,8 @@ public class App {
     public static void main(String[] args) {
         // Lotofacil loto = new Lotofacil();
         // LotofacilStatitics lotto = new LotofacilStatitics();
-        // Lotomania loto = new Lotomania();
-        Megasena loto = new Megasena();
+        Lotomania loto = new Lotomania();
+        // Megasena loto = new Megasena();
 
         // loto.getOnlyAcumulated(0, 14);
         loto.changePeriodOfConquest(0, 8);

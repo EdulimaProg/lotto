@@ -51,7 +51,7 @@ public class Lotomania extends Lotto {
     public Lotomania() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
-        lotomania = new LotoType("Lotomania", 10, 10);
+        lotomania = new LotoType("Lotomania", 10, 10, 0);
         ltr = new LotteryRangers();
         initArrays();
     }
@@ -142,38 +142,38 @@ public class Lotomania extends Lotto {
 
         for (int i = 0; i < data.size(); i++) {
             switch (witchRange(data.get(i))) {
-            case 1:
-                range1 = range1 + 1;
-                break;
-            case 2:
-                range2 = range2 + 1;
-                break;
-            case 3:
-                range3 = range3 + 1;
-                break;
-            case 4:
-                range4 = range4 + 1;
-                break;
-            case 5:
-                range5 = range5 + 1;
-                break;
-            case 6:
-                range6 = range6 + 1;
-                break;
-            case 7:
-                range7 = range8 + 1;
-                break;
-            case 8:
-                range8 = range8 + 1;
-                break;
-            case 9:
-                range9 = range9 + 1;
-                break;
-            case 10:
-                range10 = range10 + 1;
-                break;
-            default:
-                break;
+                case 1:
+                    range1 = range1 + 1;
+                    break;
+                case 2:
+                    range2 = range2 + 1;
+                    break;
+                case 3:
+                    range3 = range3 + 1;
+                    break;
+                case 4:
+                    range4 = range4 + 1;
+                    break;
+                case 5:
+                    range5 = range5 + 1;
+                    break;
+                case 6:
+                    range6 = range6 + 1;
+                    break;
+                case 7:
+                    range7 = range8 + 1;
+                    break;
+                case 8:
+                    range8 = range8 + 1;
+                    break;
+                case 9:
+                    range9 = range9 + 1;
+                    break;
+                case 10:
+                    range10 = range10 + 1;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -188,7 +188,8 @@ public class Lotomania extends Lotto {
         rangeScheme.setFaixa9(new RangeSchemeDetails(9, range9));
         rangeScheme.setFaixa10(new RangeSchemeDetails(10, range10));
 
-        String response = rangeScheme.getFaixa1().getQuantity() + +rangeScheme.getFaixa3().getQuantity() + "-"
+        String response = rangeScheme.getFaixa1().getQuantity() + "-" + rangeScheme.getFaixa2().getQuantity() + "-"
+                + rangeScheme.getFaixa3().getQuantity() + "-"
                 + rangeScheme.getFaixa4().getQuantity() + "-" + rangeScheme.getFaixa5().getQuantity() + "-"
                 + rangeScheme.getFaixa6().getQuantity() + "-" + rangeScheme.getFaixa7().getQuantity() + "-"
                 + rangeScheme.getFaixa8().getQuantity() + "-" + rangeScheme.getFaixa9().getQuantity() + "-"
