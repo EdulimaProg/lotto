@@ -11,6 +11,9 @@ public class App {
         Lotomania loto = new Lotomania();
 =======
         // Lotomania loto = new Lotomania();
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         // Megasena loto = new Megasena();
 
