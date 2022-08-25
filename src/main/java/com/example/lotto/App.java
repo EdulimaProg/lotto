@@ -13,11 +13,11 @@ public class App {
         // Megasena loto = new Megasena();
 
         // loto.getOnlyAcumulated(0, 14);
-        loto.changePeriodOfConquest(0, 14);
+        loto.changePeriodOfConquest(0, 25);
 
         loto.initConquest();
 
-        loto.getStatiticsInAllConquests();
+        // loto.getStatiticsInAllConquests();
 
         // loto.getNumbersOfAllConquest();
 
