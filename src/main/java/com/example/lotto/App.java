@@ -14,7 +14,7 @@ public class App {
         Megasena loto = new Megasena();
 
         // loto.getOnlyAcumulated(0, 14);
-        loto.changePeriodOfConquest(0, 14);
+        loto.changePeriodOfConquest(0, 8);
 
         loto.initConquest();
 
