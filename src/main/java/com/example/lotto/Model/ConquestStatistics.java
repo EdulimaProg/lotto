@@ -7,7 +7,16 @@ public class ConquestStatistics {
     Boolean isAcumulated;
     String data;
     ArrayList<String> dezenas;
+    String stringDezenas;
     String dezenasScheme;
+
+    public String getStringDezenas() {
+        return stringDezenas;
+    }
+
+    public void setStringDezenas(String stringDezenas) {
+        this.stringDezenas = stringDezenas;
+    }
 
     public Boolean getIsAcumulated() {
         return isAcumulated;
@@ -55,6 +64,8 @@ public class ConquestStatistics {
                 + isAcumulated + ",\ndata :           " + data
                 + ",\ndezenas :        "
                 + dezenas
+                + ",\ndezenas :        "
+                + stringDezenas
                 + ",\ndezenasScheme :  " + dezenasScheme;
     }
 }

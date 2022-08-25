@@ -1,6 +1,6 @@
 package com.example.lotto.Model;
 
-public class SchemeMostAwarded {
+public class NumberSchemeMostAwarded {
     String schema;
     Integer Quantity;
 

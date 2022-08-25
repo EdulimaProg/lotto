@@ -10,6 +10,7 @@ import com.example.lotto.Model.ConquestStatistics;
 import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Model.LotoType;
+import com.example.lotto.Model.NumberSchemeMostAwarded;
 import com.example.lotto.Model.RangeScheme;
 import com.example.lotto.Model.RangeSchemeDetails;
 import com.example.lotto.Model.SchemeMostAwarded;
@@ -28,13 +29,16 @@ public class Lotofacil extends Lotto {
     static ArrayList<String> notPrimosList = new ArrayList<>();
     static ArrayList<RangeScheme> rangeSchemeList = new ArrayList<>();
     static ArrayList<ConquestStatistics> conquestStatisticsList = new ArrayList<>();
-    static ArrayList<SchemeMostAwarded> schemeMostAwardeds = new ArrayList<>();
+    static ArrayList<SchemeMostAwarded> schemeMostAwardedList = new ArrayList<>();
+    static ArrayList<NumberSchemeMostAwarded> numberStringList = new ArrayList<>();
+    static ArrayList<String> getAllLoteryScheme = new ArrayList<>();
     //
     private ArrayList<LoteriasModel> concursos = new ArrayList<>();
     private ArrayList<Dezenas> numbersMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> pairMostAwarded = new ArrayList<>();
     private ArrayList<Dezenas> primeNumbers = new ArrayList<>();
     private ArrayList<String> listString = new ArrayList<>();
+    private ArrayList<String> numberString = new ArrayList<>();
 
     private ArrayList<String> preferredNumbers = new ArrayList<>();
     // private ArrayList<Dezenas> ExcludersNumbers = new ArrayList<>();
@@ -67,9 +71,30 @@ public class Lotofacil extends Lotto {
             conquestStatistics.setIsAcumulated(data.getAcumulou());
             conquestStatistics.setData(data.getData());
             conquestStatistics.setDezenas(data.getDezenas());
-            conquestStatistics.setDezenasScheme(getRangeForConquest(data.getDezenas()));
+            conquestStatistics.setStringDezenas(data.getDezenas().toString().substring(1, 59));
+            String getScheme = getRangeForConquest(data.getDezenas());
+
+            conquestStatistics.setDezenasScheme(getScheme);
 
             conquestStatisticsList.add(conquestStatistics);
+
+            if (getAllLoteryScheme.isEmpty()) {
+                getAllLoteryScheme.add(getScheme);
+
+            } else {
+                if (!getAllLoteryScheme.contains(getScheme)) {
+                    getAllLoteryScheme.add(getScheme);
+                }
+            }
+
+            if (numberString.isEmpty()) {
+                numberString.add(conquestStatistics.getStringDezenas());
+
+            } else {
+                if (!numberString.contains(conquestStatistics.getStringDezenas())) {
+                    numberString.add(conquestStatistics.getStringDezenas());
+                }
+            }
         }
 
         for (ConquestStatistics data : conquestStatisticsList) {
@@ -77,10 +102,66 @@ public class Lotofacil extends Lotto {
             System.out.println(data.toString());
             System.out.println("\n");
         }
+
+        getSchemeMostAwaded();
+        getNumberSchemeAwaded();
+
+        for (SchemeMostAwarded data : schemeMostAwardedList) {
+            System.out.println(data.getSchema() + ": " + data.getQuantity());
+        }
+
+        for (NumberSchemeMostAwarded data : numberStringList) {
+            System.out.println(data.getSchema() + ": " + data.getQuantity());
+        }
+
     }
 
     public void getSchemeMostAwaded() {
+        for (int i = 0; i < getAllLoteryScheme.size(); i++) {
+            int count = 0;
+            for (ConquestStatistics data : conquestStatisticsList) {
+                if (data.getDezenasScheme().equals(getAllLoteryScheme.get(i))) {
+                    count = count + 1;
+                }
+            }
+            SchemeMostAwarded schemeMostAwarded = new SchemeMostAwarded();
 
+            schemeMostAwarded.setSchema(getAllLoteryScheme.get(i));
+            schemeMostAwarded.setQuantity(count);
+
+            schemeMostAwardedList.add(schemeMostAwarded);
+
+        }
+
+        Collections.sort(schemeMostAwardedList, new Comparator<SchemeMostAwarded>() {
+            public int compare(SchemeMostAwarded s1, SchemeMostAwarded s2) {
+                return Integer.valueOf(s2.getQuantity()).compareTo(s1.getQuantity());
+            }
+        });
+    }
+
+    public void getNumberSchemeAwaded() {
+        for (int i = 0; i < numberString.size(); i++) {
+            int count = 0;
+            for (ConquestStatistics data : conquestStatisticsList) {
+                if (data.getStringDezenas().equals(numberString.get(i))) {
+                    count = count + 1;
+                }
+            }
+            NumberSchemeMostAwarded number = new NumberSchemeMostAwarded();
+
+            number.setSchema(getAllLoteryScheme.get(i));
+            number.setQuantity(count);
+
+            numberStringList.add(number);
+
+        }
+
+        Collections.sort(numberStringList, new Comparator<NumberSchemeMostAwarded>() {
+            public int compare(NumberSchemeMostAwarded s1, NumberSchemeMostAwarded s2) {
+                return Integer.valueOf(s2.getQuantity()).compareTo(s1.getQuantity());
+            }
+        });
     }
 
     public List getFavoriteNumbers() {

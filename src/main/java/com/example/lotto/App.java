@@ -1,20 +1,21 @@
 package com.example.lotto;
 
 import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
-import com.example.lotto.LottoRepo.LotoFacil.LotofacilStatitics;
-import com.example.lotto.LottoRepo.Lotomania.Lotomania;
-import com.example.lotto.LottoRepo.Megasena.Megasena;
 
 public class App {
 
     public static void main(String[] args) {
-        // Lotofacil loto = new Lotofacil();
+        Lotofacil loto = new Lotofacil();
         // LotofacilStatitics lotto = new LotofacilStatitics();
+<<<<<<< Updated upstream
         Lotomania loto = new Lotomania();
+=======
+        // Lotomania loto = new Lotomania();
+>>>>>>> Stashed changes
         // Megasena loto = new Megasena();
 
         // loto.getOnlyAcumulated(0, 14);
-        loto.changePeriodOfConquest(0, 8);
+        loto.changePeriodOfConquest(0, 14);
 
         loto.initConquest();
 
