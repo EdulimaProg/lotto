@@ -58,7 +58,7 @@ public class Lotofacil extends Lotto {
     public Lotofacil() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
-        lotofacil = new LotoType("Lotofacil", 5, 5, 1);
+        lotofacil = new LotoType("Lotofacil", 5, 5);
         ltr = new LotteryRangers();
         initArrays();
     }

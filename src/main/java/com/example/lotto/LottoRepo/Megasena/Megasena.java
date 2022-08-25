@@ -54,7 +54,7 @@ public class Megasena extends Lotto {
     public Megasena() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
-        megasena = new LotoType("Megasena", 6, 10, 1);
+        megasena = new LotoType("Megasena", 6, 10);
         ltr = new LotteryRangers();
         initArrays();
     }

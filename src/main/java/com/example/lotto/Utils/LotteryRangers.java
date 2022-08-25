@@ -101,7 +101,7 @@ public class LotteryRangers {
         // int lotoNumberLenght = 60;
         LotoFaixa data = new LotoFaixa();
 
-        int count = type.getLotoStart();
+        int count = 0;
         ArrayList<String> lotoNumbers = new ArrayList<>();
 
         ArrayList<List<String>> lotoBet = new ArrayList<>();
