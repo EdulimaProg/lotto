@@ -54,7 +54,7 @@ public class Lotofacil extends Lotto {
     public Lotofacil() {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.concursos = conn.getAllConquestsOfSpecificLoto(conquestType);
-        lotofacil = new LotoType("Lotofacil", 5, 5, 1);
+        lotofacil = new LotoType("Lotofacil", 5, 5);
         ltr = new LotteryRangers();
         initArrays();
     }
@@ -80,15 +80,15 @@ public class Lotofacil extends Lotto {
 <<<<<<< HEAD
 
         getSchemeMostAwaded();
-        // getNumberSchemeAwaded();
+        getNumberSchemeAwaded();
 
         for (SchemeMostAwarded data : schemeMostAwardedList) {
             System.out.println(data.getSchema() + ": " + data.getQuantity());
         }
 
-        // for (NumberSchemeMostAwarded data : numberStringList) {
-        // System.out.println(data.getSchema() + ": " + data.getQuantity());
-        // }
+        for (NumberSchemeMostAwarded data : numberStringList) {
+            System.out.println(data.getSchema() + ": " + data.getQuantity());
+        }
 
 =======
 >>>>>>> parent of 61c099e (add conferences)
