@@ -104,15 +104,15 @@ public class Lotofacil extends Lotto {
         }
 
         getSchemeMostAwaded();
-        // getNumberSchemeAwaded();
+        getNumberSchemeAwaded();
 
         for (SchemeMostAwarded data : schemeMostAwardedList) {
             System.out.println(data.getSchema() + ": " + data.getQuantity());
         }
 
-        // for (NumberSchemeMostAwarded data : numberStringList) {
-        // System.out.println(data.getSchema() + ": " + data.getQuantity());
-        // }
+        for (NumberSchemeMostAwarded data : numberStringList) {
+            System.out.println(data.getSchema() + ": " + data.getQuantity());
+        }
 
     }
 
