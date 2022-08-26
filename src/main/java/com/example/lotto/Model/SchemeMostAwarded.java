@@ -2,7 +2,7 @@ package com.example.lotto.Model;
 
 public class SchemeMostAwarded {
     String schema;
-    Integer Quantity;
+    String Quantity;
 
     public String getSchema() {
         return schema;
@@ -12,11 +12,11 @@ public class SchemeMostAwarded {
         this.schema = schema;
     }
 
-    public Integer getQuantity() {
+    public String getQuantity() {
         return Quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(String quantity) {
         Quantity = quantity;
     }
 }
