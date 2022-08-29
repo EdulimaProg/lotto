@@ -336,7 +336,8 @@ public class Lotomania extends Lotto {
         int i = 1;
         for (Dezenas data : numbersMostAwarded) {
             System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
-                    + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest() + " porcentagem de acertos "
+                    + data.getQuantidade() + " saiu no ultimo " + getIsLastConquest(data.getIsLastConquest())
+                    + " porcentagem de acertos "
                     + data.getPercentage() + "% " + "Faixa :" + data.getRange());
         }
 
@@ -382,6 +383,14 @@ public class Lotomania extends Lotto {
                     + data.getRange());
         }
         System.out.println("-----------------------------------");
+    }
+
+    public String getIsLastConquest(Boolean value) {
+        if (value) {
+            return "SIM";
+
+        }
+        return "NÂO";
     }
 
     public void inLastCoquest() {

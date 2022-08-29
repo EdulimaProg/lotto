@@ -183,7 +183,7 @@ public class Lotofacil extends Lotto {
 
         int i = 1;
         for (Dezenas data : numbersMostAwarded) {
-            data.setPosition("Pos :" + i);
+            data.setPosition("Pos :" + String.format("%02d", i));
             i++;
         }
 
@@ -438,13 +438,21 @@ public class Lotofacil extends Lotto {
             for (Dezenas data : numbersMostAwarded) {
                 if (data.getRange() == i + 1) {
                     System.out.println(data.getPosition() + ": " + data.getDezena() + " quantidade de vezes "
-                            + data.getQuantidade() + " saiu no ultimo " + data.getIsLastConquest()
+                            + data.getQuantidade() + " saiu no ultimo " + getIsLastConquest(data.getIsLastConquest())
                             + " porcentagem de acertos "
-                            + data.getPercentage() + "% " + "Faixa :" + data.getRange());
+                            + data.getPercentage() + "% " + "Faixa :" + String.format("%02d", data.getRange()));
                 }
             }
             System.out.println("-----------------------------------");
         }
+    }
+
+    public String getIsLastConquest(Boolean value) {
+        if (value) {
+            return "SIM";
+
+        }
+        return "NÂO";
     }
 
     public void inLastCoquest() {
