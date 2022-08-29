@@ -17,7 +17,7 @@ public class App {
 
                 loto.initConquest();
 
-                loto.getStatiticsInAllConquests();
+                // loto.getStatiticsInAllConquests();
 
                 // loto.getNumbersOfAllConquest();
 
