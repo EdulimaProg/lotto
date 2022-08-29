@@ -1,6 +1,8 @@
 package com.example.lotto;
 
 import com.example.lotto.LottoRepo.LotoFacil.Lotofacil;
+import com.example.lotto.LottoRepo.Lotomania.Lotomania;
+import com.example.lotto.LottoRepo.Megasena.Megasena;
 
 public class App {
 
@@ -10,8 +12,8 @@ public class App {
                 Lotomania loto = new Lotomania();
                 // Megasena loto = new Megasena();
 
-                // loto.getOnlyAcumulated(0, 14);
-                loto.changePeriodOfConquest(0, 14);
+                loto.getOnlyAcumulated(1, 14);
+                // loto.changePeriodOfConquest(0, 14);
 
                 loto.initConquest();
 
