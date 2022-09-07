@@ -126,4 +126,11 @@ public class Utils {
         return percentage * 100;
     }
 
+    public String getIsLastConquest(Boolean value) {
+        if (value) {
+            return "SIM";
+
+        }
+        return "NÂO";
+    }
 }

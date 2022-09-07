@@ -16,7 +16,6 @@ public class LotteryRangers {
         int lotoLineLenght = 5;
         int lotoNumberPerLine = 5;
         int count = 0;
-        ArrayList<String> lotoNumbers = new ArrayList<>();
 
         ArrayList<List<String>> lotoBet = new ArrayList<>();
 
@@ -77,7 +76,6 @@ public class LotteryRangers {
         int lotoLineLenght = 6;
         int lotoNumberPerLine = 10;
         int count = 0;
-        ArrayList<String> lotoNumbers = new ArrayList<>();
 
         ArrayList<List<String>> lotoBet = new ArrayList<>();
 
@@ -102,7 +100,6 @@ public class LotteryRangers {
         LotoFaixa data = new LotoFaixa();
 
         int count = 0;
-        ArrayList<String> lotoNumbers = new ArrayList<>();
 
         ArrayList<List<String>> lotoBet = new ArrayList<>();
 

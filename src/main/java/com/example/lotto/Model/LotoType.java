@@ -4,34 +4,42 @@ public class LotoType {
     String lotoName;
     int lotoLineSize;
     int lotoNumberSizePerLine;
+    String conquestName;
+    Integer conquestQTD;
+    Integer lottoInit;
 
-    public LotoType(String lotoName, int lotoLineSize, int lotoNumberSizePerLine) {
+    public LotoType(String lotoName, int lotoLineSize, int lotoNumberSizePerLine, String conquestName,
+            Integer conquestQTD, Integer lottoInit) {
         this.lotoName = lotoName;
         this.lotoLineSize = lotoLineSize;
         this.lotoNumberSizePerLine = lotoNumberSizePerLine;
+        this.conquestName = conquestName;
+        this.conquestQTD = conquestQTD;
+        this.lottoInit = lottoInit;
     }
 
     public String getLotoName() {
         return lotoName;
     }
 
-    public void setLotoName(String lotoName) {
-        this.lotoName = lotoName;
-    }
-
     public int getLotoLineSize() {
         return lotoLineSize;
-    }
-
-    public void setLotoLineSize(int lotoLineSize) {
-        this.lotoLineSize = lotoLineSize;
     }
 
     public int getLotoNumberSizePerLine() {
         return lotoNumberSizePerLine;
     }
 
-    public void setLotoNumberSizePerLine(int lotoNumberSizePerLine) {
-        this.lotoNumberSizePerLine = lotoNumberSizePerLine;
+    public String getConquestName() {
+        return conquestName;
     }
+
+    public Integer getConquestQTD() {
+        return conquestQTD;
+    }
+
+    public Integer getLottoInit() {
+        return lottoInit;
+    }
+
 }

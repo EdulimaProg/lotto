@@ -9,15 +9,13 @@ public class Dezenas {
     public boolean lastConquest;
     public String percentage;
     public Integer range;
-    public String position;
+    public Boolean isPrime;
+    public Boolean isPair;
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
+    public String historicPosition;
+    public String primePosition;
+    public String pairPosition;
+    public String oddPostion;
 
     public Integer getRange() {
         return range;
@@ -69,5 +67,53 @@ public class Dezenas {
 
     public void setConquest(ArrayList<Integer> conquest) {
         this.conquest = conquest;
+    }
+
+    public Boolean getIsPrime() {
+        return isPrime;
+    }
+
+    public void setIsPrime(Boolean isPrime) {
+        this.isPrime = isPrime;
+    }
+
+    public Boolean getIsPair() {
+        return isPair;
+    }
+
+    public void setIsPair(Boolean isPair) {
+        this.isPair = isPair;
+    }
+
+    public String getHistoricPosition() {
+        return historicPosition;
+    }
+
+    public void setHistoricPosition(String historicPosition) {
+        this.historicPosition = historicPosition;
+    }
+
+    public String getPrimePosition() {
+        return primePosition;
+    }
+
+    public void setPrimePosition(String primePosition) {
+        this.primePosition = primePosition;
+    }
+
+    public String getPairPosition() {
+        return pairPosition;
+    }
+
+    public void setPairPosition(String pairPosition) {
+        this.pairPosition = pairPosition;
+    }
+
+    public String getOddPostion() {
+        return oddPostion;
+    }
+
+    public void setOddPostion(String oddPostion) {
+        this.oddPostion = oddPostion;
     }
 }
