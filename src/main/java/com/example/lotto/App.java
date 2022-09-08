@@ -14,15 +14,23 @@ public class App {
                 // LottoConquestQuantity lottoConquestQuantity = new LottoConquestQuantity(0,
                 // 14);
 
-                LotoType lotoType = new LotoType("Lotomania", 10, 10, Constants.LOTOMANIA, Constants.LOTOMANIAQTD, 0);
-                LottoConquestQuantity lottoConquestQuantity = new LottoConquestQuantity(0, 14);
+                // LotoType lotoType = new LotoType("Lotomania", 10, 10, Constants.LOTOMANIA,
+                // Constants.LOTOMANIAQTD, 0);
+                // LottoConquestQuantity lottoConquestQuantity = new LottoConquestQuantity(0,
+                // 14);
+
+                LotoType lotoType = new LotoType("dia-de-sorte", 4, 10, Constants.DIADESORTE, Constants.DIADESORTEQTD,
+                                1);
+                LottoConquestQuantity lottoConquestQuantity = new LottoConquestQuantity(0, 20);
 
                 LoteryConquestType loteryConquestType = new LoteryConquestType(lotoType, lottoConquestQuantity, false);
                 Lotery loto = new Lotery(loteryConquestType);
 
-                loto.getOnlyAcumulated();
+                // loto.getOnlyAcumulated();
 
-                loto.printAllArray();
+                loto.getLuckMonth();
+
+                // loto.printAllArray();
 
         }
 }

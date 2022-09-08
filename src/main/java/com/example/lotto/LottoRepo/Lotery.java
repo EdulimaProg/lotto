@@ -2,6 +2,7 @@ package com.example.lotto.LottoRepo;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -10,10 +11,12 @@ import com.example.lotto.Model.Dezenas;
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Model.LoteryConquestType;
 import com.example.lotto.Model.LotoType;
+import com.example.lotto.Model.LuckMonth;
 import com.example.lotto.Model.RangeScheme;
 import com.example.lotto.Model.RangeSchemeDetails;
 import com.example.lotto.Model.SchemeMostAwarded;
 import com.example.lotto.Services.HttpConnection;
+import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
 import com.example.lotto.Utils.Utils;
 
@@ -27,6 +30,7 @@ public class Lotery {
     //
     private ArrayList<LoteriasModel> concursos = new ArrayList<>();
     private ArrayList<Dezenas> conquestNumbeArrayList = new ArrayList<>();
+    private ArrayList<LuckMonth> conquesrMonthArrayList = new ArrayList<>();
     private List<List<String>> loteryRangeList = new ArrayList<>();
 
     DecimalFormat df = new DecimalFormat("#,###");
@@ -136,6 +140,43 @@ public class Lotery {
         orderingNumbers();
 
         System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
+    }
+
+    public void getLuckMonth() {
+        System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
+        String[] allMonths = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro",
+                "Outubro", "Novembro", "Dezembro" };
+
+        conquesrMonthArrayList.clear();
+
+        for (int i = 0; i < 12; i++) {
+            int valueOfRepeat = 0;
+            String mesSorte = "";
+            String comparator = allMonths[i];
+
+            for (LoteriasModel listData : concursos) {
+                mesSorte = listData.getMesSorte().toString();
+
+                if (mesSorte.equals(comparator)) {
+                    valueOfRepeat = valueOfRepeat + 1;
+                }
+                mesSorte = listData.getMesSorte().toString();
+            }
+            LuckMonth mth = new LuckMonth();
+            mth.setMonthName(comparator);
+            mth.setQuantity(valueOfRepeat);
+
+            conquesrMonthArrayList.add(mth);
+
+        }
+
+        System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
+        for (LuckMonth data : conquesrMonthArrayList) {
+            System.out.println(data.getMonthName() + ":" + data.getQuantity());
+        }
 
     }
 

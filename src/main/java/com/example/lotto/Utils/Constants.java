@@ -1,5 +1,9 @@
 package com.example.lotto.Utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public interface Constants {
     String BASE_URL = "https://loteriascaixa-api.herokuapp.com/api/";
 
@@ -17,6 +21,7 @@ public interface Constants {
     int LOTOMANIAQTD = 100;
     int MEGASENAQTD = 60;
     int QUINAQTD = 80;
+    int DIADESORTEQTD = 31;
 
     int[] tenNumbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
