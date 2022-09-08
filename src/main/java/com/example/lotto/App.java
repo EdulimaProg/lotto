@@ -34,7 +34,11 @@ public class App {
 
                 loto.getAllRange();
 
-                loto.inLastCoquest();
+                // loto.inLastCoquest();
+                // 09 20 34 35 36 47
+                // 14 19 22 37 58 59
+                // 04 08 15 23 38 49
+                // 19 24 32 42 43 49
 
         }
 
