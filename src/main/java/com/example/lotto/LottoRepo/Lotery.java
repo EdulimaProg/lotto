@@ -15,6 +15,7 @@ import com.example.lotto.Model.RangeScheme;
 import com.example.lotto.Model.RangeSchemeDetails;
 import com.example.lotto.Model.SchemeMostAwarded;
 import com.example.lotto.Services.HttpConnection;
+import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
 import com.example.lotto.Utils.Utils;
 
@@ -42,8 +43,7 @@ public class Lotery {
     public Lotery(LoteryConquestType loteryConquestType) {
         System.out.println("Create " + this.getClass().getSimpleName() + " BET");
         this.loteryConquestType = loteryConquestType;
-        this.concursos = conn.getAllConquestsOfSpecificLoto(loteryConquestType.getLotoType().getConquestName());
-
+        getDataFromAPI();
         utils = new Utils(loteryConquestType.getLotoType().getConquestName());
         conquestCarateresQTD = loteryConquestType.getLotoType().getConquestQTD();
 
@@ -53,35 +53,18 @@ public class Lotery {
 
     }
 
-    public void initConquest() {
+    public void initArrays() {
         getHistoricNumbers();
-        getLuckMonth();
+        if (concursos.get(0).getMesSorte() != null) {
+            getExtraAwarded();
+        }
         getRangeScheme();
     }
 
-    public void changePeriodOfConquest() {
+    public void getDataFromAPI() {
+        System.out.println("Get API data for " + loteryConquestType.getLotoType().getConquestName());
         int init = 0;
-        int end = concursos.size() - 1;
-        clearAllArrays();
-
-        if (loteryConquestType.getLottoConquestQuantity().getInitConquest() != null) {
-            init = loteryConquestType.getLottoConquestQuantity().getInitConquest();
-        }
-
-        if (loteryConquestType.getLottoConquestQuantity().getEndConquest() != null) {
-            end = loteryConquestType.getLottoConquestQuantity().getEndConquest();
-        }
-        for (LoteriasModel data : conn.getAllConquestsOfSpecificLoto(loteryConquestType.getLotoType().getConquestName())
-                .subList(init, end)) {
-            concursos.add(data);
-        }
-
-        getHistoricNumbers();
-    }
-
-    public void getOnlyAcumulated() {
-        int init = 0;
-        int end = concursos.size() - 1;
+        int end = conn.getAllConquestsOfSpecificLoto(loteryConquestType.getLotoType().getConquestName()).size();
         clearAllArrays();
 
         if (loteryConquestType.getLottoConquestQuantity().getInitConquest() != null
@@ -98,10 +81,11 @@ public class Lotery {
                 .subList(init, end)) {
             if (data.getAcumulou() == true) {
                 concursos.add(data);
+            } else {
+                concursos.add(data);
             }
         }
-
-        getHistoricNumbers();
+        System.out.println("END Get API data for " + loteryConquestType.getLotoType().getConquestName());
     }
 
     private void getHistoricNumbers() {
@@ -143,18 +127,15 @@ public class Lotery {
 
     }
 
-    private void getLuckMonth() {
+    private void getExtraAwarded() {
         System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
-
-        String[] allMonths = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro",
-                "Outubro", "Novembro", "Dezembro" };
 
         conquesrMonthArrayList.clear();
 
         for (int i = 0; i < 12; i++) {
             int valueOfRepeat = 0;
             String mesSorte = "";
-            String comparator = allMonths[i];
+            String comparator = Constants.allMonths[i];
 
             for (LoteriasModel listData : concursos) {
                 mesSorte = listData.getMesSorte().toString();
@@ -175,10 +156,6 @@ public class Lotery {
         }
 
         System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
-
-        for (LuckMonth data : conquesrMonthArrayList) {
-            System.out.println(data.getMonthName() + ":" + data.getQuantity());
-        }
 
     }
 
@@ -398,6 +375,12 @@ public class Lotery {
         System.out.println(concursos.size());
     }
 
+    public void printLuckMonth() {
+        for (LuckMonth data : conquesrMonthArrayList) {
+            System.out.println(data.getMonthName() + ":" + data.getQuantity());
+        }
+    }
+
     public void printAllArray() {
         System.out.println("----------------------------------");
         System.out.println("Print Historic numbers \n");
@@ -580,7 +563,7 @@ public class Lotery {
                     + data.getFaixa3().getQuantity() + "-"
                     + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity());
         }
-
+        System.out.println("\n");
     }
 
     // Mover para geral
@@ -597,6 +580,9 @@ public class Lotery {
 
     private void clearAllArrays() {
         concursos.clear();
+        conquesrMonthArrayList.clear();
+        conquestNumbeArrayList.clear();
+        loteryRangeList.clear();
     }
 
 }
