@@ -2,7 +2,6 @@ package com.example.lotto.LottoRepo;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -16,7 +15,6 @@ import com.example.lotto.Model.RangeScheme;
 import com.example.lotto.Model.RangeSchemeDetails;
 import com.example.lotto.Model.SchemeMostAwarded;
 import com.example.lotto.Services.HttpConnection;
-import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
 import com.example.lotto.Utils.Utils;
 
@@ -57,6 +55,8 @@ public class Lotery {
 
     public void initConquest() {
         getHistoricNumbers();
+        getLuckMonth();
+        getRangeScheme();
     }
 
     public void changePeriodOfConquest() {
@@ -143,7 +143,7 @@ public class Lotery {
 
     }
 
-    public void getLuckMonth() {
+    private void getLuckMonth() {
         System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         String[] allMonths = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro",
@@ -167,6 +167,8 @@ public class Lotery {
             LuckMonth mth = new LuckMonth();
             mth.setMonthName(comparator);
             mth.setQuantity(valueOfRepeat);
+            mth.setLastConquest(utils.checkIfMonthIsOutIsLastConquest(comparator));
+            mth.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
 
             conquesrMonthArrayList.add(mth);
 
@@ -288,6 +290,7 @@ public class Lotery {
     }
 
     private String getRangeForConquest(ArrayList<String> data) {
+        System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
         int range1 = 0;
         int range2 = 0;
         int range3 = 0;
@@ -318,6 +321,8 @@ public class Lotery {
             }
         }
 
+        System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
         rangeScheme.setFaixa1(new RangeSchemeDetails(1, range1));
         rangeScheme.setFaixa2(new RangeSchemeDetails(2, range2));
         rangeScheme.setFaixa3(new RangeSchemeDetails(3, range3));
@@ -333,7 +338,7 @@ public class Lotery {
     }
 
     public void getRangeScheme() {
-
+        System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
         for (LoteriasModel data : concursos) {
             int range1 = 0;
             int range2 = 0;
@@ -376,14 +381,16 @@ public class Lotery {
 
         }
 
-        for (RangeScheme data : rangeSchemeList) {
-            System.out.println("-----------------------------------------------------");
-            System.out.println("Conquest: " + data.getConquest());
-            System.out.println("Range Scheme");
-            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" + data.getFaixa2().getQuantity() + "-"
-                    + data.getFaixa3().getQuantity() + "-"
-                    + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity());
-        }
+        // for (RangeScheme data : rangeSchemeList) {
+        // System.out.println("-----------------------------------------------------");
+        // System.out.println("Conquest: " + data.getConquest());
+        // System.out.println("Range Scheme");
+        // System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
+        // data.getFaixa2().getQuantity() + "-"
+        // + data.getFaixa3().getQuantity() + "-"
+        // + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity());
+        // }
+        System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
         System.out.println("-----------------------------------------------------");
     }
 
@@ -406,14 +413,16 @@ public class Lotery {
             }
         });
         System.out.println("----------------------------------");
-        System.out.println("Print Inveted Historic numbers \n");
-        for (Dezenas data : conquestNumbeArrayList) {
+        if (!conquesrMonthArrayList.isEmpty()) {
+            System.out.println("Print Historic LuckMonth \n");
+            for (LuckMonth data : conquesrMonthArrayList) {
 
-            System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                    + data.getRange());
+                System.out
+                        .println(data.getMonthName() + " quantidade de vezes " + data.getQuantity() + " saiu no ultimo "
+                                + data.isLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% ");
+            }
+            System.out.println("----------------------------------");
         }
-        System.out.println("----------------------------------");
         System.out.println("Print pair numbers \n");
         for (Dezenas data : conquestNumbeArrayList) {
             if (data.getIsPair()) {
@@ -460,6 +469,18 @@ public class Lotery {
             }
         }
 
+    }
+
+    public void printRangesOfConquets() {
+        for (RangeScheme data : rangeSchemeList) {
+            System.out.println("-----------------------------------------------------");
+            System.out.println("Conquest: " + data.getConquest());
+            System.out.println("Range Scheme");
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
+                    data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity());
+        }
     }
 
     public void getAllRange() {
@@ -543,25 +564,22 @@ public class Lotery {
             System.out.println("Primo " + prmo + " x " + ntprmo + " Nor Primo");
         }
 
-        // for (Dezenas seq : conquestNumbeArrayList) {
-        // System.out.println("---------------------------------------------");
-        // System.out.println(seq.getDezena());
-        // System.out.println(seq.getConquest());
-        // System.out.println("---------------------------------------------");
-        // }
+        for (LuckMonth data : conquesrMonthArrayList) {
+            if (data.isLastConquest()) {
+                System.out.println("---------------------------------------------");
+                System.out.println(data.getMonthName());
+                System.out.println(data.getQuantity());
+                System.out.println("---------------------------------------------");
+            }
+        }
 
         for (RangeScheme data : rangeSchemeList.subList(0, 1)) {
             System.out.println(data.getConquest());
-            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" + data.getFaixa2().getQuantity() + "-"
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
+                    data.getFaixa2().getQuantity() + "-"
                     + data.getFaixa3().getQuantity() + "-"
                     + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity());
         }
-        // System.out.println("---------------------------------------------");
-        // System.out.println("Tiveram : " + repeatNumbers.size() + " Sairam no ultimo
-        // concurso");
-        // System.out.println("esses numeros foram");
-        // System.out.println(repeatNumbers);
-        // System.out.println("---------------------------------------------");
 
     }
 

@@ -27,10 +27,10 @@ public class App {
                 Lotery loto = new Lotery(loteryConquestType);
 
                 // loto.getOnlyAcumulated();
+                loto.changePeriodOfConquest();
+                loto.initConquest();
 
-                loto.getLuckMonth();
-
-                // loto.printAllArray();
+                loto.inLastCoquest();
 
         }
 }
