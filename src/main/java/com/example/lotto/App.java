@@ -18,10 +18,10 @@ public class App {
 
         public static void configure() {
                 lottoTypesList = new LottoTypesList();
-                lotoType = lottoTypesList.getLotoType().get(Constants.DIADESORTE);
+                lotoType = lottoTypesList.getLotoType().get(Constants.QUINA);
 
                 qtd = new LottoConquestQuantity(0, 14);
-                loteryConquestType = new LoteryConquestType(lotoType, qtd, true);
+                loteryConquestType = new LoteryConquestType(lotoType, qtd, false);
         }
 
         public static void main(String[] args) {

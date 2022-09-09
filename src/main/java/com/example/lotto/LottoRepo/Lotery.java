@@ -35,7 +35,7 @@ public class Lotery {
     DecimalFormat df = new DecimalFormat("#,###");
 
     private int conquestCarateresQTD;
-    private LotoType lotofacil;
+    private LotoType lotery;
     private LotteryRangers ltr;
 
     LoteryConquestType loteryConquestType;
@@ -47,9 +47,9 @@ public class Lotery {
         utils = new Utils(loteryConquestType.getLotoType().getConquestName());
         conquestCarateresQTD = loteryConquestType.getLotoType().getConquestQTD();
 
-        lotofacil = loteryConquestType.getLotoType();
+        lotery = loteryConquestType.getLotoType();
         ltr = new LotteryRangers();
-        loteryRangeList = ltr.createFaixas(lotofacil).getLottoInFaixa();
+        loteryRangeList = ltr.createFaixas(lotery).getLottoInFaixa();
 
     }
 
@@ -467,17 +467,20 @@ public class Lotery {
     }
 
     public void getAllRange() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < lotery.getLotoLineSize(); i++) {
             for (Dezenas data : conquestNumbeArrayList) {
                 if (data.getRange() == i + 1) {
                     System.out.println(data.getHistoricPosition() + ": " + data.getDezena() + " quantidade de vezes "
                             + data.getQuantidade() + " saiu no ultimo "
                             + utils.getIsLastConquest(data.getIsLastConquest())
                             + " porcentagem de acertos "
-                            + data.getPercentage() + "% " + "Faixa :" + String.format("%02d", data.getRange()));
+                            + String.format("%03d", Integer.parseInt(data.getPercentage())) + "% " + "Faixa :"
+                            + String.format("%02d", data.getRange()));
                 }
             }
-            System.out.println("-----------------------------------");
+
+            System.out.println(
+                    "------------------------------------------------------------------------------------------");
         }
     }
 
@@ -569,7 +572,7 @@ public class Lotery {
     // Mover para geral
     public Integer witchRange(String String) {
         Integer rangeResponse = 0;
-        for (int i = 0; i < lotofacil.getLotoLineSize(); i++) {
+        for (int i = 0; i < lotery.getLotoLineSize(); i++) {
             if (loteryRangeList.get(i).contains(String)) {
                 rangeResponse = (i + 1);
             }
