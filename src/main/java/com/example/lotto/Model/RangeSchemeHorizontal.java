@@ -1,6 +1,6 @@
 package com.example.lotto.Model;
 
-public class RangeScheme {
+public class RangeSchemeHorizontal {
     Integer conquest;
     RangeSchemeDetails faixa1;
     RangeSchemeDetails faixa2;

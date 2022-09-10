@@ -11,8 +11,9 @@ import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Model.LoteryConquestType;
 import com.example.lotto.Model.LotoType;
 import com.example.lotto.Model.LuckMonth;
-import com.example.lotto.Model.RangeScheme;
 import com.example.lotto.Model.RangeSchemeDetails;
+import com.example.lotto.Model.RangeSchemeHorizontal;
+import com.example.lotto.Model.RangeSchemeVertical;
 import com.example.lotto.Model.SchemeMostAwarded;
 import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
@@ -23,7 +24,9 @@ public class Lotery {
     private HttpConnection conn = new HttpConnection();
     private Utils utils;
 
-    static ArrayList<RangeScheme> rangeSchemeList = new ArrayList<>();
+    static ArrayList<String> rangeHorizontalNumbers = new ArrayList<>();
+    static ArrayList<RangeSchemeHorizontal> rangeSchemeHorinzotalList = new ArrayList<>();
+    static ArrayList<RangeSchemeVertical> rangeSchemeVerticalList = new ArrayList<>();
     static ArrayList<ConquestStatistics> conquestStatisticsList = new ArrayList<>();
     static ArrayList<SchemeMostAwarded> schemeMostAwardeds = new ArrayList<>();
     //
@@ -113,7 +116,7 @@ public class Lotery {
             dex.setQuantidade(valueOfRepeat);
             dex.setLastConquest(utils.checkIfIsOutIsLastConquest(String.format("%02d", i + numberOfStart)));
             dex.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
-            dex.setRange(witchRange(numberString));
+            dex.setRange(witchRangeVertical(numberString));
             dex.setIsPair(Utils.isPair(number));
             dex.setIsPrime(Utils.isPrimos(number));
             dex.setConquest(conquest);
@@ -274,10 +277,10 @@ public class Lotery {
         int range4 = 0;
         int range5 = 0;
 
-        RangeScheme rangeScheme = new RangeScheme();
+        RangeSchemeHorizontal rangeScheme = new RangeSchemeHorizontal();
 
         for (int i = 0; i < data.size(); i++) {
-            switch (witchRange(data.get(i))) {
+            switch (witchRangeVertical(data.get(i))) {
                 case 1:
                     range1 = range1 + 1;
                     break;
@@ -322,11 +325,16 @@ public class Lotery {
             int range3 = 0;
             int range4 = 0;
             int range5 = 0;
+            int range6 = 0;
+            int range7 = 0;
+            int range8 = 0;
+            int range9 = 0;
+            int range10 = 0;
 
-            RangeScheme rangeScheme = new RangeScheme();
+            RangeSchemeHorizontal rangeScheme = new RangeSchemeHorizontal();
 
             for (int i = 0; i < data.getDezenas().size(); i++) {
-                switch (witchRange(data.getDezenas().get(i))) {
+                switch (witchRangeVertical(data.getDezenas().get(i))) {
                     case 1:
                         range1 = range1 + 1;
                         break;
@@ -342,6 +350,21 @@ public class Lotery {
                     case 5:
                         range5 = range5 + 1;
                         break;
+                    case 6:
+                        range6 = range6 + 1;
+                        break;
+                    case 7:
+                        range7 = range7 + 1;
+                        break;
+                    case 8:
+                        range8 = range8 + 1;
+                        break;
+                    case 9:
+                        range9 = range9 + 1;
+                        break;
+                    case 10:
+                        range10 = range10 + 1;
+                        break;
                     default:
                         break;
                 }
@@ -353,12 +376,17 @@ public class Lotery {
             rangeScheme.setFaixa3(new RangeSchemeDetails(3, range3));
             rangeScheme.setFaixa4(new RangeSchemeDetails(4, range4));
             rangeScheme.setFaixa5(new RangeSchemeDetails(5, range5));
+            rangeScheme.setFaixa6(new RangeSchemeDetails(6, range6));
+            rangeScheme.setFaixa7(new RangeSchemeDetails(7, range7));
+            rangeScheme.setFaixa8(new RangeSchemeDetails(8, range8));
+            rangeScheme.setFaixa9(new RangeSchemeDetails(9, range9));
+            rangeScheme.setFaixa10(new RangeSchemeDetails(10, range10));
 
-            rangeSchemeList.add(rangeScheme);
+            rangeSchemeHorinzotalList.add(rangeScheme);
 
         }
 
-        // for (RangeScheme data : rangeSchemeList) {
+        // for (RangeScheme data : rangeSchemeHorinzotalList) {
         // System.out.println("-----------------------------------------------------");
         // System.out.println("Conquest: " + data.getConquest());
         // System.out.println("Range Scheme");
@@ -455,7 +483,7 @@ public class Lotery {
     }
 
     public void printRangesOfConquets() {
-        for (RangeScheme data : rangeSchemeList) {
+        for (RangeSchemeHorizontal data : rangeSchemeHorinzotalList) {
             System.out.println("-----------------------------------------------------");
             System.out.println("Conquest: " + data.getConquest());
             System.out.println("Range Scheme");
@@ -559,18 +587,25 @@ public class Lotery {
             }
         }
 
-        for (RangeScheme data : rangeSchemeList.subList(0, 1)) {
+        for (RangeSchemeHorizontal data : rangeSchemeHorinzotalList.subList(0, 1)) {
             System.out.println(data.getConquest());
+
             System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
                     data.getFaixa2().getQuantity() + "-"
                     + data.getFaixa3().getQuantity() + "-"
-                    + data.getFaixa4().getQuantity() + "-" + data.getFaixa5().getQuantity());
+                    + data.getFaixa4().getQuantity() + "-"
+                    + data.getFaixa5().getQuantity() + "-"
+                    + data.getFaixa6().getQuantity() + "-"
+                    + data.getFaixa7().getQuantity() + "-"
+                    + data.getFaixa8().getQuantity() + "-"
+                    + data.getFaixa9().getQuantity() + "-"
+                    + data.getFaixa10().getQuantity());
         }
         System.out.println("\n");
     }
 
     // Mover para geral
-    public Integer witchRange(String String) {
+    public Integer witchRangeVertical(String String) {
         Integer rangeResponse = 0;
         for (int i = 0; i < lotery.getLotoLineSize(); i++) {
             if (loteryRangeList.get(i).contains(String)) {
@@ -580,6 +615,17 @@ public class Lotery {
         }
         return rangeResponse;
     }
+
+    // public Integer witchRangeHorizontal(String String) {
+    // Integer rangeResponse = 0;
+    // for (int i = 0; i < lotery.getLotoColumnSize(); i++) {
+    // if (loteryRangeList.get(i).contains(String)) {
+    // rangeResponse = (i + 1);
+    // }
+
+    // }
+    // return rangeResponse;
+    // }
 
     private void clearAllArrays() {
         concursos.clear();

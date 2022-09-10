@@ -1,11 +1,5 @@
 package com.example.lotto.Utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.example.lotto.Model.LotoType;
 
 public interface Constants {
@@ -33,12 +27,12 @@ public interface Constants {
 
     int[] tenNumbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-    static LotoType diaSorte = new LotoType(DIADESORTE, 4, 10, DIADESORTE, DIADESORTEQTD, 1);
-    static LotoType duplasena = new LotoType(DUPLASENA, 5, 10, DUPLASENA, DUPLASENAQTD, 1);
-    static LotoType lotofacil = new LotoType(LOTOFACIL, 5, 5, LOTOFACIL, LOTOFACILQTD, 1);
-    static LotoType lotomania = new LotoType(LOTOMANIA, 10, 10, LOTOMANIA, LOTOMANIAQTD, 0);
-    static LotoType megasena = new LotoType(MEGASENA, 6, 10, MEGASENA, MEGASENAQTD, 1);
-    static LotoType quina = new LotoType(QUINA, 8, 10, QUINA, QUINAQTD, 1);
+    static LotoType diaSorte = new LotoType(DIADESORTE, 4, 10, 10, DIADESORTE, DIADESORTEQTD, 1);
+    static LotoType duplasena = new LotoType(DUPLASENA, 5, 10, 10, DUPLASENA, DUPLASENAQTD, 1);
+    static LotoType lotofacil = new LotoType(LOTOFACIL, 5, 5, 5, LOTOFACIL, LOTOFACILQTD, 1);
+    static LotoType lotomania = new LotoType(LOTOMANIA, 10, 10, 10, LOTOMANIA, LOTOMANIAQTD, 0);
+    static LotoType megasena = new LotoType(MEGASENA, 6, 10, 10, MEGASENA, MEGASENAQTD, 1);
+    static LotoType quina = new LotoType(QUINA, 8, 10, 10, QUINA, QUINAQTD, 1);
     // "mega-sena",
     // "lotofacil",
     // "quina",

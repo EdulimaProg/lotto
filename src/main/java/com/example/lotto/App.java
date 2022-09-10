@@ -1,7 +1,6 @@
 package com.example.lotto;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import com.example.lotto.LottoRepo.Lotery;
 import com.example.lotto.Model.LoteryConquestType;
@@ -16,9 +15,12 @@ public class App {
         static LottoConquestQuantity qtd;
         static LoteryConquestType loteryConquestType;
 
+        // Teste
+        static ArrayList<Integer> integerList = new ArrayList<>();
+
         public static void configure() {
                 lottoTypesList = new LottoTypesList();
-                lotoType = lottoTypesList.getLotoType().get(Constants.QUINA);
+                lotoType = lottoTypesList.getLotoType().get(Constants.LOTOMANIA);
 
                 qtd = new LottoConquestQuantity(0, 14);
                 loteryConquestType = new LoteryConquestType(lotoType, qtd, false);
@@ -30,9 +32,9 @@ public class App {
                 Lotery loto = new Lotery(loteryConquestType);
 
                 // loto.getOnlyAcumulated();
-                loto.initArrays();
+                // loto.initArrays();
 
-                loto.getAllRange();
+                // loto.getAllRange();
 
                 // loto.inLastCoquest();
                 // 09 20 34 35 36 47
