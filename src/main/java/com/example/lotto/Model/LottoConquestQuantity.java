@@ -16,4 +16,12 @@ public class LottoConquestQuantity {
     public Integer getEndConquest() {
         return endConquest;
     }
+
+    public void setInitConquest(Integer initConquest) {
+        this.initConquest = initConquest;
+    }
+
+    public void setEndConquest(Integer endConquest) {
+        this.endConquest = endConquest;
+    }
 }

@@ -20,9 +20,9 @@ public class App {
 
         public static void configure() {
                 lottoTypesList = new LottoTypesList();
-                lotoType = lottoTypesList.getLotoType().get(Constants.LOTOMANIA);
+                lotoType = lottoTypesList.getLotoType().get(Constants.LOTOFACIL);
 
-                qtd = new LottoConquestQuantity(0, 14);
+                qtd = new LottoConquestQuantity(0, null);
                 loteryConquestType = new LoteryConquestType(lotoType, qtd, false);
         }
 
@@ -32,10 +32,14 @@ public class App {
                 Lotery loto = new Lotery(loteryConquestType);
 
                 // loto.getOnlyAcumulated();
-                // loto.initArrays();
+                loto.initArrays();
 
                 // loto.getAllRange();
+                // loto.findInbet("05");
 
+                String[] bet = { "05", "06" };
+                loto.findBet(bet);
+                // loto.printStatitics();
                 // loto.inLastCoquest();
                 // 09 20 34 35 36 47
                 // 14 19 22 37 58 59
