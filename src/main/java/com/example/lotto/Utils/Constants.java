@@ -25,6 +25,9 @@ public interface Constants {
     String[] allMonths = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro",
             "Outubro", "Novembro", "Dezembro" };
 
+    String[] shortAllMonth = { "JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET",
+            "OUT", "NOV", "DEZ" };
+
     int[] tenNumbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
     static LotoType diaSorte = new LotoType(DIADESORTE, 4, 10, 10, DIADESORTE, DIADESORTEQTD, 1);

@@ -139,6 +139,7 @@ public class Lotery {
             int valueOfRepeat = 0;
             String mesSorte = "";
             String comparator = Constants.allMonths[i];
+            String shortComparator = Constants.shortAllMonth[i];
 
             for (LoteriasModel listData : concursos) {
                 mesSorte = listData.getMesSorte().toString();
@@ -149,7 +150,7 @@ public class Lotery {
                 mesSorte = listData.getMesSorte().toString();
             }
             LuckMonth mth = new LuckMonth();
-            mth.setMonthName(comparator);
+            mth.setMonthName(shortComparator);
             mth.setQuantity(valueOfRepeat);
             mth.setLastConquest(utils.checkIfMonthIsOutIsLastConquest(comparator));
             mth.setPercentage(df.format(utils.percentageOfAward(valueOfRepeat, concursos.size())));
@@ -212,11 +213,7 @@ public class Lotery {
 
         for (Dezenas data : conquestNumbeArrayList) {
             if (data.getIsPrime()) {
-                System.out
-                        .println(data.getPrimePosition() + " " + data.getDezena() + " quantidade de vezes "
-                                + data.getQuantidade() + " saiu no ultimo "
-                                + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                                + data.getRange());
+                printFormated(data);
             }
         }
 
@@ -230,19 +227,11 @@ public class Lotery {
         for (Dezenas data : conquestNumbeArrayList) {
             if (getOdd != null && getOdd == true) {
                 if (!data.getIsPair()) {
-                    System.out.println(data.getOddPostion() + " " + data.getDezena() + " quantidade de vezes "
-                            + data.getQuantidade() + " saiu no ultimo "
-                            + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage()
-                            + "% "
-                            + data.getRange());
+                    printFormated(data);
                 }
             } else {
                 if (data.getIsPair()) {
-                    System.out.println(data.getPairPosition() + " " + data.getDezena() + " quantidade de vezes "
-                            + data.getQuantidade() + " saiu no ultimo "
-                            + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage()
-                            + "% "
-                            + data.getRange());
+                    printFormated(data);
                 }
             }
         }
@@ -403,19 +392,25 @@ public class Lotery {
         System.out.println(concursos.size());
     }
 
-    public void printLuckMonth() {
-        for (LuckMonth data : conquesrMonthArrayList) {
-            System.out.println(data.getMonthName() + ":" + data.getQuantity());
+    public void printResultLuckMonth() {
+        if (conquesrMonthArrayList.isEmpty()) {
+            errPrint("Luck Month");
+        } else {
+            for (LuckMonth data : conquesrMonthArrayList) {
+                printLuckMonth(data);
+            }
         }
+    }
+
+    private void errPrint(String method) {
+        System.out.println("Results  not found for " + method);
     }
 
     public void printAllArray() {
         System.out.println("----------------------------------");
         System.out.println("Print Historic numbers \n");
         for (Dezenas data : conquestNumbeArrayList) {
-            System.out.println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                    + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                    + data.getRange());
+            printFormated(data);
         }
 
         Collections.sort(conquestNumbeArrayList, new Comparator<Dezenas>() {
@@ -426,21 +421,13 @@ public class Lotery {
         System.out.println("----------------------------------");
         if (!conquesrMonthArrayList.isEmpty()) {
             System.out.println("Print Historic LuckMonth \n");
-            for (LuckMonth data : conquesrMonthArrayList) {
-
-                System.out
-                        .println(data.getMonthName() + " quantidade de vezes " + data.getQuantity() + " saiu no ultimo "
-                                + data.isLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% ");
-            }
+            printResultLuckMonth();
             System.out.println("----------------------------------");
         }
         System.out.println("Print pair numbers \n");
         for (Dezenas data : conquestNumbeArrayList) {
             if (data.getIsPair()) {
-                System.out
-                        .println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                                + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                                + data.getRange());
+                printFormated(data);
             }
 
         }
@@ -448,10 +435,7 @@ public class Lotery {
         System.out.println("Print odd numbers \n");
         for (Dezenas data : conquestNumbeArrayList) {
             if (data.getIsPair() == false) {
-                System.out
-                        .println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                                + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                                + data.getRange());
+                printFormated(data);
             }
 
         }
@@ -459,15 +443,33 @@ public class Lotery {
         System.out.println("Print prime numbers \n");
         for (Dezenas data : conquestNumbeArrayList) {
             if (data.getIsPrime()) {
-                System.out
-                        .println(data.getDezena() + " quantidade de vezes " + data.getQuantidade() + " saiu no ultimo "
-                                + data.getIsLastConquest() + " porcentagem de acertos " + data.getPercentage() + "% "
-                                + data.getRange());
+                printFormated(data);
             }
 
         }
         System.out.println("-----------------------------------");
 
+    }
+
+    private void printLuckMonth(LuckMonth data) {
+        System.out
+                .println(data.getMonthName() + " quantidade de vezes " + data.getQuantity() + " saiu no ultimo "
+                        + utils.getIsLastConquest(data.isLastConquest()) + " porcentagem de acertos "
+                        + String.format("%03d", Integer.parseInt(data.getPercentage())) + "% ");
+    }
+
+    public void printRanking() {
+        for (Dezenas data : conquestNumbeArrayList) {
+            printFormated(data);
+        }
+    }
+
+    public void printRankingOnlyAwarded() {
+        for (Dezenas data : conquestNumbeArrayList) {
+            if (data.lastConquest) {
+                printFormated(data);
+            }
+        }
     }
 
     public void getSpecificRange(Integer range) {
@@ -498,18 +500,22 @@ public class Lotery {
         for (int i = 0; i < lotery.getLotoLineSize(); i++) {
             for (Dezenas data : conquestNumbeArrayList) {
                 if (data.getRange() == i + 1) {
-                    System.out.println(data.getHistoricPosition() + ": " + data.getDezena() + " quantidade de vezes "
-                            + data.getQuantidade() + " saiu no ultimo "
-                            + utils.getIsLastConquest(data.getIsLastConquest())
-                            + " porcentagem de acertos "
-                            + String.format("%03d", Integer.parseInt(data.getPercentage())) + "% " + "Faixa :"
-                            + String.format("%02d", data.getRange()));
+                    printFormated(data);
                 }
             }
 
             System.out.println(
                     "------------------------------------------------------------------------------------------");
         }
+    }
+
+    private void printFormated(Dezenas data) {
+        System.out.println(data.getHistoricPosition() + ": " + data.getDezena() + " quantidade de vezes "
+                + data.getQuantidade() + " saiu no ultimo "
+                + utils.getIsLastConquest(data.getIsLastConquest())
+                + " porcentagem de acertos "
+                + String.format("%03d", Integer.parseInt(data.getPercentage())) + "% " + "Faixa :"
+                + String.format("%02d", data.getRange()));
     }
 
     public void inLastCoquest() {
