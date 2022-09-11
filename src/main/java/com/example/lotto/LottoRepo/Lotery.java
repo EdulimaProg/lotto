@@ -19,6 +19,7 @@ import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
 import com.example.lotto.Utils.Utils;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 public class Lotery {
     private HttpConnection conn = new HttpConnection();
@@ -62,6 +63,7 @@ public class Lotery {
             getExtraAwarded();
         }
         getRangeScheme();
+
     }
 
     public void getDataFromAPI() {
@@ -239,6 +241,7 @@ public class Lotery {
     }
 
     public void getStatiticsInAllConquests() {
+        System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
         for (LoteriasModel data : concursos) {
             ConquestStatistics conquestStatistics = new ConquestStatistics();
 
@@ -250,7 +253,10 @@ public class Lotery {
 
             conquestStatisticsList.add(conquestStatistics);
         }
+        System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
+    }
 
+    public void printStatitics() {
         for (ConquestStatistics data : conquestStatisticsList) {
 
             System.out.println(data.toString());
@@ -259,7 +265,6 @@ public class Lotery {
     }
 
     private String getRangeForConquest(ArrayList<String> data) {
-        System.out.println("Get " + Thread.currentThread().getStackTrace()[1].getMethodName());
         int range1 = 0;
         int range2 = 0;
         int range3 = 0;
@@ -289,8 +294,6 @@ public class Lotery {
                     break;
             }
         }
-
-        System.out.println("End " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         rangeScheme.setFaixa1(new RangeSchemeDetails(1, range1));
         rangeScheme.setFaixa2(new RangeSchemeDetails(2, range2));
@@ -632,6 +635,28 @@ public class Lotery {
     // }
     // return rangeResponse;
     // }
+
+    public void findInbet(String findNumber) {
+        getStatiticsInAllConquests();
+
+        for (ConquestStatistics data : conquestStatisticsList) {
+            if (data.getDezenas().get(0).equals(findNumber)) {
+                System.out.println(data.toString());
+                System.out.println("\n");
+            }
+        }
+    }
+
+    public void findBet(String[] findBetList) {
+        getStatiticsInAllConquests();
+
+        for (ConquestStatistics data : conquestStatisticsList) {
+            if (data.getDezenas().contains(findBetList)) {
+                System.out.println(data.toString());
+                System.out.println("\n");
+            }
+        }
+    }
 
     private void clearAllArrays() {
         concursos.clear();
