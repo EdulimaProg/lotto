@@ -22,7 +22,7 @@ public class App {
         public static void configure() {
                 // ResultType resultType = new ResultType(false, false, false, 0, 0, false);
                 lottoTypesList = new LottoTypesList();
-                lotoType = lottoTypesList.getLotoType().get(Constants.LOTOFACIL);
+                lotoType = lottoTypesList.getLotoType().get(Constants.LOTOMANIA);
 
                 qtd = new LottoConquestQuantity(0, null);
                 loteryConquestType = new LoteryConquestType(lotoType, qtd, false);
@@ -41,8 +41,10 @@ public class App {
 
                 String[] bet = { "05", "06" };
                 loto.findBet(bet);
+                loto.printResultLuckMonth();
+
                 // loto.printStatitics();
-                // loto.inLastCoquest();
+                loto.inLastCoquest();
                 // 09 20 34 35 36 47
                 // 14 19 22 37 58 59
                 // 04 08 15 23 38 49

@@ -599,6 +599,62 @@ public class Lotery {
         for (RangeSchemeHorizontal data : rangeSchemeHorinzotalList.subList(0, 1)) {
             System.out.println(data.getConquest());
 
+            printRangeScheme(data);
+        }
+        System.out.println("\n");
+    }
+
+    private void printRangeScheme(RangeSchemeHorizontal data) {
+        if (loteryConquestType.getLotoType().getLotoLineSize() == 5) {
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
+                    data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-"
+                    + data.getFaixa5().getQuantity());
+        }
+
+        if (loteryConquestType.getLotoType().getLotoLineSize() == 6) {
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
+                    data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-"
+                    + data.getFaixa5().getQuantity() + "-"
+                    + data.getFaixa6().getQuantity());
+        }
+
+        if (loteryConquestType.getLotoType().getLotoLineSize() == 7) {
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
+                    data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-"
+                    + data.getFaixa5().getQuantity() + "-"
+                    + data.getFaixa6().getQuantity() + "-"
+                    + data.getFaixa7().getQuantity());
+        }
+        if (loteryConquestType.getLotoType().getLotoLineSize() == 8) {
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
+                    data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-"
+                    + data.getFaixa5().getQuantity() + "-"
+                    + data.getFaixa6().getQuantity() + "-"
+                    + data.getFaixa7().getQuantity() + "-"
+                    + data.getFaixa8().getQuantity());
+        }
+
+        if (loteryConquestType.getLotoType().getLotoLineSize() == 9) {
+            System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
+                    data.getFaixa2().getQuantity() + "-"
+                    + data.getFaixa3().getQuantity() + "-"
+                    + data.getFaixa4().getQuantity() + "-"
+                    + data.getFaixa5().getQuantity() + "-"
+                    + data.getFaixa6().getQuantity() + "-"
+                    + data.getFaixa7().getQuantity() + "-"
+                    + data.getFaixa8().getQuantity() + "-"
+                    + data.getFaixa9().getQuantity());
+        }
+
+        if (loteryConquestType.getLotoType().getLotoLineSize() == 10) {
             System.out.println("Scheme " + data.getFaixa1().getQuantity() + "-" +
                     data.getFaixa2().getQuantity() + "-"
                     + data.getFaixa3().getQuantity() + "-"
@@ -610,7 +666,6 @@ public class Lotery {
                     + data.getFaixa9().getQuantity() + "-"
                     + data.getFaixa10().getQuantity());
         }
-        System.out.println("\n");
     }
 
     // Mover para geral
@@ -647,7 +702,7 @@ public class Lotery {
         }
     }
 
-    public void findBet(String[] findBetList) {
+    public void findBet(Object findBetList) {
         getStatiticsInAllConquests();
 
         for (ConquestStatistics data : conquestStatisticsList) {
