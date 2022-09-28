@@ -35,4 +35,9 @@ public class Premiacoes {
     }
 
     String premio;
+
+    @Override
+    public String toString() {
+        return "Premiacoes [acertos=" + acertos + ", premio=" + premio + ", vencedores=" + vencedores + "]";
+    }
 }

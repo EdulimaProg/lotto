@@ -11,6 +11,7 @@ import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Model.LoteryConquestType;
 import com.example.lotto.Model.LotoType;
 import com.example.lotto.Model.LuckMonth;
+import com.example.lotto.Model.Premiacoes;
 import com.example.lotto.Model.RangeSchemeDetails;
 import com.example.lotto.Model.RangeSchemeHorizontal;
 import com.example.lotto.Model.RangeSchemeVertical;
@@ -598,9 +599,20 @@ public class Lotery {
 
         for (RangeSchemeHorizontal data : rangeSchemeHorinzotalList.subList(0, 1)) {
             System.out.println(data.getConquest());
-
             printRangeScheme(data);
         }
+
+        System.out.println("\n");
+
+        if (lastConquestData.getAcumulou() == false) {
+            System.out.println("Não acumulou");
+            for (Premiacoes data : lastConquestData.getPremiacoes()) {
+                data.toString();
+            }
+        } else {
+            System.out.println("Acumulou");
+        }
+
         System.out.println("\n");
     }
 
@@ -702,14 +714,34 @@ public class Lotery {
         }
     }
 
-    public void findBet(Object findBetList) {
+    public void findBet(List<String> findBetList) {
         getStatiticsInAllConquests();
+        ArrayList<ConquestStatistics> resultEquals = new ArrayList<>();
+
+        Integer size = findBetList.size();
+        Integer sizeOfTrue = 0;
 
         for (ConquestStatistics data : conquestStatisticsList) {
-            if (data.getDezenas().contains(findBetList)) {
-                System.out.println(data.toString());
-                System.out.println("\n");
+            for (int i = 0; i < size; i++) {
+                if (data.getDezenas().contains(findBetList.get(i))) {
+                    sizeOfTrue = sizeOfTrue + 1;
+                }
             }
+
+            if (sizeOfTrue == size) {
+                resultEquals.add(data);
+            }
+
+            sizeOfTrue = 0;
+            // if (data.getDezenas().containsAll(findBetList)) {
+            // System.out.println("\n");
+            // System.out.println(data.toString());
+            // System.out.println("\n");
+            // }
+        }
+
+        for (ConquestStatistics data : resultEquals) {
+            System.out.println(data.toString());
         }
     }
 

@@ -1,6 +1,8 @@
 package com.example.lotto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.example.lotto.LottoRepo.Lotery;
 import com.example.lotto.Model.LoteryConquestType;
@@ -24,7 +26,7 @@ public class App {
                 lottoTypesList = new LottoTypesList();
                 lotoType = lottoTypesList.getLotoType().get(Constants.LOTOMANIA);
 
-                qtd = new LottoConquestQuantity(0, null);
+                qtd = new LottoConquestQuantity(0, 200);
                 loteryConquestType = new LoteryConquestType(lotoType, qtd, false);
         }
 
@@ -38,10 +40,9 @@ public class App {
 
                 // loto.getAllRange();
                 // loto.findInbet("05");
-
-                String[] bet = { "05", "06" };
-                loto.findBet(bet);
-                loto.printResultLuckMonth();
+                List<String> data = Arrays.asList("01", "03", "05", "22", "24");
+                // loto.findBet(data);
+                // loto.printResultLuckMonth();
 
                 // loto.printStatitics();
                 loto.inLastCoquest();
