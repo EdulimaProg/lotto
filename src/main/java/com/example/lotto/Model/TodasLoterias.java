@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TodasLoterias {
     @JsonProperty("MyArray")
-    List<String> myArray;
+    String myArray;
 
-    public List<String> getMyArray() {
+    public String getMyArray() {
         return this.myArray;
     }
 
-    public void setMyArray(List<String> myArray) {
+    public void setMyArray(String myArray) {
         this.myArray = myArray;
     }
 }

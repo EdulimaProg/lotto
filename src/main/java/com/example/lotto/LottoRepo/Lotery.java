@@ -20,7 +20,7 @@ import com.example.lotto.Services.HttpConnection;
 import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
 import com.example.lotto.Utils.Utils;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 
 public class Lotery {
     private HttpConnection conn = new HttpConnection();

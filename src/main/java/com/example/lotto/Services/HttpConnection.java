@@ -2,9 +2,7 @@ package com.example.lotto.Services;
 
 import java.io.IOException;
 
-import java.net.URI;
 import java.net.URL;
-import java.net.http.*;
 
 import java.util.*;
 
@@ -13,6 +11,7 @@ import com.example.lotto.Utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -21,42 +20,42 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 public class HttpConnection {
-    HttpClient client = HttpClient.newHttpClient();
-
     URL url;
 
-    public List<String> getLottoName() {
-        List<String> lotoArray;
+    public String[] getLottoName() {
+        String[] lottoArray = null;
 
-        HttpRequest request = HttpRequest.newBuilder(URI.create(Constants.BASE_URL))
-                .header("accept", "application/json").GET().build();
+        HttpGet request = new HttpGet(Constants.BASE_URL);
+        request.addHeader("accept", "application/json");
 
-        try {
-            final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        try (CloseableHttpClient httpClient = HttpClients.createDefault();
+                CloseableHttpResponse response = httpClient.execute(request)) {
+            System.out.println(response.getProtocolVersion()); // HTTP/1.1
+            System.out.println(response.getStatusLine().getStatusCode()); // 200
+            System.out.println(response.getStatusLine().getReasonPhrase()); // OK
+            System.out.println(response.getStatusLine().toString()); // HTTP/1.1 200 OK
 
-            String data = response.body().toString();
-            String data1 = data.replace("[", "");
-            String data2 = data1.replace("]", "");
-            String data3 = data2.replace("\"", "");
-            lotoArray = new ArrayList<>(Arrays.asList(data3.split(",")));
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                String result = EntityUtils.toString(entity);
+                ObjectMapper mapper = new ObjectMapper();
+                lottoArray = mapper.readValue(result, String[].class);
 
-            return lotoArray;
+            }
+        } catch (ParseException | IOException e) {
 
-        } catch (IOException | InterruptedException e) {
-
-            System.out.println(e);
+            e.printStackTrace();
         }
-        return Collections.emptyList();
+        return lottoArray;
     }
 
     public ArrayList<LoteriasModel> getAllConquestsOfSpecificLoto(String lotoname) {
         HttpGet request = new HttpGet(Constants.BASE_URL + lotoname);
 
-        CloseableHttpClient client = HttpClients.createDefault();
         ArrayList<LoteriasModel> responseData = new ArrayList<LoteriasModel>();
 
-        try {
-            CloseableHttpResponse response = client.execute(request);
+        try (CloseableHttpClient client = HttpClients.createDefault();
+                CloseableHttpResponse response = client.execute(request)) {
 
             HttpEntity entity = response.getEntity();
             String result = EntityUtils.toString(entity);
@@ -70,9 +69,7 @@ public class HttpConnection {
 
             return responseData;
 
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
 
