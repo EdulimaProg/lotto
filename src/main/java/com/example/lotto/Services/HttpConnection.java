@@ -1,11 +1,8 @@
 package com.example.lotto.Services;
 
 import java.io.IOException;
-
 import java.net.URL;
-
 import java.util.*;
-
 import com.example.lotto.Model.LoteriasModel;
 import com.example.lotto.Utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;

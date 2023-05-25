@@ -21,7 +21,6 @@ import com.example.lotto.Utils.Constants;
 import com.example.lotto.Utils.LotteryRangers;
 import com.example.lotto.Utils.Utils;
 
-
 public class Lotery {
     private HttpConnection conn = new HttpConnection();
     private Utils utils;
@@ -33,7 +32,7 @@ public class Lotery {
     static ArrayList<SchemeMostAwarded> schemeMostAwardeds = new ArrayList<>();
     //
     private ArrayList<LoteriasModel> concursos = new ArrayList<>();
-    private ArrayList<Dezenas> conquestNumbeArrayList = new ArrayList<>();
+    public ArrayList<Dezenas> conquestNumbeArrayList = new ArrayList<>();
     private ArrayList<LuckMonth> conquesrMonthArrayList = new ArrayList<>();
     private List<List<String>> loteryRangeList = new ArrayList<>();
 
@@ -712,6 +711,10 @@ public class Lotery {
                 System.out.println("\n");
             }
         }
+    }
+
+    public void customprint() {
+
     }
 
     public void findBet(List<String> findBetList) {
